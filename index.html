@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Captain's Table — Monroe, NY</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1B3A5C;--amber:#C8832A;--cream:#F4EDD8;--brown:#3E2B1A;
+  --dark:#1A1208;--white:#FFFDF8;--muted:#7A6A55;
+  --serif:'Arvo','Georgia',serif;
+  --sans:'DM Sans','Helvetica Neue',sans-serif;
+  --ease-out:cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--white);color:var(--brown);overflow-x:hidden}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
+
+/* ── SCROLL REVEALS ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s var(--ease-out),transform .65s var(--ease-out)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.07s}.reveal-d2{transition-delay:.14s}.reveal-d3{transition-delay:.21s}.reveal-d4{transition-delay:.28s}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* ── NAV ── */
+nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:calc(100% - 48px);max-width:1160px;padding:0 28px;height:60px;background:rgba(27,58,92,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:9999px;border:1px solid rgba(200,131,42,.2);box-shadow:0 8px 32px rgba(26,18,8,.35),inset 0 1px 0 rgba(200,131,42,.1);transition:background .3s,box-shadow .3s}
+nav.scrolled{background:rgba(27,58,92,.92);box-shadow:0 12px 40px rgba(26,18,8,.45),inset 0 1px 0 rgba(200,131,42,.16)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-wheel-wrap{display:flex;align-items:center;justify-content:center;padding:0 12px}
+.nav-wheel{width:34px;height:34px;display:block;will-change:transform}
+.nav-links{display:flex;gap:24px;list-style:none;align-items:center;justify-content:flex-end}
+.nav-links a{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,237,216,.55);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--amber)}
+.nav-cta{background:var(--amber)!important;color:var(--dark)!important;padding:9px 22px;border-radius:9999px!important;white-space:nowrap}
+.nav-cta:hover{background:#d9922e!important}
+.nav-cta.active{color:var(--dark)!important}
+.nav-order{border:1px solid rgba(200,131,42,.45)!important;color:rgba(244,237,216,.75)!important;padding:9px 22px;border-radius:9999px!important;white-space:nowrap;background:transparent!important}
+.nav-order:hover{background:rgba(200,131,42,.12)!important;color:var(--cream)!important;border-color:var(--amber)!important}
+.mobile-menu .mobile-order{margin-top:8px;background:transparent;color:var(--amber)!important;padding:14px 24px;text-align:center;border-radius:9999px;border:1px solid rgba(200,131,42,.4)!important;display:block}
+.mobile-menu .mobile-order:hover{background:rgba(200,131,42,.1)!important}
+
+/* ── HERO ── */
+.hero{position:relative;height:100vh;min-height:640px;display:flex;align-items:flex-end;padding-bottom:88px;overflow:hidden;background:var(--dark)}
+.hero-bg{position:absolute;inset:0;background-image:linear-gradient(to bottom,rgba(26,18,8,.25) 0%,rgba(26,18,8,.02) 35%,rgba(26,18,8,.88) 100%),url('brand_assets/store_front.png');background-size:cover;background-position:center 30%;transform:scale(1.04);animation:heroZoom 14s ease-out forwards}
+.hero-bg::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 25% 65%,rgba(200,131,42,.12) 0%,transparent 60%)}
+/* grain texture */
+.hero-grain{position:absolute;inset:0;z-index:1;opacity:.07;pointer-events:none;mix-blend-mode:overlay}
+/* diagonal cut at bottom */
+.hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:44px;background:var(--navy);clip-path:polygon(0 100%,100% 10%,100% 100%);z-index:3;pointer-events:none}
+@keyframes heroZoom{from{transform:scale(1.04)}to{transform:scale(1)}}
+@media(prefers-reduced-motion:reduce){.hero-bg{animation:none;transform:scale(1)}.hero-content{animation:none}}
+@media(max-width:768px){.hero-bg{background-position:72% 30%;filter:blur(3px);transform:scale(1.06)}}
+.hero-content{position:relative;z-index:2;padding:0 80px;animation:fadeUp 1s .35s both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:22px}
+.hero-eyebrow::before{content:'';display:block;width:36px;height:1px;background:var(--amber)}
+.hero-title{font-family:var(--serif);font-size:clamp(52px,7.5vw,98px);font-weight:700;line-height:1.0;color:var(--cream);margin-bottom:20px;max-width:720px}
+.hero-title em{font-style:italic;font-weight:400;color:var(--amber)}
+.hero-sub{font-family:var(--sans);font-size:14px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,237,216,.6);margin-bottom:44px}
+.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+
+/* ── BUTTONS ── */
+.btn-primary{display:inline-block;font-family:var(--sans);background:var(--amber);color:var(--dark);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:17px 40px;text-decoration:none;border-radius:9999px;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 2px 12px rgba(200,131,42,.3)}
+.btn-primary:hover{background:#d9922e;transform:translateY(-1px);box-shadow:0 4px 20px rgba(200,131,42,.4)}
+.btn-primary:active{transform:translateY(0)}
+.btn-ghost{display:inline-block;font-family:var(--sans);color:var(--cream);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:17px 40px;text-decoration:none;border-radius:9999px;border:1px solid rgba(244,237,216,.6);background:rgba(26,18,8,.25);backdrop-filter:blur(4px);transition:border-color .2s,background .2s}
+.btn-ghost:hover{border-color:var(--cream);background:rgba(244,237,216,.12)}
+
+/* ── INFO STRIP ── */
+.strip{background:var(--navy);padding:22px 80px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.strip-item{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-size:13px;font-weight:400;color:rgba(244,237,216,.78);letter-spacing:.04em}
+.strip-item svg{width:15px;height:15px;color:var(--amber);flex-shrink:0}
+.strip-divider{width:1px;height:22px;background:rgba(244,237,216,.1)}
+
+/* ── IDENTITY ── */
+.identity{display:grid;grid-template-columns:1fr 1fr;min-height:560px}
+.identity-image{position:relative;overflow:hidden;background:var(--brown)}
+.identity-image img{width:100%;height:100%;object-fit:cover;opacity:.86;transition:transform .8s var(--ease-out),opacity .3s;display:block}
+.identity-image:hover img{transform:scale(1.04);opacity:1}
+/* warm amber tonal treatment */
+.identity-image::after{content:'';position:absolute;inset:0;background:rgba(200,131,42,.14);mix-blend-mode:multiply;pointer-events:none;transition:opacity .3s}
+.identity-image:hover::after{opacity:.7}
+.identity-badge{position:absolute;bottom:32px;left:32px;background:var(--amber);color:var(--dark);font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:9px 18px;border-radius:2px;z-index:1;box-shadow:0 2px 12px rgba(26,18,8,.3)}
+.identity-text{background:var(--cream);padding:88px 72px;display:flex;flex-direction:column;justify-content:center}
+.section-label{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin-bottom:20px;display:flex;align-items:center;gap:14px}
+.section-label::before{content:'';display:block;width:28px;height:1px;background:var(--amber)}
+.section-title{font-family:var(--serif);font-size:clamp(28px,3.2vw,44px);font-weight:700;line-height:1.12;color:var(--navy);margin-bottom:24px}
+.section-body{font-family:var(--sans);font-size:15px;font-weight:300;line-height:1.85;color:var(--muted);margin-bottom:20px;max-width:460px}
+.stat-row{display:flex;gap:44px;border-top:1px solid rgba(62,43,26,.12);padding-top:30px;margin-top:8px}
+.stat-num{font-family:var(--serif);font-size:38px;font-weight:700;color:var(--navy);line-height:1;font-variant-numeric:tabular-nums}
+.stat-label{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+
+/* ── TYPE MOMENT ── */
+.type-moment{background:var(--navy);position:relative;height:120px;overflow:hidden}
+.type-r{font-family:var(--serif);font-weight:700;line-height:1;letter-spacing:-.02em;position:absolute;white-space:nowrap;user-select:none;pointer-events:none}
+@keyframes typeFocus{0%,100%{opacity:.08;filter:blur(5px)}50%{opacity:1;filter:blur(0)}}
+@media(prefers-reduced-motion:reduce){.type-r{animation:none!important}}
+.type-r:nth-child(1){animation:typeFocus 4.1s 0.0s ease-in-out infinite}
+.type-r:nth-child(2){animation:typeFocus 6.8s 1.4s ease-in-out infinite}
+.type-r:nth-child(3){animation:typeFocus 5.3s 3.1s ease-in-out infinite}
+.type-r:nth-child(4){animation:typeFocus 7.2s 0.7s ease-in-out infinite}
+.type-r:nth-child(5){animation:typeFocus 3.9s 2.2s ease-in-out infinite}
+.type-r:nth-child(6){animation:typeFocus 5.8s 4.5s ease-in-out infinite}
+.type-r:nth-child(7){animation:typeFocus 4.6s 1.9s ease-in-out infinite}
+.type-r:nth-child(8){animation:typeFocus 6.3s 3.8s ease-in-out infinite}
+.type-r:nth-child(9){animation:typeFocus 5.1s 0.3s ease-in-out infinite}
+.type-r:nth-child(10){animation:typeFocus 7.5s 2.6s ease-in-out infinite}
+.type-r:nth-child(11){animation:typeFocus 4.4s 5.1s ease-in-out infinite}
+.type-r:nth-child(12){animation:typeFocus 6.0s 1.1s ease-in-out infinite}
+.type-r:nth-child(13){animation:typeFocus 3.7s 4.0s ease-in-out infinite}
+.type-r:nth-child(14){animation:typeFocus 5.6s 2.9s ease-in-out infinite}
+
+/* ── AFTERDECK ── */
+.afterdeck{background:var(--brown);padding:108px 80px;display:grid;grid-template-columns:1fr 1.6fr;gap:80px;align-items:center}
+.afterdeck-text .section-title{color:var(--cream)}
+.afterdeck-text .section-body{color:rgba(244,237,216,.6)}
+.afterdeck-cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(200,131,42,.16);border-radius:3px;padding:30px 26px;transition:background .25s,border-color .25s,box-shadow .25s,transform .25s;box-shadow:0 2px 8px rgba(200,131,42,.05),0 8px 28px rgba(26,18,8,.2),0 20px 40px rgba(26,18,8,.12);cursor:pointer}
+.card:hover{background:rgba(200,131,42,.09);border-color:rgba(200,131,42,.45);transform:translateY(-2px);box-shadow:0 4px 12px rgba(200,131,42,.1),0 16px 40px rgba(26,18,8,.28),0 28px 56px rgba(26,18,8,.16)}
+.card-icon{width:36px;height:36px;margin-bottom:16px;display:block;color:var(--amber)}
+.card-title{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--cream);margin-bottom:9px}
+.card-body{font-family:var(--sans);font-size:13px;font-weight:300;line-height:1.72;color:rgba(244,237,216,.56)}
+
+/* ── PHOTO STRIP ── */
+.photo-strip{display:grid;grid-template-columns:1fr 1fr 1fr;height:340px;overflow:hidden}
+.photo-cell{position:relative;overflow:hidden;cursor:pointer}
+.photo-cell:nth-child(1){background:#2a1810}
+.photo-cell:nth-child(2){background:#1e1e2a}
+.photo-cell:nth-child(3){background:#0f2010}
+.photo-cell img{width:100%;height:100%;object-fit:cover;opacity:.82;transition:transform .65s var(--ease-out),opacity .35s;display:block}
+/* unified warm tonal treatment */
+.photo-cell::before{content:'';position:absolute;inset:0;z-index:1;background:rgba(200,131,42,.18);mix-blend-mode:multiply;pointer-events:none}
+.photo-cell:hover img{transform:scale(1.06);opacity:1}
+.photo-label{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:48px 24px 20px;background:linear-gradient(to top,rgba(26,18,8,.92) 0%,transparent 100%);font-family:var(--serif);font-size:16px;font-weight:700;color:var(--cream);font-style:italic;transform:translateY(4px);transition:transform .3s var(--ease-out)}
+.photo-cell:hover .photo-label{transform:translateY(0)}
+
+/* ── MENU ── */
+.menu-section{background:#0d1e2f;padding:108px 80px}
+.menu-header{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:52px}
+.menu-section .section-title{color:var(--cream)}
+.menu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(200,131,42,.12)}
+.menu-item{background:#0d1e2f;padding:32px 28px;border-bottom:2px solid transparent;transition:border-color .22s,background .22s;cursor:pointer}
+.menu-item:hover{background:rgba(200,131,42,.09);border-bottom-color:var(--amber)}
+.menu-category{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.menu-name{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--cream);margin-bottom:9px;line-height:1.2}
+.menu-desc{font-family:var(--sans);font-size:13px;font-weight:300;line-height:1.65;color:rgba(244,237,216,.46);margin-bottom:18px}
+.menu-price{font-family:var(--serif);font-size:18px;color:var(--amber);font-style:italic}
+.menu-cta-row{text-align:center;margin-top:48px}
+
+/* ── ENTERTAINMENT ── */
+.entertainment{background:var(--navy);padding:88px 80px;display:grid;grid-template-columns:1fr 2fr;gap:72px;align-items:center}
+.ent-text .section-title{color:var(--cream)}
+.ent-text .section-body{color:rgba(244,237,216,.58);margin-bottom:28px}
+.schedule{display:flex;flex-direction:column;gap:2px}
+.schedule-row{display:flex;align-items:center;gap:24px;padding:20px 26px;background:rgba(255,255,255,.03);border-left:3px solid transparent;transition:background .22s,border-color .22s;cursor:pointer}
+.schedule-row:hover{background:rgba(200,131,42,.09);border-left-color:var(--amber)}
+.schedule-day{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);min-width:120px}
+.schedule-band{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--cream);flex:1}
+.schedule-time{font-family:var(--sans);font-size:12px;font-weight:300;color:rgba(244,237,216,.4)}
+.live-indicator{display:none;align-items:center;gap:10px;margin-bottom:18px}
+@keyframes pulse-live{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.45}}
+.live-dot{width:8px;height:8px;border-radius:50%;background:var(--amber);flex-shrink:0;animation:pulse-live 2s ease-in-out infinite}
+.live-label{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber)}
+.schedule-row.is-tonight{background:rgba(200,131,42,.13);border-left-color:var(--amber)}
+.schedule-row.is-tonight .schedule-band{color:var(--amber)}
+.schedule-row.is-tomorrow{background:rgba(200,131,42,.05);border-left-color:rgba(200,131,42,.35)}
+.schedule-row.is-dim{opacity:.3;pointer-events:none}
+.tonight-badge{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--navy);background:var(--amber);padding:3px 9px;border-radius:2px;flex-shrink:0}
+.tomorrow-badge{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);background:rgba(200,131,42,.18);padding:3px 9px;border-radius:2px;flex-shrink:0}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);padding:72px 80px 44px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(244,237,216,.06);margin-bottom:32px}
+.footer-wordmark{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--cream);display:block;margin-bottom:12px}
+.footer-tagline{font-family:var(--serif);font-style:italic;font-size:14px;color:rgba(244,237,216,.35);line-height:1.6;margin-bottom:22px}
+.footer-social{display:flex;gap:10px}
+.social-btn{width:36px;height:36px;border:1px solid rgba(244,237,216,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(244,237,216,.4);text-decoration:none;transition:border-color .2s,color .2s,background .2s;cursor:pointer}
+.social-btn:hover{border-color:var(--amber);color:var(--amber);background:rgba(200,131,42,.08)}
+.toast-order-btn{display:flex;align-items:center;opacity:1;transition:opacity .2s;flex-shrink:0}
+.toast-order-btn:hover{opacity:.75}
+.toast-order-btn img{border-radius:50%;display:block;width:36px;height:36px}
+.footer-col h4{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+.footer-col ul{list-style:none}
+.footer-col li{font-family:var(--sans);font-size:13px;font-weight:300;color:rgba(244,237,216,.45);margin-bottom:11px;line-height:1.5}
+.footer-col a{color:rgba(244,237,216,.45);text-decoration:none;transition:color .2s}
+.footer-col a:hover{color:var(--amber)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;font-family:var(--sans);font-size:12px;color:rgba(244,237,216,.18);letter-spacing:.04em}
+
+/* ── MOBILE NAV ── */
+.nav-hamburger{display:none;cursor:pointer;padding:10px;background:none;border:none;margin-right:-10px;align-items:center;justify-content:center}
+.hamburger-icon{width:28px;height:28px;display:block;transition:transform .5s var(--ease-out)}
+/* ── MOBILE DROPDOWN ── */
+.mobile-menu{display:none;position:fixed;top:16px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:1160px;background:rgba(20,42,72,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:30px;border:1px solid rgba(200,131,42,.2);z-index:99;padding:72px 32px 24px;flex-direction:column;gap:0;box-shadow:0 8px 32px rgba(26,18,8,.45);clip-path:inset(0 0 100% 0 round 30px);transition:clip-path .35s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.mobile-menu.open{clip-path:inset(0 0 0% 0 round 30px);pointer-events:auto}
+.mobile-menu a{font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,237,216,.6);text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(244,237,216,.07);transition:color .2s;display:block}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--amber)}
+.mobile-menu .mobile-cta{margin-top:16px;background:var(--amber);color:var(--dark)!important;padding:16px 24px;text-align:center;border-radius:9999px;border-bottom:none;box-shadow:0 2px 12px rgba(200,131,42,.3)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{width:calc(100% - 24px);padding:0 18px;grid-template-columns:1fr auto auto}.nav-wheel-wrap{display:none}.nav-links{display:none}.nav-hamburger{display:flex}
+  .mobile-menu{display:flex}
+  .hero{height:auto;padding-top:80px;padding-bottom:32px;align-items:flex-end}.hero::after{height:28px}.hero-content{padding:0 24px}  .strip{padding:14px 24px;flex-direction:column;align-items:flex-start;gap:10px}.strip-divider{display:none}
+  .identity{grid-template-columns:1fr}.identity-image{height:280px}.identity-text{padding:52px 28px}.stat-row{gap:28px}
+  .afterdeck{grid-template-columns:1fr;padding:68px 24px;gap:44px}.afterdeck-cards{grid-template-columns:1fr}
+  /* mobile horizontal photo scroll */
+  .photo-strip{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;height:280px;scrollbar-width:none}
+  .photo-strip::-webkit-scrollbar{display:none}
+  .photo-cell{flex:0 0 80vw;height:280px;scroll-snap-align:start}
+  .menu-section{padding:68px 24px}.menu-header{flex-direction:column;align-items:flex-start;gap:20px}.menu-grid{grid-template-columns:1fr}
+  .entertainment{grid-template-columns:1fr;padding:68px 24px;gap:44px}
+  footer{padding:52px 24px 36px}.footer-top{grid-template-columns:1fr;gap:36px}.footer-bottom{flex-direction:column;gap:8px;text-align:center}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" style="position:absolute;left:-9999px;top:8px;z-index:999;background:var(--amber);color:var(--dark);padding:10px 20px;font-family:var(--sans);font-weight:700;font-size:13px;border-radius:2px;text-decoration:none" onfocus="this.style.left='8px'" onblur="this.style.left='-9999px'">Skip to content</a>
+
+<nav id="site-nav">
+  <a href="#" class="nav-logo">
+    <img src="brand_assets/captains_wordmark.png" alt="The Captain's Table" style="height:32px;width:auto">
+  </a>
+  <div class="nav-wheel-wrap">
+    <img id="nav-wheel" src="brand_assets/scroll_wheel.png" alt="" aria-hidden="true" class="nav-wheel">
+  </div>
+  <ul class="nav-links">
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="events.html">Entertainment</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="https://order.toasttab.com/online/captains-table-547-rt-17m" target="_blank" rel="noopener" class="nav-order">Order Online</a></li>
+    <li><a href="https://tables.toasttab.com/restaurants/ad1cf5c2-efee-48cc-aacb-08e1f7218d71/reserve?partySize=2&dateTime=2026-03-20T09:00:00.000-04:00" target="_blank" rel="noopener" class="nav-cta">Reserve a Table</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" id="hamburger">
+    <img src="brand_assets/hamburger_menu_icon.png" alt="" aria-hidden="true" class="hamburger-icon" id="hamburger-icon">
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="menu.html">Menu</a>
+  <a href="events.html">Entertainment</a>
+  <a href="gift-cards.html">Gift Cards &amp; Swag</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="https://order.toasttab.com/online/captains-table-547-rt-17m" target="_blank" rel="noopener" class="mobile-order">Order Online</a>
+  <a href="https://tables.toasttab.com/restaurants/ad1cf5c2-efee-48cc-aacb-08e1f7218d71/reserve?partySize=2&dateTime=2026-03-20T09:00:00.000-04:00" target="_blank" rel="noopener" class="mobile-cta">Reserve a Table</a>
+</div>
+
+<section class="hero" id="main-content">
+  <div class="hero-bg"></div>
+  <!-- film grain overlay -->
+  <svg class="hero-grain" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" aria-hidden="true" style="position:absolute;inset:0;z-index:1;opacity:.07;pointer-events:none">
+    <filter id="grain-f" x="0%" y="0%" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="4" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <rect width="100%" height="100%" filter="url(#grain-f)"/>
+  </svg>
+  <div class="hero-content">
+    <h1 class="hero-title">Great food.<br>Cold drinks.<br>Live music.</h1>
+    <p class="hero-sub">Est. 1934 &nbsp;·&nbsp; Monroe, NY</p>
+    <div class="hero-actions">
+      <a href="https://tables.toasttab.com/restaurants/ad1cf5c2-efee-48cc-aacb-08e1f7218d71/reserve?partySize=2&dateTime=2026-03-20T09:00:00.000-04:00" target="_blank" rel="noopener" class="btn-primary">Reserve a Table</a>
+      <a href="#menu" class="btn-ghost">View the Menu</a>
+    </div>
+  </div>
+</section>
+
+<div class="strip">
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Mon–Thu 11:30am–11pm &nbsp;·&nbsp; Fri–Sat 12am &nbsp;·&nbsp; Sun 12–10pm
+  </div>
+  <div class="strip-divider"></div>
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    547 Route 17M, Monroe, NY
+  </div>
+  <div class="strip-divider"></div>
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.22h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 16.92z"/></svg>
+    <a href="tel:8457830209" style="color:inherit;text-decoration:none">(845) 783-0209</a>
+  </div>
+  <div class="strip-divider"></div>
+  <div class="strip-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+    Live bands every Fri &amp; Sat
+  </div>
+</div>
+
+<section class="identity" id="identity">
+  <div class="identity-image">
+    <img src="https://www.captains-table.com/uploads/X1vqcQec/new_carousel_2c.jpg" alt="Captain's Table interior — warm wood, the Afterdeck through the doors" loading="lazy"/>
+    <span class="identity-badge">The Afterdeck</span>
+  </div>
+  <div class="identity-text">
+    <div class="section-label reveal">Our Story</div>
+    <h2 class="section-title reveal reveal-d1">Over 90 years of good food and good people.</h2>
+    <p class="section-body reveal reveal-d2">What started as a roadside rest stop along old Route 17 has grown into one of Orange County's most beloved gathering places. The Hafenecker family has poured generations of care into every corner — from the warm wood interior to the 1/3-acre sand beach out back.</p>
+    <p class="section-body reveal reveal-d2">We welcome everyone. Young singles, date nights, families with kids in the sandbox, retirees, and everyone in between. The menu is broad, the portions are generous, and the welcome is always genuine.</p>
+    <div class="stat-row reveal reveal-d3">
+      <div class="stat">
+        <div class="stat-num" data-count="90" data-suffix="+">90+</div>
+        <div class="stat-label">Years serving</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num" data-count="3" data-suffix="">3</div>
+        <div class="stat-label">Onsite bars</div>
+      </div>
+      <div class="stat">
+        <a href="https://www.google.com/maps/search/The+Captain%27s+Table+Monroe+NY" target="_blank" rel="noopener" style="text-decoration:none;color:inherit;display:block">
+          <div class="stat-num" style="display:flex;align-items:center;justify-content:center;gap:8px"><img src="brand_assets/google_icon.png" alt="Google" style="width:22px;height:22px;object-fit:contain;flex-shrink:0">4.5★</div>
+          <div class="stat-label">Google Reviews</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="type-moment" aria-hidden="true">
+  <span class="type-r" style="left:-2%;top:-28%;font-size:clamp(72px,11vw,158px);color:rgba(244,237,216,.09);transform:rotate(-1.4deg)">1934.</span>
+  <span class="type-r" style="left:22%;top:-8%;font-size:clamp(40px,6vw,86px);color:transparent;-webkit-text-stroke:1px rgba(200,131,42,.18);transform:rotate(.7deg)">1934.</span>
+  <span class="type-r" style="left:52%;top:-32%;font-size:clamp(80px,12.5vw,176px);color:rgba(200,131,42,.07);transform:rotate(1.8deg)">1934.</span>
+  <span class="type-r" style="left:79%;top:-14%;font-size:clamp(48px,7.5vw,106px);color:rgba(244,237,216,.06)">1934.</span>
+  <span class="type-r" style="left:8%;top:48%;font-size:clamp(34px,5vw,70px);color:transparent;-webkit-text-stroke:1px rgba(244,237,216,.13);font-style:italic;transform:rotate(-2deg)">1934.</span>
+  <span class="type-r" style="left:33%;top:52%;font-size:clamp(60px,9.5vw,134px);color:rgba(244,237,216,.05);transform:rotate(1deg)">1934.</span>
+  <span class="type-r" style="left:58%;top:44%;font-size:clamp(26px,3.8vw,54px);color:rgba(200,131,42,.14);transform:rotate(-.8deg)">1934.</span>
+  <span class="type-r" style="left:76%;top:38%;font-size:clamp(52px,8vw,114px);color:transparent;-webkit-text-stroke:1px rgba(200,131,42,.11);transform:rotate(2.2deg)">1934.</span>
+  <span class="type-r" style="left:43%;top:18%;font-size:clamp(30px,4.4vw,62px);color:rgba(244,237,216,.08);transform:rotate(-1deg)">1934.</span>
+  <span class="type-r" style="left:88%;top:58%;font-size:clamp(22px,3.2vw,46px);color:rgba(244,237,216,.06);font-style:italic">1934.</span>
+  <span class="type-r" style="left:64%;top:-5%;font-size:clamp(36px,5.4vw,76px);color:rgba(244,237,216,.07);transform:rotate(1.3deg)">1934.</span>
+  <span class="type-r" style="left:16%;top:20%;font-size:clamp(28px,4vw,56px);color:rgba(200,131,42,.10);transform:rotate(-2.4deg)">1934.</span>
+  <span class="type-r" style="left:86%;top:10%;font-size:clamp(32px,4.8vw,68px);color:transparent;-webkit-text-stroke:1px rgba(244,237,216,.09);transform:rotate(.5deg)">1934.</span>
+  <span class="type-r" style="left:47%;top:60%;font-size:clamp(24px,3.5vw,50px);color:rgba(200,131,42,.08);font-style:italic;transform:rotate(1.6deg)">1934.</span>
+</div>
+
+<section class="afterdeck" id="afterdeck">
+  <div class="afterdeck-text">
+    <div class="section-label reveal" style="color:var(--amber)">The Experience</div>
+    <h2 class="section-title reveal reveal-d1">More than a meal.</h2>
+    <p class="section-body reveal reveal-d2">The Captain's Table isn't just dinner — it's the whole night. A full outdoor patio with a sand beach, live bands on weekends, and the kind of atmosphere that makes you forget you're an hour from Manhattan.</p>
+    <a href="events.html" class="btn-primary reveal reveal-d3" style="display:inline-block">See Entertainment Schedule</a>
+  </div>
+  <div class="afterdeck-cards">
+    <div class="card reveal">
+      <svg class="card-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 28 Q10 20 18 20 Q26 20 32 28"/><path d="M2 28h32"/><circle cx="18" cy="11" r="5"/><path d="M18 6V4"/><path d="M18 18v2"/><path d="M11.5 8.5L10 7"/><path d="M24.5 8.5L26 7"/><path d="M10 14.5L8 15"/><path d="M26 14.5L28 15"/>
+      </svg>
+      <div class="card-title">Sand Beach Patio</div>
+      <p class="card-body">A 1/3-acre outdoor sand beach at The Afterdeck. Kids love the sandbox. Adults love the sunset.</p>
+    </div>
+    <a href="events.html" class="card reveal reveal-d1" style="text-decoration:none;display:block">
+      <svg class="card-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M10 26V14l4-2v14"/><path d="M10 20h4"/><ellipse cx="8" cy="27" rx="4" ry="3"/><ellipse cx="22" cy="24" rx="4" ry="3"/><path d="M14 12V6l12-3v12"/><path d="M14 10l12-3"/>
+      </svg>
+      <div class="card-title">Live Music</div>
+      <p class="card-body">Live bands every Friday and Saturday night. Sometimes there's dancing. Always a good time.</p>
+    </a>
+    <div class="card reveal reveal-d2">
+      <svg class="card-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M10 8h16l-2 14H12L10 8z"/><path d="M26 12h4l-2 8h-4"/><path d="M12 22v6"/><path d="M24 22v6"/><path d="M9 28h18"/>
+      </svg>
+      <div class="card-title">30+ Craft Beers</div>
+      <p class="card-body">Three full bars stocked with over 30 labels, specialty cocktails, and seasonal frozen drinks.</p>
+    </div>
+    <a href="events.html" class="card reveal reveal-d3" style="text-decoration:none;display:block">
+      <svg class="card-icon" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M18 4l2 6h6l-5 4 2 6-5-4-5 4 2-6-5-4h6z"/><path d="M10 26h16"/><path d="M12 28l-2 4"/><path d="M24 28l2 4"/>
+      </svg>
+      <div class="card-title">Private Events</div>
+      <p class="card-body">Weddings, reunions, corporate parties. On-premise and off-premise catering for any occasion.</p>
+    </a>
+  </div>
+</section>
+
+<div class="photo-strip">
+  <div class="photo-cell">
+    <img src="https://www.captains-table.com/uploads/FrCeodgZ/primerib.jpg" alt="Prime rib at Captain's Table" loading="lazy"/>
+    <div class="photo-label">Prime Rib</div>
+  </div>
+  <div class="photo-cell">
+    <img src="https://www.captains-table.com/uploads/XFDQ33v2/8c699ade70bd8d3a9a7eaa18421f315c.jpg" alt="Dining room set for a private event" loading="lazy"/>
+    <div class="photo-label">Private Dining</div>
+  </div>
+  <div class="photo-cell">
+    <img src="https://www.captains-table.com/uploads/RNWUF99M/a317ae41f62dad99c3ca15fe6860d7c5.jpg" alt="Live band on the Afterdeck" loading="lazy"/>
+    <div class="photo-label">Live on the Afterdeck</div>
+  </div>
+</div>
+
+<section class="menu-section" id="menu">
+  <div class="menu-header">
+    <div>
+      <div class="section-label reveal">The Menu</div>
+      <h2 class="section-title reveal reveal-d1">Surf &amp; turf, done right.</h2>
+    </div>
+    <a href="menu.html" class="btn-primary reveal reveal-d1">Full Menu</a>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-item reveal"><div class="menu-category">Starter</div><div class="menu-name">Bang Bang Shrimp</div><p class="menu-desc">Jumbo shrimp lightly battered and flash-fried, tossed in our signature slightly-spicy bang bang sauce.</p><div class="menu-price">$17.46</div></div>
+    <div class="menu-item reveal reveal-d1"><div class="menu-category">Starter</div><div class="menu-name">Jumbo Buffalo Wings</div><p class="menu-desc">Crispy, sticky, impossible to share. Choose Buffalo, BBQ, Teriyaki, Sweet Chili, Wild Wing or Garbage Wings.</p><div class="menu-price">$16.43 / $29.82</div></div>
+    <div class="menu-item reveal reveal-d2"><div class="menu-category">Dinner</div><div class="menu-name">Prime Rib</div><p class="menu-desc">Slow-roasted Certified Angus Beef prime rib, rich with natural juices. Served Fri &amp; Sat and all day Sunday.</p><div class="menu-price">Ask your server</div></div>
+    <div class="menu-item reveal reveal-d1"><div class="menu-category">Dinner</div><div class="menu-name">Captain's Crab Cakes</div><p class="menu-desc">Handmade Maryland-style lump crab cakes, seared golden and served with house chips and remoulade.</p><div class="menu-price">$21.58</div></div>
+    <div class="menu-item reveal reveal-d2"><div class="menu-category">Dinner</div><div class="menu-name">Honey &amp; Bourbon Salmon</div><p class="menu-desc">Pan-seared Atlantic salmon with a house honey and bourbon glaze, over rice pilaf and vegetable of the day.</p><div class="menu-price">$32.91</div></div>
+    <div class="menu-item reveal reveal-d3"><div class="menu-category">Dinner</div><div class="menu-name">Braised Short Ribs</div><p class="menu-desc">Wine-braised beef short ribs, fork-tender and falling off the bone in a burgundy demi-glace over smashed potatoes.</p><div class="menu-price">$30.85</div></div>
+  </div>
+  <div class="menu-cta-row reveal">
+    <a href="menu.html" class="btn-ghost">View Full Lunch &amp; Dinner Menu</a>
+  </div>
+</section>
+
+<section class="entertainment" id="entertainment">
+  <div class="ent-text">
+    <div class="section-label reveal">Live Entertainment</div>
+    <div class="live-indicator reveal" id="live-indicator"><span class="live-dot"></span><span class="live-label">Live Tonight</span></div>
+    <h2 class="section-title reveal reveal-d1" id="ent-headline">This weekend at the Table.</h2>
+    <p class="section-body reveal reveal-d2">Every Friday and Saturday night the Captain's Table comes alive. Bands play on the Afterdeck all season long.</p>
+    <a href="events.html" class="btn-primary reveal reveal-d3" style="display:inline-block">Full Schedule</a>
+  </div>
+  <div class="schedule" id="home-schedule">
+    <!-- populated by JS -->
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="index.html"><img src="brand_assets/captains_wordmark.png" alt="The Captain's Table" style="height:44px;width:auto;display:block;margin-bottom:12px"></a>
+      <p class="footer-tagline">Great food. Cold drinks. Live music.<br>Est. 1934 &nbsp;&middot;&nbsp; Monroe, NY</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/TheCaptainsTable/" class="social-btn" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/thecaptainstable/" class="social-btn" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://order.toasttab.com/online/captains-table-547-rt-17m" class="toast-order-btn" target="_blank" rel="noopener" aria-label="Order Online">
+          <img src="brand_assets/online_order_toast.png" alt="Order Online">
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Visit</h4>
+      <ul>
+        <li><a href="https://www.google.com/maps/search/The+Captain%27s+Table+Monroe+NY" target="_blank" rel="noopener">547 Route 17M<br>Monroe, NY 10950</a></li>
+        <li>Mon – Thu: 11:30am – 11pm</li>
+        <li>Fri – Sat: 11:30am – 12am</li>
+        <li>Sunday: 12pm – 10pm</li>
+        <li><a href="tel:8457830209">(845) 783-0209</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="menu.html">Lunch &amp; Dinner</a></li>
+        <li><a href="events.html">Entertainment</a></li>
+        <li><a href="catering.html">Catering</a></li>
+        <li><a href="gift-cards.html">Gift Cards &amp; Captain's Swag</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 The Captain's Table — Monroe, NY. Est. 1934.</span>
+    <span>Redesign concept</span>
+  </div>
+</footer>
+
+<script>
+// ── MOBILE NAV ──
+const ham=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobile-menu');
+let hamburgerDeg=0;
+function toggleMenu(force){const open=typeof force==='boolean'?force:!mobileMenu.classList.contains('open');mobileMenu.classList.toggle('open',open);ham.classList.toggle('open',open);ham.setAttribute('aria-expanded',open);const hIcon=document.getElementById('hamburger-icon');if(hIcon){hamburgerDeg+=open?360:-360;hIcon.style.transform='rotate('+hamburgerDeg+'deg)';}}
+ham.addEventListener('click',e=>{e.stopPropagation();toggleMenu();});
+document.addEventListener('click',e=>{if(mobileMenu.classList.contains('open')&&!mobileMenu.contains(e.target)&&!ham.contains(e.target))toggleMenu(false);});
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggleMenu(false)));
+
+// ── NAV SCROLL STATE + WHEEL ROTATION ──
+const siteNav=document.getElementById('site-nav');
+const navWheel=document.getElementById('nav-wheel');
+let lastScrollY=window.scrollY,wheelDeg=0;
+window.addEventListener('scroll',()=>{
+  siteNav.classList.toggle('scrolled',window.scrollY>window.innerHeight*.65);
+  if(navWheel){wheelDeg+=(window.scrollY-lastScrollY)*0.3;navWheel.style.transform='rotate('+wheelDeg+'deg)';}
+  lastScrollY=window.scrollY;
+},{passive:true});
+
+// ── SCROLL REVEALS ──
+const prefersReducedMotion=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+if(prefersReducedMotion){
+  document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));
+}else{
+  const revealObs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('in');revealObs.unobserve(e.target);}
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+}
+
+// ── ACTIVE NAV LINKS ──
+const navAnchors=document.querySelectorAll('.nav-links a[href^="#"]');
+const trackSections=[...document.querySelectorAll('section[id]')];
+const activeObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      navAnchors.forEach(a=>a.classList.remove('active'));
+      const match=document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+      if(match)match.classList.add('active');
+    }
+  });
+},{threshold:0.45});
+trackSections.forEach(s=>activeObs.observe(s));
+
+// ── STAT COUNTERS ──
+function countUp(el,target,suffix,isDecimal){
+  if(prefersReducedMotion){el.textContent=(isDecimal?(target/10).toFixed(1):target)+suffix;return;}
+  const start=performance.now();const dur=1500;
+  (function frame(now){
+    const p=Math.min((now-start)/dur,1);
+    const ease=1-Math.pow(1-p,3);
+    const val=isDecimal?((ease*target/10).toFixed(1)):(Math.round(ease*target));
+    el.textContent=val+suffix;
+    if(p<1)requestAnimationFrame(frame);
+  })(start);
+}
+const statObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const el=e.target;
+      const count=parseInt(el.dataset.count||0);
+      const suffix=el.dataset.suffix||'';
+      if(count)countUp(el,count,suffix,false);
+      statObs.unobserve(el);
+    }
+  });
+},{threshold:0.6});
+document.querySelectorAll('[data-count]').forEach(el=>statObs.observe(el));
+
+// ── TIME-AWARE ENTERTAINMENT ──
+(function(){
+  const EVENTS=[
+    {summary:'Cold Sweat',             start:'2026-03-21T21:00:00-04:00',end:'2026-03-22T00:00:00-04:00'},
+    {summary:'Hudson Blue',            start:'2026-03-28T21:00:00-04:00',end:'2026-03-29T00:00:00-04:00'},
+    {summary:'High Noon',              start:'2026-04-04T21:00:00-04:00',end:'2026-04-05T00:00:00-04:00'},
+    {summary:'Second Shot',            start:'2026-04-11T21:00:00-04:00',end:'2026-04-12T00:00:00-04:00'},
+    {summary:'Trivia Night',           start:'2026-04-16T19:00:00-04:00',end:'2026-04-16T21:00:00-04:00'},
+    {summary:'The Tonebenders',        start:'2026-04-18T21:00:00-04:00',end:'2026-04-19T00:00:00-04:00'},
+    {summary:'Hudson Blue',            start:'2026-04-25T21:00:00-04:00',end:'2026-04-26T00:00:00-04:00'},
+    {summary:'Roxon',                  start:'2026-05-02T21:00:00-04:00',end:'2026-05-03T00:00:00-04:00'},
+    {summary:'Identity Crisis',        start:'2026-05-09T21:00:00-04:00',end:'2026-05-10T00:00:00-04:00'},
+    {summary:'The Tonebenders',        start:'2026-05-16T21:00:00-04:00',end:'2026-05-17T00:00:00-04:00'},
+    {summary:'Holmes & McDonough',     start:'2026-05-21T18:00:00-04:00',end:'2026-05-21T21:30:00-04:00'},
+    {summary:'Strings Attached',       start:'2026-05-23T16:00:00-04:00',end:'2026-05-23T20:00:00-04:00'},
+    {summary:'Hudson Blue',            start:'2026-05-23T21:00:00-04:00',end:'2026-05-24T00:00:00-04:00'},
+    {summary:'NLB',                    start:'2026-05-30T21:00:00-04:00',end:'2026-05-31T00:00:00-04:00'},
+    {summary:'Cruise Control',         start:'2026-06-06T21:00:00-04:00',end:'2026-06-07T00:00:00-04:00'},
+    {summary:'Holmes & McDonough',     start:'2026-06-18T18:00:00-04:00',end:'2026-06-18T21:30:00-04:00'},
+    {summary:'Strings Attached',       start:'2026-06-20T16:00:00-04:00',end:'2026-06-20T20:00:00-04:00'},
+    {summary:'The Tonebenders',        start:'2026-06-20T21:00:00-04:00',end:'2026-06-21T00:00:00-04:00'},
+    {summary:'Hudson Blue',            start:'2026-06-27T16:00:00-04:00',end:'2026-06-27T20:00:00-04:00'},
+    {summary:'The Tonebenders',        start:'2026-07-04T16:00:00-04:00',end:'2026-07-04T20:00:00-04:00'},
+    {summary:'Hurley Mountain Highway',start:'2026-07-18T16:00:00-04:00',end:'2026-07-18T20:00:00-04:00'},
+    {summary:'Hudson Blue',            start:'2026-07-25T16:00:00-04:00',end:'2026-07-25T20:00:00-04:00'},
+  ];
+  const SD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  const SM=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function fmt(dt){const h=dt.getHours(),m=dt.getMinutes(),ap=h>=12?'PM':'AM';return(h%12||12)+(m?':'+String(m).padStart(2,'0'):'')+' '+ap;}
+  const now=new Date();
+  const todayStr=now.toDateString();
+  const tom=new Date(now);tom.setDate(tom.getDate()+1);const tomStr=tom.toDateString();
+  const upcoming=EVENTS.map(e=>({...e,s:new Date(e.start),en:new Date(e.end)})).filter(e=>e.en>now).slice(0,4);
+  const container=document.getElementById('home-schedule');
+  const headlineEl=document.getElementById('ent-headline');
+  const liveEl=document.getElementById('live-indicator');
+  let anyLive=false,anyTonight=false,html='';
+  upcoming.forEach((e,i)=>{
+    const liveNow=e.s<=now&&e.en>now;
+    const isTonight=e.s.toDateString()===todayStr;
+    const isTomorrow=e.s.toDateString()===tomStr;
+    if(liveNow)anyLive=true;
+    if(isTonight)anyTonight=true;
+    const cls='schedule-row reveal'+(i>0?' reveal-d'+i:'')+(isTonight?' is-tonight':'')+(isTomorrow?' is-tomorrow':'');
+    const label=liveNow?'Live Now · ':isTonight?'Tonight · ':isTomorrow?'Tomorrow · ':'';
+    html+=`<div class="${cls}"><span class="schedule-day">${SD[e.s.getDay()]}, ${SM[e.s.getMonth()]} ${e.s.getDate()}</span><span class="schedule-band">${e.summary}</span><span class="schedule-time">${label}${fmt(e.s)} – ${fmt(e.en)}</span></div>`;
+  });
+  container.innerHTML=html;
+  if(anyLive){headlineEl.textContent='Live at the Table.';liveEl.style.display='flex';}
+  else if(anyTonight){headlineEl.textContent='Tonight at the Table.';}
+  else if(upcoming.length){
+    const diff=(upcoming[0].s-now)/864e5;
+    headlineEl.textContent=diff<1.5?'Tomorrow night at the Table.':'Coming up at the Table.';
+  }
+  const pr=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  if(pr){container.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));}
+  else{const o=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target);}});},{threshold:0.1});container.querySelectorAll('.reveal').forEach(el=>o.observe(el));}
+})();
+</script>
+</body>
+</html>

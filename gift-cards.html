@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gift Cards &amp; Captain's Swag — The Captain's Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1B3A5C;--amber:#C8832A;--cream:#F4EDD8;--brown:#3E2B1A;
+  --dark:#1A1208;--white:#FFFDF8;--muted:#7A6A55;
+  --serif:'Arvo','Georgia',serif;
+  --sans:'DM Sans','Helvetica Neue',sans-serif;
+  --ease-out:cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--white);color:var(--brown);overflow-x:hidden}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s var(--ease-out),transform .65s var(--ease-out)}
+.reveal.in{opacity:1;transform:translateY(0)}
+.reveal-d1{transition-delay:.07s}.reveal-d2{transition-delay:.14s}.reveal-d3{transition-delay:.21s}.reveal-d4{transition-delay:.28s}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* ── NAV ── */
+nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:calc(100% - 48px);max-width:1160px;padding:0 28px;height:60px;background:rgba(27,58,92,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:9999px;border:1px solid rgba(200,131,42,.2);box-shadow:0 8px 32px rgba(26,18,8,.35),inset 0 1px 0 rgba(200,131,42,.1);transition:background .3s,box-shadow .3s}
+nav.scrolled{background:rgba(27,58,92,.92);box-shadow:0 12px 40px rgba(26,18,8,.45),inset 0 1px 0 rgba(200,131,42,.16)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-wheel-wrap{display:flex;align-items:center;justify-content:center;padding:0 12px}
+.nav-wheel{width:34px;height:34px;display:block;will-change:transform}
+.nav-links{display:flex;gap:20px;list-style:none;align-items:center;justify-content:flex-end}
+.nav-links a{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,237,216,.55);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--amber)}
+.nav-cta{background:var(--amber)!important;color:var(--dark)!important;padding:9px 22px;border-radius:9999px!important;white-space:nowrap}
+.nav-cta:hover{background:#d9922e!important}
+.nav-order{border:1px solid rgba(200,131,42,.45)!important;color:rgba(244,237,216,.75)!important;padding:9px 22px;border-radius:9999px!important;white-space:nowrap;background:transparent!important}
+.nav-order:hover{background:rgba(200,131,42,.12)!important;color:var(--cream)!important;border-color:var(--amber)!important}
+.mobile-menu .mobile-order{margin-top:8px;background:transparent;color:var(--amber)!important;padding:14px 24px;text-align:center;border-radius:9999px;border:1px solid rgba(200,131,42,.4)!important;display:block}
+.mobile-menu .mobile-order:hover{background:rgba(200,131,42,.1)!important}
+
+/* ── HAMBURGER ── */
+.nav-hamburger{display:none;cursor:pointer;padding:10px;background:none;border:none;margin-right:-10px;align-items:center;justify-content:center}
+.hamburger-icon{width:28px;height:28px;display:block;transition:transform .5s var(--ease-out)}
+
+/* ── MOBILE MENU ── */
+.mobile-menu{display:none;position:fixed;top:16px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:1160px;background:rgba(20,42,72,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:30px;border:1px solid rgba(200,131,42,.2);z-index:99;padding:72px 32px 24px;flex-direction:column;gap:0;box-shadow:0 8px 32px rgba(26,18,8,.45);clip-path:inset(0 0 100% 0 round 30px);transition:clip-path .35s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.mobile-menu.open{clip-path:inset(0 0 0% 0 round 30px);pointer-events:auto}
+.mobile-menu a{font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,237,216,.6);text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(244,237,216,.07);transition:color .2s;display:block}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--amber)}
+.mobile-menu .mobile-cta{margin-top:16px;background:var(--amber);color:var(--dark)!important;padding:16px 24px;text-align:center;border-radius:9999px;border-bottom:none;box-shadow:0 2px 12px rgba(200,131,42,.3)}
+
+/* ── PAGE HERO ── */
+.page-hero{position:relative;padding:180px 80px 96px;background:var(--navy);overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;background-image:linear-gradient(to bottom,rgba(26,18,8,.55) 0%,rgba(27,58,92,.88) 60%,rgba(27,58,92,1) 100%),url('brand_assets/having_drinks.jpg');background-size:cover;background-position:center 35%}
+.page-hero::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:44px;background:var(--cream);clip-path:polygon(0 100%,100% 10%,100% 100%);z-index:3;pointer-events:none}
+.page-hero-grain{position:absolute;inset:0;z-index:1;opacity:.06;pointer-events:none;mix-blend-mode:overlay}
+.page-hero-content{position:relative;z-index:2}
+.page-eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+.page-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--amber)}
+.page-title{font-family:var(--serif);font-size:clamp(40px,5.5vw,72px);font-weight:700;line-height:1.05;color:var(--cream);margin-bottom:14px}
+.page-sub{font-family:var(--serif);font-style:italic;font-size:18px;color:rgba(244,237,216,.6)}
+
+/* ── SHARED ── */
+.section-label{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin-bottom:20px;display:flex;align-items:center;gap:14px}
+.section-label::before{content:'';display:block;width:28px;height:1px;background:var(--amber)}
+.section-title{font-family:var(--serif);font-size:clamp(26px,3vw,40px);font-weight:700;line-height:1.12;margin-bottom:16px}
+.section-body{font-family:var(--sans);font-size:15px;font-weight:300;line-height:1.85;margin-bottom:20px}
+
+/* ── GIFT CARDS SECTION ── */
+.giftcard-section{background:var(--cream);padding:96px 80px}
+.giftcard-intro{text-align:center;max-width:600px;margin:0 auto 64px}
+.giftcard-intro .section-title{color:var(--navy)}
+.giftcard-intro .section-body{color:var(--muted)}
+.giftcard-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:900px;margin:0 auto}
+
+/* gift card tiles */
+.gc-card{position:relative;background:var(--navy);border-radius:4px;padding:44px 36px;text-align:center;box-shadow:0 4px 20px rgba(26,18,8,.18),0 20px 56px rgba(26,18,8,.12),0 0 0 1px rgba(200,131,42,.1);transition:transform .25s var(--ease-out),box-shadow .25s var(--ease-out)}
+.gc-card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(26,18,8,.24),0 28px 72px rgba(26,18,8,.16),0 0 0 1px rgba(200,131,42,.22)}
+.gc-card::before{content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;border-radius:50%;background:radial-gradient(circle,rgba(200,131,42,.18) 0%,transparent 70%);pointer-events:none}
+.gc-card.featured{border:1px solid rgba(200,131,42,.55);background:linear-gradient(135deg,#1B3A5C 0%,#0d2238 100%);transform:scale(1.04);box-shadow:0 8px 32px rgba(26,18,8,.28),0 32px 80px rgba(26,18,8,.2),0 0 0 1px rgba(200,131,42,.35)}
+.gc-card.featured:hover{transform:scale(1.04) translateY(-4px)}
+.gc-amount{font-family:var(--serif);font-size:clamp(52px,6vw,80px);font-weight:700;color:var(--amber);line-height:1;margin-bottom:8px;font-variant-numeric:tabular-nums}
+.gc-label{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:rgba(244,237,216,.45);margin-bottom:28px}
+.gc-desc{font-family:var(--sans);font-size:13px;font-weight:300;color:rgba(244,237,216,.55);line-height:1.65;margin-bottom:32px}
+.gc-btn{display:block;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:var(--amber);color:var(--dark);padding:15px 28px;border-radius:9999px;text-decoration:none;transition:background .2s,transform .15s;box-shadow:0 2px 10px rgba(200,131,42,.3);touch-action:manipulation}
+.gc-btn:hover{background:#d9922e;transform:translateY(-1px)}
+.gc-btn:active{transform:translateY(0)}
+.gc-btn.ghost{background:transparent;color:var(--cream);border:1px solid rgba(244,237,216,.3);box-shadow:none}
+.gc-btn.ghost:hover{background:rgba(244,237,216,.08);border-color:rgba(244,237,216,.5)}
+
+.gc-note{text-align:center;font-family:var(--sans);font-size:13px;font-weight:300;color:var(--muted);margin-top:36px;line-height:1.6}
+.gc-note a{color:var(--amber);text-decoration:none}
+.gc-note a:hover{text-decoration:underline}
+
+/* ── SWAG SECTION ── */
+.swag-section{background:var(--brown);padding:96px 80px}
+.swag-section .section-label::before{background:var(--amber)}
+.swag-intro{margin-bottom:72px}
+.swag-intro .section-title{color:var(--cream)}
+.swag-intro .section-body{color:rgba(244,237,216,.58)}
+.swag-pickup-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(200,131,42,.15);border:1px solid rgba(200,131,42,.3);border-radius:2px;padding:10px 18px;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber)}
+.swag-pickup-badge svg{width:14px;height:14px;flex-shrink:0}
+
+.swag-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.swag-card{background:rgba(255,255,255,.04);border:1px solid rgba(200,131,42,.12);border-radius:3px;overflow:hidden;transition:background .25s,border-color .25s,transform .25s,box-shadow .25s;cursor:default}
+.swag-card:hover{background:rgba(200,131,42,.06);border-color:rgba(200,131,42,.28);transform:translateY(-2px);box-shadow:0 8px 28px rgba(26,18,8,.25)}
+.swag-img{position:relative;aspect-ratio:3/4;overflow:hidden;background:#2a1e10}
+.swag-img img{width:100%;height:100%;object-fit:contain;object-position:center;opacity:.9;transition:transform .6s var(--ease-out),opacity .3s;display:block}
+.swag-card:hover .swag-img img{transform:scale(1.05);opacity:1}
+.swag-img::after{content:'';position:absolute;inset:0;background:rgba(200,131,42,.12);mix-blend-mode:multiply;pointer-events:none;transition:opacity .3s}
+.swag-card:hover .swag-img::after{opacity:.6}
+.swag-body{padding:22px 22px 26px}
+.swag-name{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--cream);margin-bottom:7px}
+.swag-desc{font-family:var(--sans);font-size:13px;font-weight:300;color:rgba(244,237,216,.5);line-height:1.62;margin-bottom:14px}
+.swag-meta{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.swag-price{font-family:var(--serif);font-size:20px;color:var(--amber);font-style:italic}
+.swag-tag{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(200,131,42,.7);background:rgba(200,131,42,.1);padding:4px 10px;border-radius:2px}
+
+.swag-options{margin-top:14px}
+.swag-option-label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(200,131,42,.7);margin-bottom:8px}
+.swag-colors{display:flex;gap:8px;align-items:center}
+.swag-color{width:22px;height:22px;border-radius:50%;border:2px solid transparent;cursor:pointer;transition:border-color .2s,transform .15s;padding:0;flex-shrink:0}
+.swag-color.active{border-color:var(--amber);transform:scale(1.15)}
+.swag-color.unavailable{opacity:.3;cursor:not-allowed}
+.swag-sizes{display:flex;gap:6px;flex-wrap:wrap}
+.swag-size{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.08em;padding:5px 11px;border:1px solid rgba(200,131,42,.25);background:transparent;color:rgba(244,237,216,.5);cursor:pointer;transition:background .2s,border-color .2s,color .2s;border-radius:2px}
+.swag-size:hover{border-color:rgba(200,131,42,.5);color:rgba(244,237,216,.8)}
+.swag-size.active{background:var(--amber);color:var(--dark);border-color:var(--amber)}
+.swag-buy-btn{display:block;width:100%;margin-top:18px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;background:var(--amber);color:var(--dark);padding:13px 20px;border-radius:9999px;text-decoration:none;text-align:center;transition:background .2s,transform .15s;box-shadow:0 2px 10px rgba(200,131,42,.3)}
+.swag-buy-btn:hover{background:#d9922e;transform:translateY(-1px)}
+.swag-cta{text-align:center;margin-top:52px}
+.swag-cta p{font-family:var(--sans);font-size:14px;font-weight:300;color:rgba(244,237,216,.5);margin-bottom:20px;line-height:1.7}
+.btn-outline-light{display:inline-block;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--cream);border:1px solid rgba(244,237,216,.4);padding:16px 40px;border-radius:9999px;text-decoration:none;transition:background .2s,border-color .2s}
+.btn-outline-light:hover{background:rgba(244,237,216,.08);border-color:rgba(244,237,216,.6)}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);padding:72px 80px 44px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(244,237,216,.06);margin-bottom:32px}
+.footer-tagline{font-family:var(--serif);font-style:italic;font-size:14px;color:rgba(244,237,216,.35);line-height:1.6;margin-bottom:22px}
+.footer-social{display:flex;gap:10px}
+.social-btn{width:36px;height:36px;border:1px solid rgba(244,237,216,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(244,237,216,.4);text-decoration:none;transition:border-color .2s,color .2s,background .2s;cursor:pointer}
+.social-btn:hover{border-color:var(--amber);color:var(--amber);background:rgba(200,131,42,.08)}
+.toast-order-btn{display:flex;align-items:center;opacity:1;transition:opacity .2s;flex-shrink:0}
+.toast-order-btn:hover{opacity:.75}
+.toast-order-btn img{border-radius:50%;display:block;width:36px;height:36px}
+.footer-col h4{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+.footer-col ul{list-style:none}
+.footer-col li{font-family:var(--sans);font-size:13px;font-weight:300;color:rgba(244,237,216,.45);margin-bottom:11px;line-height:1.5}
+.footer-col a{color:rgba(244,237,216,.45);text-decoration:none;transition:color .2s}
+.footer-col a:hover{color:var(--amber)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;font-family:var(--sans);font-size:12px;color:rgba(244,237,216,.18);letter-spacing:.04em}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{width:calc(100% - 24px);padding:0 18px;grid-template-columns:1fr auto auto}.nav-wheel-wrap{display:none}.nav-links{display:none}.nav-hamburger{display:flex}
+  .mobile-menu{display:flex}
+  .page-hero{padding:140px 24px 72px}
+  .giftcard-section{padding:64px 24px}
+  .giftcard-grid{grid-template-columns:1fr;max-width:380px}
+  .swag-section{padding:64px 24px}
+  .swag-intro{grid-template-columns:1fr}
+  .swag-grid{grid-template-columns:1fr}
+  footer{padding:52px 24px 36px}.footer-top{grid-template-columns:1fr;gap:36px}.footer-bottom{flex-direction:column;gap:8px;text-align:center}
+}
+@media(min-width:901px) and (max-width:1100px){
+  .swag-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+<a href="#main-content" style="position:absolute;left:-9999px;top:8px;z-index:999;background:var(--amber);color:var(--dark);padding:10px 20px;font-family:var(--sans);font-weight:700;font-size:13px;border-radius:2px;text-decoration:none" onfocus="this.style.left='8px'" onblur="this.style.left='-9999px'">Skip to content</a>
+
+<nav id="site-nav">
+  <a href="index.html" class="nav-logo">
+    <img src="brand_assets/captains_wordmark.png" alt="The Captain's Table" style="height:32px;width:auto">
+  </a>
+  <div class="nav-wheel-wrap">
+    <img id="nav-wheel" src="brand_assets/scroll_wheel.png" alt="" aria-hidden="true" class="nav-wheel">
+  </div>
+  <ul class="nav-links">
+    <li><a href="menu.html">Menu</a></li>
+    <li><a href="events.html">Entertainment</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="https://order.toasttab.com/online/captains-table-547-rt-17m" target="_blank" rel="noopener" class="nav-order">Order Online</a></li>
+    <li><a href="https://tables.toasttab.com/restaurants/ad1cf5c2-efee-48cc-aacb-08e1f7218d71/reserve?partySize=2&dateTime=2026-03-20T09:00:00.000-04:00" target="_blank" rel="noopener" class="nav-cta">Reserve a Table</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" id="hamburger">
+    <img src="brand_assets/hamburger_menu_icon.png" alt="" aria-hidden="true" class="hamburger-icon" id="hamburger-icon">
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="index.html">Home</a>
+  <a href="menu.html">Menu</a>
+  <a href="events.html">Entertainment</a>
+  <a href="gift-cards.html">Gift Cards &amp; Swag</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="https://order.toasttab.com/online/captains-table-547-rt-17m" target="_blank" rel="noopener" class="mobile-order">Order Online</a>
+  <a href="https://tables.toasttab.com/restaurants/ad1cf5c2-efee-48cc-aacb-08e1f7218d71/reserve?partySize=2&dateTime=2026-03-20T09:00:00.000-04:00" target="_blank" rel="noopener" class="mobile-cta">Reserve a Table</a>
+</div>
+
+<section class="page-hero" id="main-content">
+  <div class="page-hero-bg"></div>
+  <svg class="page-hero-grain" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" aria-hidden="true" style="position:absolute;inset:0;z-index:1;opacity:.06;pointer-events:none">
+    <filter id="grain-f"><feTurbulence type="fractalNoise" baseFrequency="0.78" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#grain-f)"/>
+  </svg>
+  <div class="page-hero-content">
+    <div class="page-eyebrow">Monroe, NY &nbsp;·&nbsp; Est. 1934</div>
+    <h1 class="page-title">Gift Cards &<br><em style="font-style:italic;color:var(--amber)">Captain's Swag</em></h1>
+    <p class="page-sub">Give the gift of a great meal.</p>
+  </div>
+</section>
+
+<!-- GIFT CARDS -->
+<section class="giftcard-section" id="gift-cards">
+  <div class="giftcard-intro">
+    <div class="section-label reveal">Perfect for Any Occasion</div>
+    <h2 class="section-title reveal reveal-d1">A Captain's Table Gift Card</h2>
+    <p class="section-body reveal reveal-d2">Treat a friend to a night out, celebrate a birthday, or just share the love. Our gift cards are delivered instantly via PayPal — no shipping, no waiting.</p>
+  </div>
+
+  <div class="giftcard-grid">
+    <!-- $25 -->
+    <div class="gc-card reveal">
+      <div class="gc-amount">$25</div>
+      <div class="gc-label">Gift Card</div>
+      <div class="gc-desc">Perfect for appetizers and a round of drinks — a taste of the table.</div>
+      <!-- TODO: Replace # with PayPal gift card link for $25 -->
+      <a href="#" class="gc-btn ghost" aria-label="Purchase $25 gift card via PayPal">Purchase via PayPal</a>
+    </div>
+    <!-- $50 -->
+    <div class="gc-card featured reveal reveal-d1">
+      <div class="gc-amount">$50</div>
+      <div class="gc-label">Gift Card</div>
+      <div class="gc-desc">Cover dinner for two with room for dessert. Our most popular gift amount.</div>
+      <!-- TODO: Replace # with PayPal gift card link for $50 -->
+      <a href="#" class="gc-btn" aria-label="Purchase $50 gift card via PayPal">Purchase via PayPal</a>
+    </div>
+    <!-- $100 -->
+    <div class="gc-card reveal reveal-d2">
+      <div class="gc-amount">$100</div>
+      <div class="gc-label">Gift Card</div>
+      <div class="gc-desc">A full evening out — dinner, drinks, and a great time at the Afterdeck.</div>
+      <!-- TODO: Replace # with PayPal gift card link for $100 -->
+      <a href="#" class="gc-btn ghost" aria-label="Purchase $100 gift card via PayPal">Purchase via PayPal</a>
+    </div>
+  </div>
+
+  <p class="gc-note reveal">Gift cards are delivered electronically via PayPal. Questions? <a href="contact.html">Contact us</a> or call <a href="tel:8457830209">(845) 783-0209</a>.</p>
+</section>
+
+<!-- SWAG / MERCH -->
+<section class="swag-section" id="swag">
+  <div class="swag-intro">
+    <div>
+      <div class="section-label reveal">Rep the Table</div>
+      <h2 class="section-title reveal reveal-d1">Captain's Swag</h2>
+      <p class="section-body reveal reveal-d2">Take a piece of the Captain's Table home with you. Our merch is available exclusively in-store — stop by and grab yours on your next visit.</p>
+      <div class="swag-pickup-badge reveal reveal-d3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        In-Store Pickup Only · 547 Route 17M, Monroe, NY
+      </div>
+    </div>
+  </div>
+
+  <div class="swag-grid">
+    <!-- Item 1 -->
+    <div class="swag-card reveal">
+      <div class="swag-img">
+        <img src="brand_assets/captains_table_merch_blue_shirt.png" alt="Classic Captain's Table navy t-shirt" loading="lazy">
+      </div>
+      <div class="swag-body">
+        <div class="swag-name">Classic Tee</div>
+        <div class="swag-desc">The Captain's Table logo on a premium heavyweight cotton tee.</div>
+        <div class="swag-options">
+          <div class="swag-option-label">Color</div>
+          <div class="swag-colors">
+            <button class="swag-color active" data-color="Blue" style="background:#1B3A5C" title="Blue" aria-label="Blue"></button>
+            <button class="swag-color unavailable" data-color="White" style="background:#F0EDE4;border-color:rgba(244,237,216,.25)" title="White — Coming Soon" aria-label="White, coming soon" disabled></button>
+            <button class="swag-color unavailable" data-color="Black" style="background:#1A1208" title="Black — Coming Soon" aria-label="Black, coming soon" disabled></button>
+          </div>
+        </div>
+        <div class="swag-options">
+          <div class="swag-option-label">Size</div>
+          <div class="swag-sizes" id="tee-sizes">
+            <button class="swag-size" data-size="S">S</button>
+            <button class="swag-size" data-size="M">M</button>
+            <button class="swag-size" data-size="L">L</button>
+            <button class="swag-size" data-size="XL">XL</button>
+            <button class="swag-size" data-size="2XL">2XL</button>
+          </div>
+        </div>
+        <div class="swag-meta" style="margin-top:16px">
+          <span class="swag-price">$25</span>
+          <span class="swag-tag">In-Store &amp; Online</span>
+        </div>
+        <!-- TODO: Replace # with PayPal link for Classic Tee -->
+        <a href="#" class="swag-buy-btn" id="tee-paypal-btn">Purchase via PayPal</a>
+      </div>
+    </div>
+    <!-- More Coming Soon -->
+    <div class="swag-card reveal reveal-d1" style="display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:320px;border-style:dashed;opacity:.65">
+      <div style="margin-bottom:16px;color:rgba(200,131,42,.5)">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div class="swag-name">More Coming Soon</div>
+      <div class="swag-desc" style="max-width:200px;margin-top:8px">New merch dropping this season. Stop in to see what's new.</div>
+    </div>
+  </div>
+
+  <div class="swag-cta reveal">
+    <p>See something you like? Stop in on your next visit or give us a call to check availability.</p>
+    <a href="tel:8457830209" class="btn-outline-light">(845) 783-0209</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="index.html"><img src="brand_assets/captains_wordmark.png" alt="The Captain's Table" style="height:44px;width:auto;display:block;margin-bottom:12px"></a>
+      <p class="footer-tagline">Great food. Cold drinks. Live music.<br>Est. 1934 &nbsp;&middot;&nbsp; Monroe, NY</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/TheCaptainsTable/" class="social-btn" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/thecaptainstable/" class="social-btn" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </a>
+        <a href="https://order.toasttab.com/online/captains-table-547-rt-17m" class="toast-order-btn" target="_blank" rel="noopener" aria-label="Order Online">
+          <img src="brand_assets/online_order_toast.png" alt="Order Online">
+        </a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Visit</h4>
+      <ul>
+        <li><a href="https://www.google.com/maps/search/The+Captain%27s+Table+Monroe+NY" target="_blank" rel="noopener">547 Route 17M<br>Monroe, NY 10950</a></li>
+        <li>Mon – Thu: 11:30am – 11pm</li>
+        <li>Fri – Sat: 11:30am – 12am</li>
+        <li>Sunday: 12pm – 10pm</li>
+        <li><a href="tel:8457830209">(845) 783-0209</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="menu.html">Lunch &amp; Dinner</a></li>
+        <li><a href="events.html">Entertainment</a></li>
+        <li><a href="catering.html">Catering</a></li>
+        <li><a href="gift-cards.html">Gift Cards &amp; Captain's Swag</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 The Captain's Table — Monroe, NY. Est. 1934.</span>
+    <span>Redesign concept</span>
+  </div>
+</footer>
+
+<script>
+// ── MOBILE NAV ──
+const ham=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobile-menu');
+let hamburgerDeg=0;
+function toggleMenu(force){const open=typeof force==='boolean'?force:!mobileMenu.classList.contains('open');mobileMenu.classList.toggle('open',open);ham.classList.toggle('open',open);ham.setAttribute('aria-expanded',open);const hIcon=document.getElementById('hamburger-icon');if(hIcon){hamburgerDeg+=open?360:-360;hIcon.style.transform='rotate('+hamburgerDeg+'deg)';}}
+ham.addEventListener('click',e=>{e.stopPropagation();toggleMenu();});
+document.addEventListener('click',e=>{if(mobileMenu.classList.contains('open')&&!mobileMenu.contains(e.target)&&!ham.contains(e.target))toggleMenu(false);});
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggleMenu(false)));
+
+// ── NAV SCROLL + WHEEL ──
+const siteNav=document.getElementById('site-nav');
+const navWheel=document.getElementById('nav-wheel');
+let lastScrollY=window.scrollY,wheelDeg=0;
+window.addEventListener('scroll',()=>{
+  siteNav.classList.toggle('scrolled',window.scrollY>80);
+  if(navWheel){wheelDeg+=(window.scrollY-lastScrollY)*0.3;navWheel.style.transform='rotate('+wheelDeg+'deg)';}
+  lastScrollY=window.scrollY;
+},{passive:true});
+
+// ── REVEAL ──
+const prefersReducedMotion=globalThis.matchMedia('(prefers-reduced-motion:reduce)').matches;
+if(prefersReducedMotion){document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));}
+else{const ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{threshold:0.1,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.reveal').forEach(el=>ro.observe(el));}
+
+// ── TEE SIZE & COLOR SELECTION ──
+document.querySelectorAll('.swag-color:not(.unavailable)').forEach(btn => {
+  btn.addEventListener('click', () => {
+    btn.closest('.swag-colors').querySelectorAll('.swag-color').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+document.querySelectorAll('#tee-sizes .swag-size').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#tee-sizes .swag-size').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

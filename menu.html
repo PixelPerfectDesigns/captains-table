@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Menu — The Captain's Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#1B3A5C;--amber:#C8832A;--cream:#F4EDD8;--brown:#3E2B1A;
+  --dark:#1A1208;--white:#FFFDF8;--muted:#7A6A55;
+  --surface:#0d1e2f;--surface2:rgba(255,255,255,.03);
+  --serif:'Arvo','Georgia',serif;
+  --sans:'DM Sans','Helvetica Neue',sans-serif;
+  --ease-out:cubic-bezier(.4,0,.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--surface);color:var(--cream)}
+/* Contain horizontal overflow at the layout level, not body — keeps tab scroll working on mobile */
+.menu-content,.solo-panel,.sub-panel{overflow-x:hidden}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
+
+/* ── NAV ── */
+nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:calc(100% - 48px);max-width:1160px;padding:0 28px;height:60px;background:rgba(27,58,92,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:9999px;border:1px solid rgba(200,131,42,.2);box-shadow:0 8px 32px rgba(26,18,8,.35),inset 0 1px 0 rgba(200,131,42,.1);transition:background .3s,box-shadow .3s}
+nav.scrolled{background:rgba(27,58,92,.92);box-shadow:0 12px 40px rgba(26,18,8,.45),inset 0 1px 0 rgba(200,131,42,.16)}
+.nav-logo{display:flex;align-items:center;text-decoration:none}
+.nav-wheel-wrap{display:flex;align-items:center;justify-content:center;padding:0 12px}
+.nav-wheel{width:34px;height:34px;display:block;will-change:transform}
+.nav-links{display:flex;gap:24px;list-style:none;align-items:center;justify-content:flex-end}
+.nav-links a{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,237,216,.55);text-decoration:none;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--amber)}
+.nav-cta{background:var(--amber)!important;color:var(--dark)!important;padding:9px 22px;border-radius:9999px!important;white-space:nowrap}
+.nav-cta:hover{background:#d9922e!important}
+.nav-order{border:1px solid rgba(200,131,42,.45)!important;color:rgba(244,237,216,.75)!important;padding:9px 22px;border-radius:9999px!important;white-space:nowrap;background:transparent!important}
+.nav-order:hover{background:rgba(200,131,42,.12)!important;color:var(--cream)!important;border-color:var(--amber)!important}
+.mobile-menu .mobile-order{margin-top:8px;background:transparent;color:var(--amber)!important;padding:14px 24px;text-align:center;border-radius:9999px;border:1px solid rgba(200,131,42,.4)!important;display:block}
+.mobile-menu .mobile-order:hover{background:rgba(200,131,42,.1)!important}
+.nav-hamburger{display:none;cursor:pointer;padding:10px;background:none;border:none;margin-right:-10px;align-items:center;justify-content:center}
+.hamburger-icon{width:28px;height:28px;display:block;transition:transform .5s var(--ease-out)}
+.mobile-menu{display:none;position:fixed;top:16px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:1160px;background:rgba(20,42,72,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:30px;border:1px solid rgba(200,131,42,.2);z-index:99;padding:72px 32px 24px;flex-direction:column;gap:0;box-shadow:0 8px 32px rgba(26,18,8,.45);clip-path:inset(0 0 100% 0 round 30px);transition:clip-path .35s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.mobile-menu.open{clip-path:inset(0 0 0% 0 round 30px);pointer-events:auto}
+.mobile-menu a{font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,237,216,.6);text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(244,237,216,.07);transition:color .2s;display:block}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu a:hover{color:var(--amber)}
+.mobile-menu .mobile-cta{margin-top:16px;background:var(--amber);color:var(--dark)!important;padding:16px 24px;text-align:center;border-radius:9999px;border-bottom:none;box-shadow:0 2px 12px rgba(200,131,42,.3)}
+
+/* ── PAGE HEADER ── */
+.page-header{position:relative;padding-top:68px;background:var(--navy);overflow:hidden}
+.page-header-bg{position:absolute;inset:0;background-image:linear-gradient(to bottom,rgba(26,18,8,.55) 0%,rgba(27,58,92,.88) 60%,rgba(27,58,92,1) 100%),url('https://www.captains-table.com/uploads/FrCeodgZ/primerib.jpg');background-size:cover;background-position:center 35%}
+.page-header-inner{position:relative;z-index:1;padding:64px 80px 92px}
+.page-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:48px;background:var(--white);clip-path:polygon(0 100%,100% 10%,100% 100%);z-index:2;pointer-events:none}
+.page-eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+.page-eyebrow::before{content:'';display:block;width:36px;height:1px;background:var(--amber)}
+.page-title{font-family:var(--serif);font-size:clamp(38px,5.5vw,68px);font-weight:700;color:var(--cream);line-height:1.05;margin-bottom:12px}
+.page-subtitle{font-family:var(--serif);font-style:italic;font-size:17px;color:rgba(244,237,216,.5);letter-spacing:.02em}
+.header-notices{display:flex;gap:24px;margin-top:24px;flex-wrap:wrap}
+.notice-pill{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,237,216,.5);border:1px solid rgba(244,237,216,.14);padding:6px 14px;border-radius:2px}
+.notice-pill span{color:var(--amber)}
+
+/* ── MAIN TAB BAR (sticky) ── */
+.tab-bar-wrap{position:relative;z-index:50;background:var(--navy);border-bottom:1px solid rgba(200,131,42,.18);overflow:hidden}
+.tab-bar{display:flex;justify-content:center;align-items:center}
+.main-tab{flex-shrink:0;padding:20px 32px 18px;background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;white-space:nowrap;position:relative;text-align:center;transform-origin:center bottom;transition:background .22s,transform .38s cubic-bezier(.4,0,.2,1),opacity .38s cubic-bezier(.4,0,.2,1),border-color .22s}
+.main-tab:hover .tab-name{color:rgba(244,237,216,.85)}
+.main-tab.active{border-bottom-color:var(--amber);background:rgba(200,131,42,.1)}
+.main-tab .tab-eyebrow{font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:rgba(244,237,216,.28);display:block;margin-bottom:5px;transition:color .22s}
+.main-tab.active .tab-eyebrow{color:var(--amber)}
+.main-tab .tab-name{font-family:var(--serif);font-size:15px;font-weight:700;color:rgba(244,237,216,.35);display:block;letter-spacing:.01em;transition:color .22s,font-size .38s cubic-bezier(.4,0,.2,1)}
+.main-tab.active .tab-name{color:var(--cream);font-size:21px}
+.main-tab .tab-time{font-family:var(--sans);font-size:9px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;display:block;margin-top:4px;color:rgba(244,237,216,.12);transition:color .22s}
+.main-tab.active .tab-time{color:rgba(244,237,216,.38)}
+
+/* ── MOBILE ACCORDION ── */
+.acc-header{display:none;width:100%;background:none;border:none;border-top:1px solid rgba(244,237,216,.07);padding:22px 20px;cursor:pointer;align-items:center;justify-content:space-between;gap:14px;text-align:left}
+.acc-header:hover{background:rgba(255,255,255,.035)}
+.acc-header:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+.acc-label{flex:1}
+.acc-eyebrow{font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:5px}
+.acc-name{font-family:var(--serif);font-size:19px;font-weight:700;color:var(--cream);display:block;line-height:1.15}
+.acc-chevron{width:18px;height:18px;flex-shrink:0;color:rgba(200,131,42,.7);transition:transform .3s cubic-bezier(.4,0,.2,1)}
+.acc-header[aria-expanded="true"] .acc-chevron{transform:rotate(180deg)}
+.acc-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .38s cubic-bezier(.4,0,.2,1)}
+.acc-body.open{grid-template-rows:1fr}
+.acc-inner{overflow:hidden}
+
+/* ── CONTENT AREA ── */
+.menu-content{min-height:60vh}
+
+/* ── MAIN PANELS ── */
+.main-panel{display:none;animation:panelFade .3s var(--ease-out)}
+.main-panel.active{display:block}
+@keyframes panelFade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SUB-TAB BAR ── */
+.sub-tab-bar{display:flex;gap:8px;padding:28px 80px 0;overflow-x:auto;scrollbar-width:none;flex-wrap:wrap}
+.sub-tab-bar::-webkit-scrollbar{display:none}
+.sub-tab{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:9px 18px;border-radius:9999px;border:1px solid rgba(200,131,42,.22);color:rgba(244,237,216,.45);background:transparent;cursor:pointer;transition:background .2s,color .2s,border-color .2s;white-space:nowrap}
+.sub-tab:hover{border-color:rgba(200,131,42,.5);color:rgba(244,237,216,.75)}
+.sub-tab.active{background:var(--amber);color:var(--dark);border-color:var(--amber)}
+
+/* ── SUB PANELS ── */
+.sub-panel{display:none;padding:36px 80px 80px;animation:panelFade .25s var(--ease-out)}
+.sub-panel.active{display:block}
+
+/* ── SINGLE PANEL (no sub-tabs) ── */
+.solo-panel{padding:36px 80px 80px}
+
+/* ── SECTION DIVIDER ── */
+.section-divider{display:flex;align-items:center;gap:18px;margin:48px 0 28px}
+.section-divider:first-child{margin-top:0}
+.section-divider-label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);white-space:nowrap}
+.section-divider-line{flex:1;height:1px;background:rgba(200,131,42,.18)}
+.section-divider-note{font-family:var(--sans);font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(244,237,216,.28);white-space:nowrap}
+
+/* ── ITEM GRID ── */
+.item-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.item-grid.three-col{grid-template-columns:repeat(3,1fr)}
+.item-grid.one-col{grid-template-columns:1fr}
+
+/* ── MENU ITEM CARD ── */
+.item-card{background:rgba(255,255,255,.028);border-left:2px solid transparent;padding:24px 26px;transition:background .22s,border-color .22s;display:flex;flex-direction:column;gap:8px;cursor:default}
+@keyframes itemPulse{0%,100%{background:rgba(255,255,255,.028);border-left-color:transparent}40%,60%{background:rgba(200,131,42,.16);border-left-color:var(--amber)}}
+.item-card.item-pulse{animation:itemPulse 1.6s ease-in-out 2;transition:none}
+.item-card:hover{background:rgba(200,131,42,.07);border-left-color:var(--amber)}
+.item-card-top{display:flex;align-items:baseline;justify-content:space-between;gap:16px}
+.item-name{font-family:var(--serif);font-size:17px;font-weight:700;color:var(--cream);line-height:1.2;flex:1}
+.item-price{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--amber);white-space:nowrap;flex-shrink:0}
+.item-desc{font-family:var(--sans);font-size:13px;font-weight:300;line-height:1.68;color:rgba(244,237,216,.5)}
+.item-badges{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px}
+.badge{font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:3px 8px;border-radius:2px}
+.badge-gf{background:rgba(200,131,42,.15);color:var(--amber);border:1px solid rgba(200,131,42,.25)}
+.badge-lunch{background:rgba(244,237,216,.06);color:rgba(244,237,216,.45);border:1px solid rgba(244,237,216,.12)}
+.badge-dinner{background:rgba(27,58,92,.6);color:rgba(244,237,216,.55);border:1px solid rgba(27,58,92,.8)}
+.badge-special{background:rgba(200,131,42,.2);color:var(--amber);border:1px solid rgba(200,131,42,.35)}
+.badge-chef{background:var(--amber);color:var(--dark);border:1px solid var(--amber)}
+
+/* ── ADDON NOTE ── */
+.item-addon{font-family:var(--sans);font-size:11px;font-weight:400;color:rgba(244,237,216,.3);line-height:1.6;margin-top:2px}
+
+/* ── SALAD ADDONS TABLE ── */
+.add-on-box{background:rgba(255,255,255,.02);border:1px solid rgba(200,131,42,.12);padding:20px 24px;margin-top:2px}
+.add-on-title{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+.add-on-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.add-on-item{text-align:center}
+.add-on-name{font-family:var(--sans);font-size:12px;font-weight:500;color:rgba(244,237,216,.6)}
+.add-on-price{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--amber);margin-top:2px}
+
+/* ── BEER LIST (compact) ── */
+.beer-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.beer-item{background:rgba(255,255,255,.028);padding:18px 22px;border-left:2px solid transparent;transition:background .22s,border-color .22s}
+.beer-item:hover{background:rgba(200,131,42,.07);border-left-color:var(--amber)}
+.beer-name{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--cream);margin-bottom:4px}
+.beer-desc{font-family:var(--sans);font-size:12px;font-weight:300;color:rgba(244,237,216,.42);line-height:1.5}
+.beer-abv{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.12em;color:rgba(200,131,42,.7);margin-top:4px}
+
+/* ── BOTTLE LIST ── */
+.bottle-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.bottle-item{background:rgba(255,255,255,.028);padding:16px 20px;font-family:var(--sans);font-size:13px;font-weight:400;color:rgba(244,237,216,.6);border-left:2px solid transparent;transition:background .22s,border-color .22s}
+.bottle-item:hover{background:rgba(200,131,42,.07);border-left-color:var(--amber);color:rgba(244,237,216,.85)}
+
+/* ── WINE LIST ── */
+.wine-category{margin-bottom:36px}
+.wine-category-title{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid rgba(200,131,42,.15)}
+.wine-list{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.wine-item{background:rgba(255,255,255,.028);padding:16px 22px;display:flex;justify-content:space-between;align-items:baseline;border-left:2px solid transparent;transition:background .22s,border-color .22s}
+.wine-item:hover{background:rgba(200,131,42,.07);border-left-color:var(--amber)}
+.wine-name{font-family:var(--serif);font-size:15px;font-weight:700;color:var(--cream)}
+.wine-producer{font-family:var(--sans);font-size:11px;font-weight:300;color:rgba(244,237,216,.38);margin-top:3px}
+.wine-price-note{font-family:var(--sans);font-size:11px;font-weight:400;color:rgba(244,237,216,.35)}
+
+/* ── COCKTAIL PANEL ── */
+.cocktail-banner{background:rgba(200,131,42,.06);border:1px solid rgba(200,131,42,.18);padding:48px;text-align:center;margin-bottom:2px}
+.cocktail-icon{width:48px;height:48px;color:var(--amber);margin:0 auto 20px}
+.cocktail-title{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--cream);margin-bottom:12px}
+.cocktail-body{font-family:var(--serif);font-style:italic;font-size:16px;color:rgba(244,237,216,.5);line-height:1.75;max-width:440px;margin:0 auto}
+
+/* ── Panel intro (curated sections) ── */
+.panel-intro{text-align:center;padding:48px 40px 40px;max-width:560px;margin:0 auto 8px}
+.panel-intro-eyebrow{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+.panel-intro-heading{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--cream);line-height:1.2;margin-bottom:12px}
+.panel-intro-body{font-family:var(--sans);font-size:13px;font-weight:300;color:rgba(244,237,216,.48);line-height:1.7}
+.panel-intro-rule{width:40px;height:1px;background:rgba(200,131,42,.4);margin:20px auto 0}
+.item-grid.centered{max-width:760px;margin:0 auto}
+
+/* ── FOOTER ── */
+footer{background:var(--dark);padding:72px 80px 44px;border-top:1px solid rgba(244,237,216,.04)}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(244,237,216,.06);margin-bottom:32px}
+.footer-wordmark{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--cream);display:block;margin-bottom:12px}
+.footer-tagline{font-family:var(--serif);font-style:italic;font-size:14px;color:rgba(244,237,216,.35);line-height:1.6;margin-bottom:22px}
+.footer-social{display:flex;gap:10px}
+.social-btn{width:36px;height:36px;border:1px solid rgba(244,237,216,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(244,237,216,.4);text-decoration:none;transition:border-color .2s,color .2s,background .2s;cursor:pointer}
+.social-btn:hover{border-color:var(--amber);color:var(--amber);background:rgba(200,131,42,.08)}
+.toast-order-btn{display:flex;align-items:center;opacity:1;transition:opacity .2s;flex-shrink:0}
+.toast-order-btn:hover{opacity:.75}
+.toast-order-btn img{border-radius:50%;display:block;width:36px;height:36px}
+.footer-col h4{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+.footer-col ul{list-style:none}
+.footer-col li{font-family:var(--sans);font-size:13px;font-weight:300;color:rgba(244,237,216,.45);margin-bottom:11px;line-height:1.5}
+.footer-col a{color:rgba(244,237,216,.45);text-decoration:none;transition:color .2s}
+.footer-col a:hover{color:var(--amber)}
+.footer-bottom{display:flex;align-items:center;justify-content:space-between;font-family:var(--sans);font-size:12px;color:rgba(244,237,216,.18);letter-spacing:.04em}
+
+/* ── Mobile CTA Bar ───────────────────────────────────────────── */
+.mobile-cta-bar{position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--navy);border-top:1px solid rgba(200,131,42,.3);padding:10px 16px;padding-bottom:calc(10px + env(safe-area-inset-bottom));gap:10px;display:none}
+.mobile-cta-bar a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:13px 10px;border-radius:9999px;font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.06em;text-decoration:none;transition:opacity .2s}
+.mobile-cta-bar a:active{opacity:.75}
+.mobile-cta-call{background:var(--amber);color:var(--dark)}
+.mobile-cta-directions{background:rgba(255,255,255,.07);color:var(--cream);border:1px solid rgba(244,237,216,.15)}
+/* ── Desktop CTA Section ──────────────────────────────────────── */
+.desktop-cta{display:none;background:var(--cream);padding:64px 40px;text-align:center}
+.desktop-cta-eyebrow{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+.desktop-cta-heading{font-family:var(--serif);font-size:36px;font-weight:700;color:var(--dark);line-height:1.15;margin-bottom:10px}
+.desktop-cta-sub{font-family:var(--sans);font-size:14px;font-weight:400;color:rgba(26,18,8,.55);margin-bottom:36px;line-height:1.6}
+.desktop-cta-actions{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
+.desktop-cta-actions a{display:inline-flex;align-items:center;gap:9px;padding:15px 32px;border-radius:9999px;font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.08em;text-decoration:none;transition:opacity .2s}
+.desktop-cta-actions a:hover{opacity:.82}
+.cta-primary{background:var(--amber);color:var(--dark)}
+.cta-secondary{background:transparent;color:var(--dark);border:1.5px solid rgba(26,18,8,.25)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{width:calc(100% - 24px);padding:0 18px;grid-template-columns:1fr auto auto}.nav-wheel-wrap{display:none}.nav-links{display:none}.nav-hamburger{display:flex}
+  .mobile-menu{display:flex}
+  .page-header-inner{padding:48px 24px 80px}
+  /* Main tab bar hidden on mobile — accordion takes over */
+  .tab-bar-wrap{display:none}
+  .main-panel{display:block!important}
+  .acc-header{display:flex}
+  /* Sub-tabs: wrap to next line instead of horizontal scroll */
+  .sub-tab-bar{padding:18px 16px 0;gap:6px;flex-wrap:wrap;overflow-x:visible}
+  .sub-panel,.solo-panel{padding:24px 16px 64px}
+  .item-grid,.item-grid.three-col{grid-template-columns:1fr}
+  .beer-list,.bottle-grid,.wine-list{grid-template-columns:1fr}
+  .add-on-grid{grid-template-columns:repeat(3,1fr)}
+  /* Section dividers: hide the long serving note, let label show cleanly */
+  .section-divider{flex-wrap:wrap;gap:10px}
+  .section-divider-note{display:none}
+  .section-divider-label{white-space:normal}
+  footer{padding:52px 24px 36px}.footer-top{grid-template-columns:1fr;gap:36px}.footer-bottom{flex-direction:column;gap:8px;text-align:center}
+  footer{padding-bottom:88px}
+  .mobile-cta-bar{display:flex}
+}
+@media(min-width:901px){
+  .mobile-cta-bar{display:none!important}
+  .desktop-cta{display:block}
+  /* On desktop, accordion body is always fully open — tabs control visibility via .main-panel.active */
+  .acc-body{grid-template-rows:1fr!important}
+}
+@media(prefers-reduced-motion:reduce){.main-panel,.sub-panel{animation:none}}
+
+/* ── Start Here Strip ─────────────────────────────────────────── */
+.start-here{padding:32px 40px 36px;background:var(--white);border-bottom:1px solid rgba(200,131,42,.14)}
+.start-here-label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
+.start-here-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.sh-card{background:var(--navy);border-top:3px solid var(--amber);border-radius:0 0 2px 2px;padding:0;cursor:pointer;transition:transform .2s,opacity .2s;text-align:left;display:flex;flex-direction:column;overflow:hidden;box-shadow:0 4px 24px rgba(27,58,92,.18)}
+.sh-card-text{padding:18px 20px 20px;display:flex;flex-direction:column;flex:1}
+.sh-card:hover{transform:translateY(-2px);opacity:.88}
+.sh-card:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.sh-badge{font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);display:block;margin-bottom:7px}
+.sh-name{font-family:var(--serif);font-size:18px;font-weight:700;color:var(--cream);line-height:1.2;display:block;margin-bottom:10px}
+.sh-desc{font-family:var(--sans);font-size:12.5px;font-weight:400;color:rgba(244,237,216,.58);line-height:1.6;display:block;flex:1}
+.sh-photo{width:100%;height:160px;object-fit:cover;display:block;margin-bottom:0}
+.sh-cta{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-top:16px;display:block}
+@media(max-width:900px){
+  .start-here{padding:22px 16px 26px}
+  .start-here-cards{grid-template-columns:1fr;gap:10px}
+  .sh-card{padding:16px 18px 18px}
+  .sh-photo{height:110px}
+  .sh-name{font-size:16px}
+}
+</style>
+</head>
+<body>
+
+<a href="#main-content" style="position:absolute;left:-9999px;top:8px;z-index:999;background:var(--amber);color:var(--dark);padding:10px 20px;font-family:var(--sans);font-weight:700;font-size:13px;border-radius:2px;text-decoration:none" onfocus="this.style.left='8px'" onblur="this.style.left='-9999px'">Skip to content</a>
+
+<nav id="site-nav">
+  <a href="index.html" class="nav-logo">
+    <img src="brand_assets/captains_wordmark.png" alt="The Captain's Table" style="height:32px;width:auto">
+  </a>
+  <div class="nav-wheel-wrap">
+    <img id="nav-wheel" src="brand_assets/scroll_wheel.png" alt="" aria-hidden="true" class="nav-wheel">
+  </div>
+  <ul class="nav-links">
+    <li><a href="menu.html" class="active">Menu</a></li>
+    <li><a href="events.html">Entertainment</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="https://order.toasttab.com/online/captains-table-547-rt-17m" target="_blank" rel="noopener" class="nav-order">Order Online</a></li>
+    <li><a href="https://tables.toasttab.com/restaurants/ad1cf5c2-efee-48cc-aacb-08e1f7218d71/reserve?partySize=2&dateTime=2026-03-20T09:00:00.000-04:00" target="_blank" rel="noopener" class="nav-cta">Reserve a Table</a></li>
+  </ul>
+  <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" id="hamburger">
+    <img src="brand_assets/hamburger_menu_icon.png" alt="" aria-hidden="true" class="hamburger-icon" id="hamburger-icon">
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu">
+  <a href="menu.html">Menu</a>
+  <a href="events.html">Entertainment</a>
+  <a href="gift-cards.html">Gift Cards &amp; Swag</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="https://order.toasttab.com/online/captains-table-547-rt-17m" target="_blank" rel="noopener" class="mobile-order">Order Online</a>
+  <a href="https://tables.toasttab.com/restaurants/ad1cf5c2-efee-48cc-aacb-08e1f7218d71/reserve?partySize=2&dateTime=2026-03-20T09:00:00.000-04:00" target="_blank" rel="noopener" class="mobile-cta">Reserve a Table</a>
+</div>
+
+<header class="page-header" id="main-content">
+  <div class="page-header-bg"></div>
+  <div class="page-header-inner">
+    <div class="page-eyebrow">The Full Menu</div>
+    <h1 class="page-title">Something for<br><em style="font-weight:400;font-style:italic">every appetite.</em></h1>
+    <p class="page-subtitle">Lunch · Dinner · Desserts · Drinks</p>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════ START HERE STRIP -->
+<section class="start-here" aria-label="Featured dishes">
+  <div class="start-here-label">New here? Start with these</div>
+  <div class="start-here-cards">
+    <button class="sh-card" onclick="jumpToItem('wings')" aria-label="Jump to Buffalo Wings">
+      <img src="brand_assets/buffalo_wings_TEMP.jpg" alt="" class="sh-photo">
+      <div class="sh-card-text">
+        <span class="sh-badge">Fan Favorite</span>
+        <span class="sh-name">Buffalo Wings</span>
+        <span class="sh-desc">Jumbo wings tossed in house buffalo sauce — "best in Orange County" say the regulars.</span>
+        <span class="sh-cta">View on menu →</span>
+      </div>
+    </button>
+    <button class="sh-card" onclick="jumpToItem('crab-cakes')" aria-label="Jump to Captain's Crab Cakes">
+      <img src="brand_assets/crab_cake_TEMP.jpg" alt="" class="sh-photo">
+      <div class="sh-card-text">
+        <span class="sh-badge">Local Staple</span>
+        <span class="sh-name">Captain's Crab Cakes</span>
+        <span class="sh-desc">Maryland-style lump crab, pan-seared and served with steak fries. Fresh every day.</span>
+        <span class="sh-cta">View on menu →</span>
+      </div>
+    </button>
+    <button class="sh-card" onclick="jumpToItem('scallops')" aria-label="Jump to Shrimp, Clams &amp; Scallops">
+      <img src="brand_assets/shrimp_clam_scallop_TEMP.jpg" alt="" class="sh-photo">
+      <div class="sh-card-text">
+        <span class="sh-badge">House Specialty</span>
+        <span class="sh-name">Shrimp, Clams &amp; Scallops</span>
+        <span class="sh-desc">Jumbo shrimp, littleneck clams and sea scallops simmered in white clam sauce over linguine.</span>
+        <span class="sh-cta">View on menu →</span>
+      </div>
+    </button>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════ MAIN TAB BAR -->
+<div class="tab-bar-wrap" id="tab-bar-wrap">
+  <div class="tab-bar" role="tablist" aria-label="Menu sections">
+    <button class="main-tab active" data-target="starters" role="tab" aria-selected="true"><span class="tab-eyebrow">Drop Anchor</span><span class="tab-name">Starters</span><span class="tab-time">All Day</span></button>
+    <button class="main-tab" data-target="galley" role="tab" aria-selected="false"><span class="tab-eyebrow">The Galley</span><span class="tab-name">Mains</span><span class="tab-time">All Day</span></button>
+    <button class="main-tab" data-target="captains" role="tab" aria-selected="false"><span class="tab-eyebrow">Captain's Catch</span><span class="tab-name">Dinner Entrées</span><span class="tab-time">From 4pm · All Day Sun</span></button>
+    <button class="main-tab" data-target="mateys" role="tab" aria-selected="false"><span class="tab-eyebrow">Little Mateys</span><span class="tab-name">Kids' Menu</span><span class="tab-time">All Day</span></button>
+    <button class="main-tab" data-target="sweet" role="tab" aria-selected="false"><span class="tab-eyebrow">Sweet Tide</span><span class="tab-name">Desserts</span><span class="tab-time">All Day</span></button>
+    <button class="main-tab" data-target="helm" role="tab" aria-selected="false"><span class="tab-eyebrow">The Helm</span><span class="tab-name">Drinks</span><span class="tab-time">All Day</span></button>
+  </div>
+</div>
+
+<main class="menu-content">
+
+<!-- ══════════════════════════════════════════ PANEL: DROP ANCHOR -->
+<div class="main-panel active" id="panel-starters">
+  <button class="acc-header" aria-expanded="true" aria-controls="acc-inner-starters">
+    <span class="acc-label"><span class="acc-eyebrow">Drop Anchor</span><span class="acc-name">Starters</span></span>
+    <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="acc-body open" id="acc-inner-starters"><div class="acc-inner">
+  <div class="sub-tab-bar" role="tablist">
+    <button class="sub-tab active" data-sub="appetizers" aria-selected="true">Cast &amp; Catch</button>
+    <button class="sub-tab" data-sub="soups" aria-selected="false">Foghorn Soups</button>
+    <button class="sub-tab" data-sub="salads" aria-selected="false">Deck Greens</button>
+  </div>
+
+  <!-- Sub: Appetizers -->
+  <div class="sub-panel active" id="sub-appetizers">
+    <div class="item-grid">
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Fried Calamari</span><span class="item-price">$16.43</span></div>
+        <p class="item-desc">Tender rings of calamari, lightly battered and fried to a golden crisp. Served with house-made marinara for dipping.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Bang Bang Shrimp</span><span class="item-price">$17.46</span></div>
+        <p class="item-desc">Jumbo shrimp lightly battered and flash-fried, then tossed in our signature slightly-spicy bang bang sauce. One of the dock's favorite starters.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Boneless Buffalo Wings</span><span class="item-price">$15.40</span></div>
+        <p class="item-desc">Tender all-white chicken chunks tossed in fiery buffalo sauce, served with crisp celery and a ramekin of creamy bleu cheese.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top" id="wings"><span class="item-name">Jumbo Buffalo Wings</span><span class="item-price">$16.43 / $29.82</span></div>
+        <p class="item-desc">Our famous jumbo wings — crispy, sticky, impossible to share. Choose Buffalo, BBQ, Teriyaki, Sweet Chili, Wild Wing (Buffalo+BBQ+Teriyaki) or Garbage Wings (all four).</p>
+        <p class="item-addon">10 wings · 20 wings</p>
+        <div class="item-badges"><span class="badge badge-chef">Chef's Pick</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Buffalo Chicken Dip</span><span class="item-price">$14.37</span></div>
+        <p class="item-desc">Rich, creamy buffalo chicken dip loaded with pulled chicken and tangy hot sauce, served bubbling hot with a basket of tortilla chips.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Chicken Tenders</span><span class="item-price">$14.37</span></div>
+        <p class="item-desc">Hand-breaded strips of all-natural chicken breast, fried golden brown and served with seasoned fries and honey Dijon mustard. Also available Buffalo-style.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Nachos Supreme</span><span class="item-price">$11.28</span></div>
+        <p class="item-desc">A towering plate of tortilla chips layered with melted cheese, black olives, shredded lettuce, ripe tomatoes and jalapeños. Served with sour cream and house salsa.</p>
+        <p class="item-addon">Add guacamole +$0.99 · chili +$5.95 · chicken +$6.95 · BBQ pork +$6.95</p>
+        <div class="item-badges"><span class="badge badge-gf">GF</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Pretzel Bites</span><span class="item-price">$12.31</span></div>
+        <p class="item-desc">Soft-baked pretzel bites with a satisfying golden crust, served warm alongside a velvety melted cheese sauce. The perfect dock-side snack.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Mini Tacos</span><span class="item-price">$11.28</span></div>
+        <p class="item-desc">Three bite-sized tacos filled with seasoned beef, finished with house-made salsa and a cool dollop of sour cream.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Mozzarella Stix</span><span class="item-price">$11.28</span></div>
+        <p class="item-desc">Golden-fried mozzarella sticks with a perfectly gooey pull inside and a crisp exterior. Served with house-made marinara.</p>
+        <div class="item-badges"><span class="badge badge-dinner">Dinner</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Sesame Seared Tuna</span><span class="item-price">$16.43</span></div>
+        <p class="item-desc">Grade-A tuna crusted in black and white sesame seeds, seared rare and sliced over a bed of wakame seaweed salad with wasabi sauce on the side.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sub: Soups -->
+  <div class="sub-panel" id="sub-soups">
+    <div class="item-grid">
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">New England Clam Chowder</span><span class="item-price">Cup $6.13 · Bowl $7.16</span></div>
+        <p class="item-desc">Our creamy, hearty New England clam chowder — thick with tender littleneck clams, golden potatoes and smoked bacon. A true seaside classic, served steaming hot.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Crock of French Onion</span><span class="item-price">$9.22</span></div>
+        <p class="item-desc">Rich, slow-caramelized onion broth topped with a thick-cut crouton and a crown of gratinéed Gruyère, served bubbling in a classic oven crock.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Bowl of Chili</span><span class="item-price">$11.28</span></div>
+        <p class="item-desc">A robust, slow-simmered chili packed with seasoned ground beef, kidney beans and a blend of smoky spices. Served in a generous, warming bowl.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sub: Salads -->
+  <div class="sub-panel" id="sub-salads">
+    <p class="item-desc" style="margin-bottom:20px;color:rgba(244,237,216,.38);font-size:12px;letter-spacing:.04em">All salads available gluten-sensitive without croutons and dressing.</p>
+    <div class="item-grid">
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Garden Chickpea Salad</span><span class="item-price">Sm $8.19 · Lg $13.34</span></div>
+        <p class="item-desc">Crisp mixed greens with cucumbers, ripe tomatoes, red onion, seasoned chickpeas and crumbled feta. Tossed in your choice of house dressing.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Caesar Salad</span><span class="item-price">$13.34</span></div>
+        <p class="item-desc">Crisp romaine hearts with house-made croutons and freshly shaved parmesan, tossed tableside-style in classic Caesar dressing.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Cobb Salad</span><span class="item-price">$14.37</span></div>
+        <p class="item-desc">A generously layered salad of mixed greens, creamy avocado, ripe tomatoes, hard-boiled egg, red onion and smoky bacon bits — crowned with bleu cheese crumbles and ranch.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Captain's Salad</span><span class="item-price">$14.37</span></div>
+        <p class="item-desc">Mixed greens with mandarin oranges, dried cranberries, candied walnuts and red onion, topped with crumbled feta and a house zinfandel vinaigrette. Bright, fresh and distinctly ours.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Blackened Scallops Salad</span><span class="item-price">$21.58</span></div>
+        <p class="item-desc">Sear-kissed sea scallops resting over crisp mixed greens with tomatoes, cucumbers and red onion, finished with crumbled bleu cheese and a sweet onion dressing.</p>
+      </div>
+    </div>
+    <div class="add-on-box">
+      <div class="add-on-title">Add a Protein</div>
+      <div class="add-on-grid">
+        <div class="add-on-item"><div class="add-on-name">Chicken</div><div class="add-on-price">$6.95</div></div>
+        <div class="add-on-item"><div class="add-on-name">Steak</div><div class="add-on-price">$8.95</div></div>
+        <div class="add-on-item"><div class="add-on-name">Shrimp</div><div class="add-on-price">$8.95</div></div>
+        <div class="add-on-item"><div class="add-on-name">Salmon</div><div class="add-on-price">$9.95</div></div>
+        <div class="add-on-item"><div class="add-on-name">Ahi Tuna</div><div class="add-on-price">$9.95</div></div>
+      </div>
+    </div>
+  </div>
+</div></div></div><!-- /panel-starters -->
+
+
+<!-- ══════════════════════════════════════════ PANEL: THE GALLEY -->
+<div class="main-panel" id="panel-galley">
+  <button class="acc-header" aria-expanded="false" aria-controls="acc-inner-galley">
+    <span class="acc-label"><span class="acc-eyebrow">The Galley</span><span class="acc-name">Mains</span></span>
+    <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="acc-body" id="acc-inner-galley"><div class="acc-inner">
+  <div class="solo-panel">
+
+    <div class="section-divider"><span class="section-divider-label">The Half-Pounders</span><span class="section-divider-line"></span><span class="section-divider-note">Served with fries &amp; pickles · sub onion rings, curly or sweet potato fries +$2.99</span></div>
+    <div class="item-grid">
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">All American Burger</span><span class="item-price">$18.49</span></div>
+        <p class="item-desc">Our signature half-pound house blend of short rib, brisket and chuck, topped with American cheese, crispy bacon, fresh lettuce, ripe tomato and raw onion. Classic.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Captain's Bacon Burger</span><span class="item-price">$18.49</span></div>
+        <p class="item-desc">The house-blend patty loaded with American cheese, crispy bacon and a rich mushroom gravy poured over the top. A dock-side legend.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Tex-Mex Burger</span><span class="item-price">$18.49</span></div>
+        <p class="item-desc">The house-blend patty gets a southwestern kick — melted pepper Jack, creamy avocado, crisp lettuce and smoky chipotle mayo.</p>
+      </div>
+    </div>
+
+    <div class="section-divider"><span class="section-divider-label">For the Crew</span><span class="section-divider-line"></span><span class="section-divider-note">Served with fries &amp; pickles · roll or herb wrap · sub onion rings, curly or sweet potato fries +$2.99</span></div>
+    <div class="item-grid">
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Fried Chicken Sandwich</span><span class="item-price">$18.49</span></div>
+        <p class="item-desc">Buttermilk-brined, hand-breaded chicken breast fried golden and served on a toasted roll with honey Dijon mustard and crisp house pickles.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Buffalo Chicken Sandwich</span><span class="item-price">$17.46</span></div>
+        <p class="item-desc">Crispy breaded chicken cutlet doused in Frank's RedHot, finished with creamy bleu cheese, fresh lettuce and tomato on a toasted roll.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Balsamic Chicken Sandwich</span><span class="item-price">$17.46</span></div>
+        <p class="item-desc">Grilled chicken topped with roasted red peppers, fresh mozzarella, crisp lettuce and a drizzle of sweet balsamic glaze on a toasted roll.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Country Chicken Sandwich</span><span class="item-price">$17.46</span></div>
+        <p class="item-desc">Grilled chicken breast smothered in melted mozzarella and a savory, earthy mushroom gravy. Comfort food, dock-side style.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Tex-Mex Chicken</span><span class="item-price">$17.46</span></div>
+        <p class="item-desc">Grilled chicken breast with melted pepper Jack, creamy avocado, crisp lettuce and smoky chipotle mayo — a southwest spin on a sandwich staple.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Chicken Parmigiana Hero</span><span class="item-price">$17.46</span></div>
+        <p class="item-desc">A classic — breaded chicken cutlet layered with melted mozzarella and rich marinara sauce on a toasted hero roll.</p>
+      </div>
+    </div>
+
+    <div style="margin:48px 0 0;background:rgba(200,131,42,.08);border:1px solid rgba(200,131,42,.25);border-left:3px solid var(--amber);padding:16px 22px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <div>
+        <div style="font-family:var(--serif);font-size:16px;font-weight:700;color:var(--cream)">Between Decks</div>
+        <div style="font-family:var(--sans);font-size:12px;font-weight:300;color:rgba(244,237,216,.5);margin-top:3px">Served with fries &amp; pickles · white, wheat, rye or herb wrap available</div>
+      </div>
+      <div style="font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;background:var(--amber);color:var(--dark);padding:7px 16px;border-radius:2px;white-space:nowrap">Lunch Only · M–Sat 11:30am–4pm</div>
+    </div>
+    <div style="margin-bottom:20px"></div>
+    <div class="item-grid">
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Corned Beef on Rye</span><span class="item-price">$13.34</span></div>
+        <p class="item-desc">Thinly sliced, fork-tender corned beef piled generously on toasted rye. Simple. Iconic. Perfect.</p>
+        <div class="item-badges"><span class="badge badge-lunch">Lunch Only</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Classic BLT</span><span class="item-price">$10.25</span></div>
+        <p class="item-desc">The crispy bacon is thick-cut, the tomatoes are vine-ripe and the lettuce is always cold and fresh. Served on your choice of white, wheat or rye.</p>
+        <div class="item-badges"><span class="badge badge-lunch">Lunch Only</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Open Faced Reuben</span><span class="item-price">$15.40</span></div>
+        <p class="item-desc">Slow-cured corned beef with Swiss cheese, tangy sauerkraut and Russian dressing on toasted rye, served open-faced and gratinéed under the broiler.</p>
+        <div class="item-badges"><span class="badge badge-lunch">Lunch Only</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Turkey Club</span><span class="item-price">$14.37</span></div>
+        <p class="item-desc">Layers of oven-roasted turkey, crispy bacon, fresh lettuce and ripe tomato with mayo on your choice of white, wheat or rye.</p>
+        <div class="item-badges"><span class="badge badge-lunch">Lunch Only</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Portobello Sandwich</span><span class="item-price">$15.40</span></div>
+        <p class="item-desc">A hearty marinated portobello cap with roasted red peppers, fresh mozzarella, crisp lettuce and tomato on a toasted roll. The kitchen's go-to meatless option.</p>
+        <div class="item-badges"><span class="badge badge-lunch">Lunch Only</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Wrap of the Day</span><span class="item-price">Ask your server</span></div>
+        <p class="item-desc">Our kitchen crafts a fresh wrap each day from whatever's looking best. Your server will know.</p>
+        <div class="item-badges"><span class="badge badge-lunch">Lunch Only</span></div>
+      </div>
+    </div>
+
+    <div class="section-divider"><span class="section-divider-label">Portside Catch</span><span class="section-divider-line"></span><span class="section-divider-note">Casual seafood &amp; dock plates</span></div>
+    <div class="item-grid">
+      <div class="item-card">
+        <div class="item-card-top" id="crab-cakes"><span class="item-name">Captain's Crab Cakes</span><span class="item-price">$21.58</span></div>
+        <p class="item-desc">Handmade Maryland-style lump crab cakes — packed with real Chesapeake crab, seared to a golden crisp and served with house chips and remoulade.</p>
+        <div class="item-badges"><span class="badge badge-chef">Chef's Pick</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Shrimp Basket</span><span class="item-price">$17.46</span></div>
+        <p class="item-desc">A generous basket of crispy fried jumbo shrimp, golden and hot out of the fryer. Served with seasoned fries and house cocktail sauce.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Fish &amp; Chips</span><span class="item-price">$21.58</span></div>
+        <p class="item-desc">Authentic beer-battered cod fillets fried to a light, flaky golden crisp. Served with house-made chips and your choice of cocktail or tartar sauce.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Bistro Steak Sandwich</span><span class="item-price">$19.52</span></div>
+        <p class="item-desc">Grilled bistro steak layered with fresh spinach, ripe tomato, avocado and sweet caramelized onions on a toasted hero with house garlic spread.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Captain's Cheese Steak Hero</span><span class="item-price">$17.46</span></div>
+        <p class="item-desc">Philly-style thinly shaved steak with melted American cheese and sautéed onions, piled high into a warm, toasted hero roll. Also available with chicken.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">BBQ Pulled Pork</span><span class="item-price">$16.43</span></div>
+        <p class="item-desc">Slow-cooked pork shoulder, smoked tender and pulled, then smothered in our house grill'en BBQ sauce and topped with tangy pickled onions on a toasted roll.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Short Rib Tacos <em style="font-style:normal;font-size:13px;font-weight:400">(2)</em></span><span class="item-price">$19.52</span></div>
+        <p class="item-desc">Tender wine-braised short rib shredded and piled into soft flour tortillas with melted Jack cheese, tangy pickled onions and smoky chipotle aioli.</p>
+      </div>
+    </div>
+
+  </div>
+</div></div></div><!-- /panel-galley -->
+
+
+<!-- ══════════════════════════════════════════ PANEL: CAPTAIN'S CATCH (Dinner) -->
+<div class="main-panel" id="panel-captains">
+  <button class="acc-header" aria-expanded="false" aria-controls="acc-inner-captains">
+    <span class="acc-label"><span class="acc-eyebrow">Captain's Catch</span><span class="acc-name">Dinner Entrées</span></span>
+    <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="acc-body" id="acc-inner-captains"><div class="acc-inner">
+  <div class="sub-tab-bar" role="tablist">
+    <button class="sub-tab active" data-sub="sea" aria-selected="true">From the Deep</button>
+    <button class="sub-tab" data-sub="land" aria-selected="false">From Shore</button>
+    <button class="sub-tab" data-sub="pasta" aria-selected="false">The Rigging</button>
+    <button class="sub-tab" data-sub="sides" aria-selected="false">Dock Sides</button>
+  </div>
+  <div style="font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(244,237,216,.3);padding:14px 80px 0;display:flex;align-items:center;gap:10px"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0"></span>Available Mon–Sat from 4pm &nbsp;·&nbsp; All day Sunday 12–10pm</div>
+
+  <!-- Sub: From the Deep -->
+  <div class="sub-panel active" id="sub-sea">
+    <div class="item-grid">
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Catch of the Day</span><span class="item-price">Ask your server</span></div>
+        <p class="item-desc">The freshest catch, prepared the chef's way — ask your server for today's selection and preparation.</p>
+        <div class="item-badges"><span class="badge badge-special">Daily Special</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Honey &amp; Bourbon Salmon</span><span class="item-price">$32.91</span></div>
+        <p class="item-desc">Pan-seared Atlantic salmon fillet brushed with a house honey and bourbon glaze, served over fluffy rice pilaf alongside the vegetable of the day.</p>
+        <div class="item-badges"><span class="badge badge-chef">Chef's Pick</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Shrimp Scampi</span><span class="item-price">$26.73</span></div>
+        <p class="item-desc">Jumbo shrimp sautéed in a bright, buttery scampi sauce with white wine, lemon and garlic. Served with your choice of rice or pasta.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Scallops Risotto</span><span class="item-price">$26.73</span></div>
+        <p class="item-desc">Perfectly seared sea scallops nestled over a creamy, slow-stirred parmesan risotto with sweet peas and sun-dried tomatoes.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top" id="scallops"><span class="item-name">Shrimp, Clams &amp; Scallops</span><span class="item-price">$36.00</span></div>
+        <p class="item-desc">A plentiful harvest of sautéed jumbo shrimp, chopped littleneck clams and sweet sea scallops simmered in a classic white clam sauce over a bed of linguine.</p>
+        <div class="item-badges"><span class="badge badge-chef">Chef's Pick</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Captain's Crab Cakes</span><span class="item-price">$21.58</span></div>
+        <p class="item-desc">Our signature Maryland-style lump crab cakes, handmade and seared to golden perfection. Served plated with house chips and house-made remoulade.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Fish &amp; Chips</span><span class="item-price">$21.58</span></div>
+        <p class="item-desc">Authentic beer-battered cod, light and flaky inside with a golden, airy crust. Served with house-made chips and your choice of cocktail or tartar sauce.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sub: From Shore -->
+  <div class="sub-panel" id="sub-land">
+    <div class="item-grid">
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Prime Rib</span><span class="item-price">Ask your server</span></div>
+        <p class="item-desc">Slow-roasted Certified Angus Beef prime rib, rich with natural juices and char-finished for a perfect crust. Served with red smashed potatoes and the vegetable of the day.</p>
+        <div class="item-badges"><span class="badge badge-chef">Chef's Pick</span><span class="badge badge-special">Fri &amp; Sat · All day Sun</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Certified Angus NY Strip</span><span class="item-price">$37.03</span></div>
+        <p class="item-desc">A center-cut, char-broiled Certified Angus Beef New York Strip. Bold, buttery and cooked to your exact liking. Served with red smashed potatoes and the vegetable of the day.</p>
+        <div class="item-badges"><span class="badge badge-gf">GF</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Braised Short Ribs</span><span class="item-price">$30.85</span></div>
+        <p class="item-desc">Low-and-slow wine-braised beef short ribs, fork-tender and falling off the bone, served in a deep burgundy demi-glace over red smashed potatoes.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Pork Schnitzel</span><span class="item-price">$25.70</span></div>
+        <p class="item-desc">Pan-fried golden-brown pork loin finished with sautéed mushrooms, onions, sherry wine demi-glace and a touch of Dijon. Served with house potato pancakes and applesauce.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Chicken Parmigiana</span><span class="item-price">$25.70</span></div>
+        <p class="item-desc">Classic breaded chicken cutlets with melted mozzarella and rich house marinara, served with your choice of linguine, penne or angel hair pasta.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sub: The Rigging (Pasta) -->
+  <div class="sub-panel" id="sub-pasta">
+    <div class="item-grid">
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Jameson Chicken</span><span class="item-price">$25.70</span></div>
+        <p class="item-desc">Sautéed chicken breast with sun-dried tomatoes and earthy mushrooms in a smooth, whiskey-kissed Jameson Irish cream sauce. Served over a tangle of linguine.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Chicken Angelina</span><span class="item-price">$25.70</span></div>
+        <p class="item-desc">Sautéed chicken tossed with mushrooms, sun-dried tomatoes and roasted red peppers in a roasted red pepper and white wine reduction over delicate angel hair pasta.</p>
+        <p class="item-addon">Gluten-free pasta available +$2.00</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Penne Alla Vodka</span><span class="item-price">$18.49</span></div>
+        <p class="item-desc">Penne pasta in a silky, vodka-kissed tomato cream sauce — a timeless crowd-pleaser that never goes out of style.</p>
+        <p class="item-addon">Add chicken +$6.95 · Add shrimp +$8.95</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Ravioli or Pasta of the Day</span><span class="item-price">Ask your server</span></div>
+        <p class="item-desc">Our kitchen handcrafts a special pasta or ravioli creation each day using the finest fresh ingredients. Ask your server for today's selection.</p>
+        <div class="item-badges"><span class="badge badge-special">Daily Special</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sub: Dock Sides -->
+  <div class="sub-panel" id="sub-sides">
+    <div class="item-grid three-col">
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Seasonal Vegetables</span><span class="item-price">$9.22</span></div>
+        <p class="item-desc">Fresh market vegetables simply seasoned and prepared the chef's way — always a cut above the ordinary side dish.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Disco Fries</span><span class="item-price">$11.28</span></div>
+        <p class="item-desc">A Jersey classic — crispy seasoned fries piled with melted mozzarella and a rich mushroom gravy. Late night comfort in every bite.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Beer Battered Onion Rings</span><span class="item-price">$10.25</span></div>
+        <p class="item-desc">Thick-cut sweet onion rings in a light, crispy beer batter. Fried golden and served hot.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Sweet Potato Curly Fries</span><span class="item-price">$9.22</span></div>
+        <p class="item-desc">Spiral-cut sweet potato fries — crispy outside, tender and naturally sweet within. A dock-side favorite.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Curly Fries</span><span class="item-price">$9.22</span></div>
+        <p class="item-desc">Seasoned spiral-cut fries, always golden and always a solid call alongside anything on this menu.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Fries</span><span class="item-price">$8.16</span></div>
+        <p class="item-desc">Classic seasoned fries, always made to order. Simple, hot, perfect.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Cole Slaw</span><span class="item-price">$7.16</span></div>
+        <p class="item-desc">Our house-made creamy coleslaw, tossed with a touch of sweetness and a hint of apple cider vinegar. Served chilled.</p>
+      </div>
+    </div>
+  </div>
+</div></div></div><!-- /panel-captains -->
+
+
+<!-- ══════════════════════════════════════════ PANEL: LITTLE MATEYS -->
+<div class="main-panel" id="panel-mateys">
+  <button class="acc-header" aria-expanded="false" aria-controls="acc-inner-mateys">
+    <span class="acc-label"><span class="acc-eyebrow">Little Mateys</span><span class="acc-name">Kids' Menu</span></span>
+    <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="acc-body" id="acc-inner-mateys"><div class="acc-inner">
+  <div class="solo-panel">
+    <div class="panel-intro">
+      <div class="panel-intro-eyebrow">Little Mateys</div>
+      <h2 class="panel-intro-heading">Small crew,<br>big appetites.</h2>
+      <p class="panel-intro-body">For youngsters 10 &amp; under · $13.49 each · Includes a soft drink and a scoop of ice cream, on-premise only. Swap fries for curly or sweet potato for $2.99.</p>
+      <div class="panel-intro-rule"></div>
+    </div>
+    <div class="item-grid centered">
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Jr. Burger</span><span class="item-price">$13.49</span></div>
+        <p class="item-desc">A juicy, hand-pressed junior burger on a soft roll, served with crispy seasoned fries. Sneak in some American cheese for just $0.49.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Chicken Tenders</span><span class="item-price">$13.49</span></div>
+        <p class="item-desc">Hand-breaded all-natural chicken tenders, fried to a golden crisp and served with a side of seasoned fries. Honey Dijon on the side.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Grilled Cheese</span><span class="item-price">$13.49</span></div>
+        <p class="item-desc">Golden-buttered grilled cheese on soft white bread with a perfectly gooey melt inside. Served with crispy fries on the side.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Kraft Mac &amp; Cheese</span><span class="item-price">$13.49</span></div>
+        <p class="item-desc">Everyone's favorite — the real deal Kraft macaroni and cheese. No sides needed. This one stands alone.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Penne Pasta</span><span class="item-price">$13.49</span></div>
+        <p class="item-desc">Simple and satisfying penne pasta in your choice of classic marinara or melted butter. A kid-approved crowd-pleaser.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Mozzarella Cheese Sticks</span><span class="item-price">$13.49</span></div>
+        <p class="item-desc">Gooey mozzarella sticks, golden-fried and served with a side of marinara dipping sauce. Hard to say no to.</p>
+      </div>
+    </div>
+  </div>
+</div></div></div><!-- /panel-mateys -->
+
+
+<!-- ══════════════════════════════════════════ PANEL: SWEET TIDE -->
+<div class="main-panel" id="panel-sweet">
+  <button class="acc-header" aria-expanded="false" aria-controls="acc-inner-sweet">
+    <span class="acc-label"><span class="acc-eyebrow">Sweet Tide</span><span class="acc-name">Desserts</span></span>
+    <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="acc-body" id="acc-inner-sweet"><div class="acc-inner">
+  <div class="solo-panel">
+    <div class="panel-intro">
+      <div class="panel-intro-eyebrow">Sweet Tide</div>
+      <h2 class="panel-intro-heading">End on a<br>high note.</h2>
+      <p class="panel-intro-body">Handcrafted desserts, all $7.95 unless noted. Items marked ✦ are available on-premise only — worth staying for.</p>
+      <div class="panel-intro-rule"></div>
+    </div>
+    <div class="item-grid">
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Salted Caramel Vanilla Crunch Cake</span><span class="item-price">$7.95</span></div>
+        <p class="item-desc">Buttery vanilla-flecked cake with deep waves of caramel, layered with salted caramel crunch and a velvety vanilla custard. A dessert that earns its reputation.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Peanut Butter Explosion</span><span class="item-price">$7.95</span></div>
+        <p class="item-desc">Moist chocolate genoise layered between clouds of peanut butter mousse, garnished with house-made brownie bites and peanut butter chips. Dangerously good.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Raspberry Linzer Tart</span><span class="item-price">$7.95</span></div>
+        <p class="item-desc">Hazelnut cinnamon dough filled with premium raspberry preserves and finished with a delicate marzipan lattice. A European classic, done beautifully.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Chocolate Chip Lava Cookie</span><span class="item-price">$7.95</span></div>
+        <p class="item-desc">A chocolate chip cookie filled with warm chocolate ganache, baked fresh and served hot alongside a scoop of vanilla ice cream. Worth every calorie.</p>
+        <div class="item-badges"><span class="badge badge-special">✦ On Premise Only</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Salted Caramel Crunch Skillet</span><span class="item-price">$7.95</span></div>
+        <p class="item-desc">White chocolate, crisp pretzel bites, sea salt and Heath toffee baked together in a cast iron skillet and served warm à la mode. Rustic and unforgettable.</p>
+        <div class="item-badges"><span class="badge badge-special">✦ On Premise Only</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Vanilla Bean Cheesecake</span><span class="item-price">$7.95</span></div>
+        <p class="item-desc">Vanilla bean crème brûlée custard with macerated Madagascar vanilla pods, baked over a baby oat and vanilla crust. Gluten-sensitive and genuinely special.</p>
+        <div class="item-badges"><span class="badge badge-gf">GF</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Tuxedo Bomb</span><span class="item-price">$7.95</span></div>
+        <p class="item-desc">Alternating layers of dark chocolate cake and silky white chocolate mousse — an elegant, show-stopping dessert in every sense.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Signature Brownie Sundae</span><span class="item-price">$6.95</span></div>
+        <p class="item-desc">Our rich house-baked fudge brownie served warm, crowned with a generous scoop of vanilla ice cream and finished with chocolate drizzle.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Caramel Apple Granny Pie</span><span class="item-price">$7.95</span></div>
+        <p class="item-desc">A flaky, buttery pastry shell filled with cinnamon-spiced apples and finished with a warm house caramel drizzle. Grandma would definitely approve.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">New York Cheesecake</span><span class="item-price">$6.95</span></div>
+        <p class="item-desc">Dense, creamy classic New York-style cheesecake on a buttery graham cracker crust. Simple, perfect and never messed with.</p>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Dessert of the Day</span><span class="item-price">$7.95</span></div>
+        <p class="item-desc">Something fresh and inspired from our kitchen — always rotating, always worth asking about. Check with your server for today's creation.</p>
+        <div class="item-badges"><span class="badge badge-special">Daily Special</span></div>
+      </div>
+      <div class="item-card">
+        <div class="item-card-top"><span class="item-name">Ice Cream</span><span class="item-price">$3.95</span></div>
+        <p class="item-desc">Two scoops of house chocolate or vanilla ice cream. Sometimes the simplest thing is the right call.</p>
+      </div>
+    </div>
+  </div>
+</div></div></div><!-- /panel-sweet -->
+
+
+<!-- ══════════════════════════════════════════ PANEL: THE HELM -->
+<div class="main-panel" id="panel-helm">
+  <button class="acc-header" aria-expanded="false" aria-controls="acc-inner-helm">
+    <span class="acc-label"><span class="acc-eyebrow">The Helm</span><span class="acc-name">Drinks</span></span>
+    <svg class="acc-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </button>
+  <div class="acc-body" id="acc-inner-helm"><div class="acc-inner">
+  <div class="sub-tab-bar" role="tablist">
+    <button class="sub-tab active" data-sub="tap" aria-selected="true">On Tap</button>
+    <button class="sub-tab" data-sub="bottle" aria-selected="false">In the Hold</button>
+    <button class="sub-tab" data-sub="wine" aria-selected="false">Starboard Wines</button>
+    <button class="sub-tab" data-sub="cocktails" aria-selected="false">Ship's Bar</button>
+  </div>
+
+  <!-- Sub: On Tap -->
+  <div class="sub-panel active" id="sub-tap">
+    <div class="beer-list">
+      <div class="beer-item"><div class="beer-name">Seasonal Cider</div><p class="beer-desc">Rotating selection — ask your server for what's on.</p></div>
+      <div class="beer-item"><div class="beer-name">Spaten Oktoberfest</div><p class="beer-desc">Malty, toasty and perfectly balanced — the quintessential German lager.</p><div class="beer-abv">5.9% ABV</div></div>
+      <div class="beer-item"><div class="beer-name">Budweiser</div><p class="beer-desc">The American original. Crisp, clean and effortlessly refreshing.</p><div class="beer-abv">5.0% ABV</div></div>
+      <div class="beer-item"><div class="beer-name">Modelo Especial</div><p class="beer-desc">Well-balanced with a light hop character and a crisp, clean finish.</p><div class="beer-abv">4.4% ABV</div></div>
+      <div class="beer-item"><div class="beer-name">Coors Light</div><p class="beer-desc">American light lager — cold, refreshing and built for a long summer night.</p><div class="beer-abv">4.2% ABV</div></div>
+      <div class="beer-item"><div class="beer-name">Guinness</div><p class="beer-desc">Ireland's legendary dry stout — smooth, roasted and unmistakably itself.</p><div class="beer-abv">4.2% ABV</div></div>
+      <div class="beer-item"><div class="beer-name">Industrial Arts Wrench</div><p class="beer-desc">A big, aromatic IPA loaded with Mosaic and Citra hops. Not for the timid.</p><div class="beer-abv">7.1% ABV</div></div>
+      <div class="beer-item"><div class="beer-name">Blue Moon</div><p class="beer-desc">Belgian-style wheat beer brewed with Valencia orange peel. Citrusy and bright.</p><div class="beer-abv">5.4% ABV</div></div>
+      <div class="beer-item"><div class="beer-name">Kona Big Wave</div><p class="beer-desc">A light golden ale with a tropical aroma and smooth, easy finish.</p><div class="beer-abv">4.4% ABV</div></div>
+      <div class="beer-item"><div class="beer-name">Miller Lite</div><p class="beer-desc">The original American light pilsner. Great taste, less filling.</p><div class="beer-abv">4.2% ABV</div></div>
+      <div class="beer-item"><div class="beer-name">Sam Adams Seasonal</div><p class="beer-desc">Sam Adams brews with the season. Ask your server what's pouring.</p></div>
+      <div class="beer-item"><div class="beer-name">Stella Artois</div><p class="beer-desc">The classic Belgian pilsner. Clean, elegant, and always in good company.</p><div class="beer-abv">5.1% ABV</div></div>
+      <div class="beer-item"><div class="beer-name">Peroni</div><p class="beer-desc">Italy's beloved lager — dry, crisp and perfectly suited to any occasion.</p><div class="beer-abv">5.1% ABV</div></div>
+      <div class="beer-item"><div class="beer-name">Dogfish Juicy Pale Ale</div><p class="beer-desc">Light, refreshing and hop-forward with a soft, juicy finish. Easy-drinking craft.</p><div class="beer-abv">5.3% ABV</div></div>
+      <div class="beer-item"><div class="beer-name">Newburgh Mega Boss IPA</div><p class="beer-desc">A local Hudson Valley heavyweight loaded with 8 hop varieties. Bold and unapologetic.</p><div class="beer-abv">7.0% ABV</div></div>
+    </div>
+  </div>
+
+  <!-- Sub: In the Hold -->
+  <div class="sub-panel" id="sub-bottle">
+    <div class="section-divider"><span class="section-divider-label">Bottles &amp; Cans</span><span class="section-divider-line"></span></div>
+    <div class="bottle-grid">
+      <div class="bottle-item">Amstel Light</div>
+      <div class="bottle-item">Budweiser</div>
+      <div class="bottle-item">Bud Light</div>
+      <div class="bottle-item">Coors Light</div>
+      <div class="bottle-item">Corona</div>
+      <div class="bottle-item">Corona Light</div>
+      <div class="bottle-item">Heineken</div>
+      <div class="bottle-item">Heineken Light</div>
+      <div class="bottle-item">Miller 64</div>
+      <div class="bottle-item">Miller High Life</div>
+      <div class="bottle-item">Miller Lite</div>
+      <div class="bottle-item">Michelob Ultra</div>
+    </div>
+    <div class="section-divider" style="margin-top:40px"><span class="section-divider-label">Non-Alcoholic &amp; Seltzers</span><span class="section-divider-line"></span></div>
+    <div class="bottle-grid">
+      <div class="bottle-item">Heineken 0.0 <span style="color:rgba(244,237,216,.3);font-size:11px">N/A</span></div>
+      <div class="bottle-item">Stella Artois N/A</div>
+      <div class="bottle-item">Twisted Tea</div>
+      <div class="bottle-item">Nutrl Hard Seltzer <span style="color:rgba(244,237,216,.3);font-size:11px">Assorted</span></div>
+      <div class="bottle-item">White Claw <span style="color:rgba(244,237,216,.3);font-size:11px">Black Cherry / Mango</span></div>
+    </div>
+  </div>
+
+  <!-- Sub: Wines -->
+  <div class="sub-panel" id="sub-wine">
+    <p style="font-family:var(--sans);font-size:11px;color:rgba(244,237,216,.3);letter-spacing:.06em;margin-bottom:28px">Wine pricing available from your server.</p>
+    <div class="wine-category">
+      <div class="wine-category-title">Sparkling</div>
+      <div class="wine-list">
+        <div class="wine-item"><div><div class="wine-name">Prosecco</div><div class="wine-producer">LaMarca · Italy</div></div></div>
+        <div class="wine-item"><div><div class="wine-name">Rosé</div><div class="wine-producer">Beach · California</div></div></div>
+      </div>
+    </div>
+    <div class="wine-category">
+      <div class="wine-category-title">White Wines</div>
+      <div class="wine-list">
+        <div class="wine-item"><div><div class="wine-name">Pinot Grigio</div><div class="wine-producer">Josh · California</div></div></div>
+        <div class="wine-item"><div><div class="wine-name">Chardonnay</div><div class="wine-producer">Josh · California</div></div></div>
+        <div class="wine-item"><div><div class="wine-name">Sauvignon Blanc</div><div class="wine-producer">Kim Crawford · New Zealand</div></div></div>
+        <div class="wine-item"><div><div class="wine-name">Moscato</div><div class="wine-producer">Ask your server</div></div></div>
+        <div class="wine-item"><div><div class="wine-name">Riesling</div><div class="wine-producer">Brotherhood · Hudson Valley</div></div></div>
+      </div>
+    </div>
+    <div class="wine-category">
+      <div class="wine-category-title">Red Wines</div>
+      <div class="wine-list">
+        <div class="wine-item"><div><div class="wine-name">Pinot Noir</div><div class="wine-producer">Josh · California</div></div></div>
+        <div class="wine-item"><div><div class="wine-name">Cabernet Sauvignon</div><div class="wine-producer">Josh · California</div></div></div>
+        <div class="wine-item"><div><div class="wine-name">Merlot</div><div class="wine-producer">Josh · California</div></div></div>
+      </div>
+    </div>
+    <div class="wine-category">
+      <div class="wine-category-title">House Pours</div>
+      <div class="wine-list">
+        <div class="wine-item"><div class="wine-name">Merlot</div></div>
+        <div class="wine-item"><div class="wine-name">Cabernet Sauvignon</div></div>
+        <div class="wine-item"><div class="wine-name">Chardonnay</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sub: Cocktails -->
+  <div class="sub-panel" id="sub-cocktails">
+
+    <div class="cocktail-banner" style="margin-bottom:40px">
+      <svg class="cocktail-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 10h32L26 28v12"/><path d="M18 40h12"/><path d="M8 10l7 10"/><path d="M40 10l-7 10"/>
+      </svg>
+      <h2 class="cocktail-title">Seasonal Specials</h2>
+      <p class="cocktail-body">Our bar team rotates signature cocktails with the seasons — handcrafted martinis, mules, and house originals. Ask your server what's shaking tonight.</p>
+    </div>
+
+    <div class="section-divider"><span class="section-divider-label">Bar Classics</span><span class="section-divider-line"></span></div>
+    <div class="beer-list">
+      <div class="beer-item"><div class="beer-name">Old Fashioned</div><p class="beer-desc">Bulleit bourbon muddled with bitters, orange peel and a sugar cube. Time-tested, never wrong.</p></div>
+      <div class="beer-item"><div class="beer-name">Whiskey Sour</div><p class="beer-desc">Bourbon shaken with fresh lemon juice and a touch of sweetness. Simple, honest, excellent.</p></div>
+      <div class="beer-item"><div class="beer-name">Margarita</div><p class="beer-desc">Silver tequila, triple sec and fresh lime — on the rocks or frozen. Salt the rim or don't, your call.</p></div>
+      <div class="beer-item"><div class="beer-name">Mojito</div><p class="beer-desc">Bacardi, fresh mint, lime and soda. Light, bright and built for a long afternoon.</p></div>
+      <div class="beer-item"><div class="beer-name">Captain's Mule</div><p class="beer-desc">Tito's vodka, ginger beer and fresh lime over ice. The go-to when the sea gets rough.</p></div>
+      <div class="beer-item"><div class="beer-name">Long Island Iced Tea</div><p class="beer-desc">Five spirits, one glass, zero apologies. You've been warned.</p></div>
+      <div class="beer-item"><div class="beer-name">Cosmopolitan</div><p class="beer-desc">Citrus vodka, cranberry, triple sec and a squeeze of lime. A classic for a reason.</p></div>
+      <div class="beer-item"><div class="beer-name">Amaretto Sour</div><p class="beer-desc">DiSaronno, fresh lemon and a frothy finish. Sweet, balanced and always a crowd-pleaser.</p></div>
+    </div>
+
+    <div class="section-divider" style="margin-top:40px"><span class="section-divider-label">Spirits</span><span class="section-divider-line"></span></div>
+    <div class="bottle-grid" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr))">
+      <div class="bottle-item">Tito's Vodka</div>
+      <div class="bottle-item">Grey Goose</div>
+      <div class="bottle-item">Ketel One</div>
+      <div class="bottle-item">Absolut</div>
+      <div class="bottle-item">Jack Daniel's</div>
+      <div class="bottle-item">Bulleit Bourbon</div>
+      <div class="bottle-item">Jameson Irish</div>
+      <div class="bottle-item">Crown Royal</div>
+      <div class="bottle-item">Johnnie Walker Black</div>
+      <div class="bottle-item">Bacardi Rum</div>
+      <div class="bottle-item">Captain Morgan</div>
+      <div class="bottle-item">Malibu</div>
+      <div class="bottle-item">Patrón Silver</div>
+      <div class="bottle-item">Jose Cuervo</div>
+      <div class="bottle-item">Tanqueray Gin</div>
+      <div class="bottle-item">Bombay Sapphire</div>
+      <div class="bottle-item">Hennessy VS</div>
+      <div class="bottle-item">Baileys Irish Cream</div>
+      <div class="bottle-item">Kahlúa</div>
+      <div class="bottle-item">Amaretto DiSaronno</div>
+    </div>
+
+  </div>
+
+</div></div></div><!-- /panel-helm -->
+
+</main>
+
+<!-- ══════════════════════════════════════════ DESKTOP CTA SECTION -->
+<section class="desktop-cta" aria-label="Visit us">
+  <div class="desktop-cta-eyebrow">Ready to eat?</div>
+  <h2 class="desktop-cta-heading">Come find us in Monroe, NY</h2>
+  <p class="desktop-cta-sub">Dine in, take out, or call ahead — we've been feeding the community since 1934.<br>Open for lunch &amp; dinner. Takeout available.</p>
+  <div class="desktop-cta-actions">
+    <a href="tel:8457830209" class="cta-primary">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.1 6.1l1.27-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      845-783-0209
+    </a>
+    <a href="https://order.toasttab.com/online/captains-table-547-rt-17m" target="_blank" rel="noopener" class="cta-secondary">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      Order Online
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div>
+      <a href="index.html"><img src="brand_assets/captains_wordmark.png" alt="The Captain's Table" style="height:44px;width:auto;display:block;margin-bottom:12px"></a>
+      <p class="footer-tagline">Great food. Cold drinks. Live music.<br>Est. 1934 &nbsp;&middot;&nbsp; Monroe, NY</p>
+      <div class="footer-social">
+        <a href="https://www.facebook.com/TheCaptainsTable/" class="social-btn" target="_blank" rel="noopener" aria-label="Facebook"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="https://www.instagram.com/thecaptainstable/" class="social-btn" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://order.toasttab.com/online/captains-table-547-rt-17m" class="toast-order-btn" target="_blank" rel="noopener" aria-label="Order Online"><img src="brand_assets/online_order_toast.png" alt="Order Online"></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Visit</h4><ul><li><a href="https://www.google.com/maps/search/The+Captain%27s+Table+Monroe+NY" target="_blank" rel="noopener">547 Route 17M<br>Monroe, NY 10950</a></li><li>Mon – Thu: 11:30am – 11pm</li><li>Fri – Sat: 11:30am – 12am</li><li>Sunday: 12pm – 10pm</li><li><a href="tel:8457830209">(845) 783-0209</a></li></ul></div>
+    <div class="footer-col"><h4>Explore</h4><ul><li><a href="menu.html">Full Menu</a></li><li><a href="events.html">Entertainment</a></li><li><a href="catering.html">Catering</a></li><li><a href="gift-cards.html">Gift Cards &amp; Captain's Swag</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 The Captain's Table — Monroe, NY. Est. 1934.</span>
+    <span>Redesign concept</span>
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════════════ MOBILE CTA BAR -->
+<div class="mobile-cta-bar" role="complementary" aria-label="Quick actions">
+  <a href="tel:8457830209" class="mobile-cta-call">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.1 6.1l1.27-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    Call to Order
+  </a>
+  <a href="https://order.toasttab.com/online/captains-table-547-rt-17m" target="_blank" rel="noopener" class="mobile-cta-directions">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    Order Online
+  </a>
+</div>
+
+<script>
+// ── MOBILE NAV ──
+const ham=document.getElementById('hamburger'),mobileMenu=document.getElementById('mobile-menu');
+let hamburgerDeg=0;
+function toggleMenu(force){const open=typeof force==='boolean'?force:!mobileMenu.classList.contains('open');mobileMenu.classList.toggle('open',open);ham.classList.toggle('open',open);ham.setAttribute('aria-expanded',open);const hIcon=document.getElementById('hamburger-icon');if(hIcon){hamburgerDeg+=open?360:-360;hIcon.style.transform='rotate('+hamburgerDeg+'deg)';}}
+ham.addEventListener('click',e=>{e.stopPropagation();toggleMenu();});
+document.addEventListener('click',e=>{if(mobileMenu.classList.contains('open')&&!mobileMenu.contains(e.target)&&!ham.contains(e.target))toggleMenu(false);});
+mobileMenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>toggleMenu(false)));
+
+// ── NAV SCROLL + WHEEL ROTATION ──
+const siteNav=document.getElementById('site-nav');
+const navWheel=document.getElementById('nav-wheel');
+let lastScrollY=window.scrollY,wheelDeg=0;
+window.addEventListener('scroll',()=>{
+  siteNav.classList.toggle('scrolled',window.scrollY>40);
+  if(navWheel){wheelDeg+=(window.scrollY-lastScrollY)*0.3;navWheel.style.transform='rotate('+wheelDeg+'deg)';}
+  lastScrollY=window.scrollY;
+},{passive:true});
+
+// ── MOBILE ACCORDION ──
+function openAccordion(panelId){
+  document.querySelectorAll('.acc-body').forEach(b=>b.classList.remove('open'));
+  document.querySelectorAll('.acc-header').forEach(h=>h.setAttribute('aria-expanded','false'));
+  const panel=document.getElementById('panel-'+panelId);
+  if(panel){
+    const body=panel.querySelector('.acc-body');
+    const hdr=panel.querySelector('.acc-header');
+    if(body)body.classList.add('open');
+    if(hdr)hdr.setAttribute('aria-expanded','true');
+  }
+}
+document.querySelectorAll('.acc-header').forEach(header=>{
+  header.addEventListener('click',()=>{
+    const panel=header.closest('.main-panel');
+    const body=panel.querySelector('.acc-body');
+    const isOpen=body.classList.contains('open');
+    document.querySelectorAll('.acc-body').forEach(b=>b.classList.remove('open'));
+    document.querySelectorAll('.acc-header').forEach(h=>h.setAttribute('aria-expanded','false'));
+    if(!isOpen){
+      body.classList.add('open');
+      header.setAttribute('aria-expanded','true');
+    }
+    // Wait for collapse animation to finish, then scroll header to top (below fixed nav)
+    setTimeout(()=>{
+      const navOffset=92; // nav height (60px) + top (16px) + gap (16px)
+      const top=header.getBoundingClientRect().top+window.scrollY-navOffset;
+      window.scrollTo({top:Math.max(0,top),behavior:'smooth'});
+    },400);
+  });
+});
+
+// ── START HERE: JUMP TO ITEM ──
+function jumpToItem(id){
+  const map={
+    'wings':    {main:'starters', sub:null},
+    'crab-cakes':{main:'galley',  sub:null},
+    'scallops': {main:'captains', sub:'sub-sea'},
+  };
+  const cfg=map[id]; if(!cfg) return;
+  // desktop: activate main tab
+  document.querySelectorAll('.main-tab').forEach(t=>{
+    const active=t.dataset.target===cfg.main;
+    t.classList.toggle('active',active);
+    t.setAttribute('aria-selected',active?'true':'false');
+  });
+  document.querySelectorAll('.main-panel').forEach(p=>{
+    p.classList.toggle('active',p.id===('panel-'+cfg.main));
+  });
+  // mobile: open accordion for target panel
+  const mobile=window.innerWidth<=900;
+  if(mobile)openAccordion(cfg.main);
+  // activate sub tab if needed
+  if(cfg.sub){
+    const panel=document.getElementById('panel-'+cfg.main);
+    if(panel){
+      panel.querySelectorAll('.sub-tab').forEach(b=>{
+        const active=b.dataset.sub===cfg.sub;
+        b.classList.toggle('active',active);
+        b.setAttribute('aria-selected',active?'true':'false');
+      });
+      panel.querySelectorAll('.sub-panel').forEach(p=>{
+        p.classList.toggle('active',p.id===cfg.sub);
+      });
+    }
+  }
+  // scroll to item (delay on mobile to let accordion open first)
+  setTimeout(()=>requestAnimationFrame(()=>{
+    const el=document.getElementById(id);
+    if(el){
+      const card=el.closest('.item-card');
+      card.scrollIntoView({behavior:'smooth',block:'center'});
+      setTimeout(()=>{
+        card.classList.add('item-pulse');
+        card.addEventListener('animationend',()=>card.classList.remove('item-pulse'),{once:true});
+      },600);
+    }
+  }),mobile?420:0);
+}
+
+// ── MAIN TAB SWITCHING ──
+const mainTabs=document.querySelectorAll('.main-tab');
+mainTabs.forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    const target=tab.dataset.target;
+    mainTabs.forEach(t=>{t.classList.remove('active');t.setAttribute('aria-selected','false');});
+    document.querySelectorAll('.main-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected','true');
+    const panel=document.getElementById('panel-'+target);
+    if(panel){panel.classList.add('active');window.scrollTo({top:document.getElementById('tab-bar-wrap').offsetTop-68,behavior:'smooth'});}
+  });
+});
+
+// ── SUB-TAB SWITCHING ──
+document.querySelectorAll('.sub-tab').forEach(tab=>{
+  tab.addEventListener('click',()=>{
+    const subId=tab.dataset.sub;
+    const bar=tab.closest('.sub-tab-bar');
+    const panel=tab.closest('.main-panel');
+    bar.querySelectorAll('.sub-tab').forEach(t=>{t.classList.remove('active');t.setAttribute('aria-selected','false');});
+    panel.querySelectorAll('.sub-panel').forEach(p=>p.classList.remove('active'));
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected','true');
+    const sub=document.getElementById('sub-'+subId);
+    if(sub)sub.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Brand Identity — The Captain's Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --navy:#1B3A5C;--amber:#C8832A;--cream:#F4EDD8;
+    --dark:#1A1208;--white:#FFFDF8;--brown:#3E2B1A;--muted:#7A6A55;
+    --serif:'Arvo','Georgia',serif;--sans:'DM Sans','Helvetica Neue',sans-serif;
+  }
+  html{background:var(--white)}
+  body{font-family:var(--sans);color:var(--dark);background:var(--white);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+
+  /* ── PAGE BREAKS ── */
+  .page{width:816px;min-height:1056px;margin:0 auto;position:relative;overflow:hidden;page-break-after:always}
+  .page:last-child{page-break-after:avoid}
+
+  /* ── COVER ── */
+  .cover{background:var(--navy);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px}
+  .cover-eyebrow{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:rgba(200,131,42,.7);margin-bottom:48px}
+  .cover-logo{width:220px;margin:0 auto 48px;display:block;filter:brightness(0) invert(1)}
+  .cover-rule{width:48px;height:2px;background:var(--amber);margin:0 auto 32px}
+  .cover-title{font-family:var(--serif);font-size:42px;font-weight:700;color:var(--cream);line-height:1.15;margin-bottom:16px}
+  .cover-sub{font-family:var(--sans);font-size:13px;font-weight:300;color:rgba(244,237,216,.5);letter-spacing:.06em}
+  .cover-footer{position:absolute;bottom:48px;left:0;right:0;text-align:center;font-family:var(--sans);font-size:11px;color:rgba(244,237,216,.22);letter-spacing:.12em;text-transform:uppercase}
+
+  /* ── SECTION PAGES ── */
+  .inner{padding:72px 80px}
+  .section-label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;display:flex;align-items:center;gap:14px}
+  .section-label::before{content:'';display:block;width:32px;height:1px;background:var(--amber)}
+  .section-title{font-family:var(--serif);font-size:34px;font-weight:700;color:var(--navy);line-height:1.15;margin-bottom:8px}
+  .section-body{font-family:var(--sans);font-size:13px;font-weight:300;color:var(--muted);line-height:1.75;max-width:560px;margin-bottom:48px}
+  .divider{width:100%;height:1px;background:rgba(26,18,8,.07);margin:40px 0}
+
+  /* ── COLORS ── */
+  .color-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:48px}
+  .color-swatch{border-radius:4px;overflow:hidden;box-shadow:0 2px 12px rgba(26,18,8,.1)}
+  .swatch-block{height:100px}
+  .swatch-info{padding:14px 16px;background:var(--white);border:1px solid rgba(26,18,8,.07);border-top:none}
+  .swatch-name{font-family:var(--sans);font-size:12px;font-weight:700;color:var(--dark);margin-bottom:3px}
+  .swatch-hex{font-family:'Courier New',monospace;font-size:11px;color:var(--muted)}
+  .swatch-role{font-family:var(--sans);font-size:10px;font-weight:400;color:var(--muted);margin-top:4px;line-height:1.4}
+  .color-grid-secondary{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+  /* ── TYPOGRAPHY ── */
+  .type-specimen{margin-bottom:40px;padding-bottom:40px;border-bottom:1px solid rgba(26,18,8,.07)}
+  .type-specimen:last-child{border-bottom:none}
+  .type-meta{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:16px}
+  .type-sample-serif-xl{font-family:var(--serif);font-size:52px;font-weight:700;color:var(--navy);line-height:1.1;margin-bottom:8px}
+  .type-sample-serif-lg{font-family:var(--serif);font-size:32px;font-weight:700;color:var(--navy);line-height:1.2;margin-bottom:8px}
+  .type-sample-serif-em{font-family:var(--serif);font-size:24px;font-weight:400;font-style:italic;color:var(--amber);margin-bottom:8px}
+  .type-sample-sans{font-family:var(--sans);font-size:13px;font-weight:300;color:var(--brown);line-height:1.75;max-width:560px}
+  .type-sample-sans-label{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+  .type-scale{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+  .type-scale-row{display:flex;align-items:baseline;gap:20px}
+  .type-scale-label{font-family:var(--sans);font-size:10px;color:var(--muted);width:60px;flex-shrink:0}
+
+  /* ── LOGO ── */
+  .logo-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:40px}
+  .logo-box{border-radius:4px;padding:48px;display:flex;align-items:center;justify-content:center}
+  .logo-box.light{background:var(--cream);border:1px solid rgba(26,18,8,.08)}
+  .logo-box.dark{background:var(--navy)}
+  .logo-box.amber-bg{background:var(--amber)}
+  .logo-box.charcoal{background:var(--dark)}
+  .logo-box img{width:160px;height:auto}
+  .logo-caption{font-family:var(--sans);font-size:10px;color:var(--muted);text-align:center;margin-top:10px;letter-spacing:.08em}
+
+  /* ── VOICE ── */
+  .voice-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:40px}
+  .voice-card{padding:24px 26px;border-radius:3px;border-left:3px solid var(--amber)}
+  .voice-card.do{background:rgba(27,58,92,.04);border-color:var(--navy)}
+  .voice-card.dont{background:rgba(200,131,42,.05);border-color:rgba(200,131,42,.3)}
+  .voice-card-label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:12px}
+  .voice-card.do .voice-card-label{color:var(--navy)}
+  .voice-card.dont .voice-card-label{color:rgba(200,131,42,.7)}
+  .voice-item{font-family:var(--sans);font-size:13px;font-weight:300;color:var(--brown);line-height:1.6;margin-bottom:8px;padding-left:14px;position:relative}
+  .voice-item::before{content:'';position:absolute;left:0;top:8px;width:5px;height:1px;background:currentColor;opacity:.5}
+
+  /* ── COMPONENTS ── */
+  .component-row{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:32px}
+  .comp-label{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);width:100%;margin-bottom:8px}
+  .btn-primary-demo{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--amber);color:var(--dark);padding:14px 28px;border-radius:9999px;text-decoration:none}
+  .btn-ghost-demo{display:inline-flex;align-items:center;gap:8px;font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:transparent;color:var(--cream);padding:13px 28px;border-radius:9999px;text-decoration:none;border:1px solid rgba(244,237,216,.35)}
+  .btn-demo-wrap{background:var(--navy);padding:28px 32px;border-radius:4px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+  .badge-demo{font-family:var(--sans);font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;border-radius:2px}
+  .badge-amber{background:rgba(200,131,42,.15);color:var(--amber);border:1px solid rgba(200,131,42,.3)}
+  .badge-navy{background:rgba(27,58,92,.08);color:var(--navy);border:1px solid rgba(27,58,92,.2)}
+  .nav-demo{background:var(--navy);border-radius:100px;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+  .nav-demo-link{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,237,216,.5)}
+  .nav-demo-link.active{color:var(--amber)}
+  .nav-demo-cta{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;background:var(--amber);color:var(--dark);padding:8px 18px;border-radius:9999px}
+
+  /* ── PHOTOGRAPHY ── */
+  .photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:32px}
+  .photo-item{border-radius:4px;overflow:hidden;position:relative}
+  .photo-item img{width:100%;height:200px;object-fit:cover;display:block}
+  .photo-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,18,8,.2) 0%,rgba(27,58,92,.6) 100%)}
+  .photo-caption{position:absolute;bottom:14px;left:16px;font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,237,216,.8)}
+
+  /* ── PAGE NUMBERS ── */
+  .pg-num{position:absolute;bottom:36px;right:56px;font-family:var(--sans);font-size:10px;color:rgba(26,18,8,.25);letter-spacing:.12em}
+  .pg-watermark{position:absolute;bottom:36px;left:56px;font-family:var(--sans);font-size:10px;color:rgba(26,18,8,.2);letter-spacing:.1em;text-transform:uppercase}
+
+  @media print{
+    body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .page{page-break-after:always;margin:0;width:100%}
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ PAGE 1: COVER ══ -->
+<div class="page cover">
+  <div class="cover-eyebrow">Brand Identity Guidelines</div>
+  <img class="cover-logo" src="brand_assets/captains_wordmark.png" alt="The Captain's Table">
+  <div class="cover-rule"></div>
+  <div class="cover-title">Brand Identity</div>
+  <div class="cover-sub">Monroe, NY &nbsp;·&nbsp; Est. 1934</div>
+  <div class="cover-footer">Confidential · For internal and vendor use only</div>
+</div>
+
+<!-- ══ PAGE 2: BRAND OVERVIEW ══ -->
+<div class="page inner">
+  <div class="section-label">Overview</div>
+  <h1 class="section-title">Who We Are</h1>
+  <p class="section-body">The Captain's Table has been a cornerstone of Monroe, NY since 1934. We are a family restaurant with deep community roots — known for great food, cold drinks, and live music on the Afterdeck every Friday and Saturday night. Our brand reflects that heritage: warm, confident, and unpretentious.</p>
+
+  <div class="divider"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px">
+    <div>
+      <div class="section-label" style="margin-bottom:16px">Brand Personality</div>
+      <div class="voice-item" style="font-size:14px;font-weight:400;color:var(--dark);margin-bottom:12px">Warm &amp; Welcoming</div>
+      <div class="voice-item" style="font-size:14px;font-weight:400;color:var(--dark);margin-bottom:12px">Confident &amp; Direct</div>
+      <div class="voice-item" style="font-size:14px;font-weight:400;color:var(--dark);margin-bottom:12px">Rooted in Tradition</div>
+      <div class="voice-item" style="font-size:14px;font-weight:400;color:var(--dark);margin-bottom:12px">Lively &amp; Inviting</div>
+      <div class="voice-item" style="font-size:14px;font-weight:400;color:var(--dark)">Unpretentious</div>
+    </div>
+    <div>
+      <div class="section-label" style="margin-bottom:16px">Brand Promise</div>
+      <p style="font-family:var(--serif);font-size:20px;font-weight:400;font-style:italic;color:var(--navy);line-height:1.5">"Great food. Cold drinks. Live music."</p>
+      <p style="font-family:var(--sans);font-size:13px;font-weight:300;color:var(--muted);line-height:1.7;margin-top:16px">Every element of our brand should reinforce this promise — from the warmth of our photography to the confidence of our typography.</p>
+    </div>
+  </div>
+
+  <div class="pg-watermark">The Captain's Table</div>
+  <div class="pg-num">02</div>
+</div>
+
+<!-- ══ PAGE 3: COLOR PALETTE ══ -->
+<div class="page inner">
+  <div class="section-label">Visual Identity</div>
+  <h2 class="section-title">Color Palette</h2>
+  <p class="section-body">Our palette is anchored in deep navy and warm amber — the sea and the lantern. These are non-negotiable primary colors. Never substitute with default blues or generic oranges.</p>
+
+  <div class="color-grid">
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#1B3A5C"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Captain's Navy</div>
+        <div class="swatch-hex">#1B3A5C</div>
+        <div class="swatch-role">Primary brand color. Used on navbars, hero backgrounds, and dark surfaces.</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#C8832A"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Afterdeck Amber</div>
+        <div class="swatch-hex">#C8832A</div>
+        <div class="swatch-role">Accent color. Used on CTAs, highlights, badges, and interactive elements.</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#F4EDD8"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Dock Cream</div>
+        <div class="swatch-hex">#F4EDD8</div>
+        <div class="swatch-role">Warm light tone. Used for body text on dark backgrounds and light sections.</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#1A1208"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Charcoal</div>
+        <div class="swatch-hex">#1A1208</div>
+        <div class="swatch-role">Deep background. Used for rich dark sections and footer.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="color-grid-secondary">
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#FFFDF8"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Off-White</div>
+        <div class="swatch-hex">#FFFDF8</div>
+        <div class="swatch-role">Page background. Slightly warm to avoid harshness.</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#3E2B1A"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Dark Brown</div>
+        <div class="swatch-hex">#3E2B1A</div>
+        <div class="swatch-role">Body text on light backgrounds. Warmer than pure black.</div>
+      </div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-block" style="background:#7A6A55"></div>
+      <div class="swatch-info">
+        <div class="swatch-name">Muted</div>
+        <div class="swatch-hex">#7A6A55</div>
+        <div class="swatch-role">Secondary text, captions, and supporting content.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-watermark">The Captain's Table</div>
+  <div class="pg-num">03</div>
+</div>
+
+<!-- ══ PAGE 4: TYPOGRAPHY ══ -->
+<div class="page inner">
+  <div class="section-label">Visual Identity</div>
+  <h2 class="section-title">Typography</h2>
+  <p class="section-body">Two typefaces. One for character, one for clarity. Never use system defaults or substitute fonts without approval.</p>
+
+  <div class="type-specimen">
+    <div class="type-meta">Arvo — Primary Typeface (Serif)</div>
+    <div class="type-sample-serif-xl">The Captain's Table</div>
+    <div class="type-sample-serif-lg">Est. 1934 · Monroe, NY</div>
+    <div class="type-sample-serif-em">Great food. Cold drinks. Live music.</div>
+    <div style="margin-top:16px;display:flex;gap:32px">
+      <div>
+        <div class="type-sample-sans-label">Used for</div>
+        <div style="font-family:var(--sans);font-size:12px;color:var(--brown);line-height:1.8">H1 / H2 headings<br>Pull quotes<br>Large display text<br>Italic accents</div>
+      </div>
+      <div>
+        <div class="type-sample-sans-label">Weights</div>
+        <div style="font-family:var(--serif);font-size:14px;color:var(--brown);line-height:2">Regular 400<br><strong>Bold 700</strong><br><em>Italic 400</em></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="type-specimen">
+    <div class="type-meta">DM Sans — Secondary Typeface (Sans-Serif)</div>
+    <div style="font-family:'DM Sans',sans-serif;font-size:28px;font-weight:700;color:var(--navy);margin-bottom:8px">MENU &nbsp;·&nbsp; EVENTS &nbsp;·&nbsp; CONTACT</div>
+    <div class="type-sample-sans" style="font-size:14px">Open for lunch and dinner seven days a week. Reservations recommended on Friday and Saturday nights. Live music on the Afterdeck all season long.</div>
+    <div style="margin-top:16px;display:flex;gap:32px">
+      <div>
+        <div class="type-sample-sans-label">Used for</div>
+        <div style="font-family:var(--sans);font-size:12px;color:var(--brown);line-height:1.8">Navigation labels<br>Body copy<br>Buttons &amp; badges<br>Captions &amp; metadata</div>
+      </div>
+      <div>
+        <div class="type-sample-sans-label">Weights</div>
+        <div style="font-family:'DM Sans',sans-serif;font-size:14px;color:var(--brown);line-height:2;font-weight:300">Light 300<br><span style="font-weight:400">Regular 400</span><br><span style="font-weight:700">Bold 700</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pg-watermark">The Captain's Table</div>
+  <div class="pg-num">04</div>
+</div>
+
+<!-- ══ PAGE 5: LOGO ══ -->
+<div class="page inner">
+  <div class="section-label">Visual Identity</div>
+  <h2 class="section-title">Logo Usage</h2>
+  <p class="section-body">The wordmark is our primary logo. Use it consistently and never alter its proportions, colors, or spacing.</p>
+
+  <div class="logo-grid">
+    <div>
+      <div class="logo-box light">
+        <img src="brand_assets/captains_wordmark.png" alt="Wordmark on light">
+      </div>
+      <div class="logo-caption">On light / cream backgrounds</div>
+    </div>
+    <div>
+      <div class="logo-box dark">
+        <img src="brand_assets/captains_wordmark.png" alt="Wordmark on dark" style="filter:brightness(0) invert(1)">
+      </div>
+      <div class="logo-caption">On navy / dark backgrounds</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-label" style="margin-bottom:16px">Clear Space &amp; Rules</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+    <div>
+      <div class="type-sample-sans-label" style="margin-bottom:10px">Always</div>
+      <div class="voice-item" style="font-family:var(--sans);font-size:13px;color:var(--brown);line-height:1.7;margin-bottom:8px">Maintain clear space equal to the height of the "T" in "Table" on all sides</div>
+      <div class="voice-item" style="font-family:var(--sans);font-size:13px;color:var(--brown);line-height:1.7;margin-bottom:8px">Use on white, cream, navy, or dark backgrounds only</div>
+      <div class="voice-item" style="font-family:var(--sans);font-size:13px;color:var(--brown);line-height:1.7">Scale proportionally — never stretch or compress</div>
+    </div>
+    <div>
+      <div class="type-sample-sans-label" style="margin-bottom:10px">Never</div>
+      <div class="voice-item" style="font-family:var(--sans);font-size:13px;color:var(--brown);line-height:1.7;margin-bottom:8px">Place on busy photographic backgrounds without a scrim</div>
+      <div class="voice-item" style="font-family:var(--sans);font-size:13px;color:var(--brown);line-height:1.7;margin-bottom:8px">Recolor, rotate, or add effects to the wordmark</div>
+      <div class="voice-item" style="font-family:var(--sans);font-size:13px;color:var(--brown);line-height:1.7">Use a minimum size below 120px wide in digital contexts</div>
+    </div>
+  </div>
+
+  <div class="pg-watermark">The Captain's Table</div>
+  <div class="pg-num">05</div>
+</div>
+
+<!-- ══ PAGE 6: VOICE & TONE ══ -->
+<div class="page inner">
+  <div class="section-label">Brand Voice</div>
+  <h2 class="section-title">Voice &amp; Tone</h2>
+  <p class="section-body">We speak plainly. We're a 90-year-old family restaurant, not a startup. Our voice is warm and direct — like a recommendation from someone who's been coming here for years.</p>
+
+  <div class="voice-grid">
+    <div class="voice-card do">
+      <div class="voice-card-label">We Sound Like</div>
+      <div class="voice-item">Bold and simple — "Great food. Cold drinks. Live music."</div>
+      <div class="voice-item">Confident without being boastful</div>
+      <div class="voice-item">Warm and familiar — "When you're here, you're family"</div>
+      <div class="voice-item">Grounded in heritage — "Est. 1934 · Monroe, NY"</div>
+      <div class="voice-item">Short sentences. Active voice.</div>
+    </div>
+    <div class="voice-card dont">
+      <div class="voice-card-label">We Don't Sound Like</div>
+      <div class="voice-item">Overly formal or corporate</div>
+      <div class="voice-item">Trendy or chasing buzzwords</div>
+      <div class="voice-item">Vague — "an experience like no other"</div>
+      <div class="voice-item">Apologetic or hedging</div>
+      <div class="voice-item">Emoji-heavy or overly casual</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-label" style="margin-bottom:20px">Copy Examples</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+    <div style="background:rgba(27,58,92,.04);padding:20px 22px;border-radius:3px;border-left:3px solid var(--navy)">
+      <div class="type-sample-sans-label" style="margin-bottom:10px;color:var(--navy)">Hero Headline</div>
+      <div style="font-family:var(--serif);font-size:18px;font-weight:700;color:var(--navy);line-height:1.3">"Great food.<br>Cold drinks.<br>Live music."</div>
+    </div>
+    <div style="background:rgba(27,58,92,.04);padding:20px 22px;border-radius:3px;border-left:3px solid var(--navy)">
+      <div class="type-sample-sans-label" style="margin-bottom:10px;color:var(--navy)">CTA Button</div>
+      <div style="font-family:var(--serif);font-size:18px;font-weight:700;color:var(--navy);line-height:1.3">"Reserve a Table"<br><span style="font-size:14px;font-weight:400;font-style:italic;color:var(--muted)">(not "Book Now" or "Click Here")</span></div>
+    </div>
+    <div style="background:rgba(27,58,92,.04);padding:20px 22px;border-radius:3px;border-left:3px solid var(--navy)">
+      <div class="type-sample-sans-label" style="margin-bottom:10px;color:var(--navy)">Section Intro</div>
+      <div style="font-family:var(--sans);font-size:13px;font-weight:300;color:var(--brown);line-height:1.7">"Live bands on the Afterdeck every Friday and Saturday night, all season long."</div>
+    </div>
+    <div style="background:rgba(27,58,92,.04);padding:20px 22px;border-radius:3px;border-left:3px solid var(--navy)">
+      <div class="type-sample-sans-label" style="margin-bottom:10px;color:var(--navy)">Heritage Line</div>
+      <div style="font-family:var(--sans);font-size:13px;font-weight:300;color:var(--brown);line-height:1.7">"We've been feeding the community since 1934."</div>
+    </div>
+  </div>
+
+  <div class="pg-watermark">The Captain's Table</div>
+  <div class="pg-num">06</div>
+</div>
+
+<!-- ══ PAGE 7: UI COMPONENTS ══ -->
+<div class="page inner">
+  <div class="section-label">Digital Standards</div>
+  <h2 class="section-title">UI Components</h2>
+  <p class="section-body">Core interface elements used across all digital touchpoints. Maintain these styles exactly — do not introduce new button shapes, border radii, or type treatments.</p>
+
+  <div class="comp-label">Navigation Bar</div>
+  <div class="nav-demo" style="margin-bottom:32px">
+    <span style="font-family:'Arvo',serif;font-size:15px;font-weight:700;color:var(--cream)">The Captain's Table</span>
+    <div style="display:flex;gap:24px;align-items:center">
+      <span class="nav-demo-link">Menu</span>
+      <span class="nav-demo-link active">Entertainment</span>
+      <span class="nav-demo-link">Contact</span>
+      <span class="nav-demo-cta">Reserve a Table</span>
+    </div>
+  </div>
+
+  <div class="comp-label">Buttons</div>
+  <div class="btn-demo-wrap" style="margin-bottom:32px">
+    <span class="btn-primary-demo">Reserve a Table</span>
+    <span class="btn-ghost-demo">View the Menu</span>
+    <span class="btn-primary-demo" style="background:transparent;color:var(--amber);border:1px solid rgba(200,131,42,.4)">Order Online</span>
+  </div>
+
+  <div class="comp-label">Badges &amp; Labels</div>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:32px">
+    <span class="badge-demo badge-amber">Live Tonight</span>
+    <span class="badge-demo badge-amber">Gluten-Free</span>
+    <span class="badge-demo badge-navy">In-Store</span>
+    <span class="badge-demo badge-navy">Chef's Pick</span>
+    <span class="badge-demo" style="background:var(--amber);color:var(--dark);border:1px solid var(--amber)">Tonight</span>
+    <span class="badge-demo" style="background:rgba(200,131,42,.18);color:var(--amber);border:1px solid rgba(200,131,42,.3)">Tomorrow</span>
+  </div>
+
+  <div class="comp-label">Section Label Style</div>
+  <div style="display:flex;align-items:center;gap:14px;margin-bottom:32px">
+    <div style="width:32px;height:1px;background:var(--amber)"></div>
+    <span style="font-family:'DM Sans',sans-serif;font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--amber)">Live Entertainment</span>
+  </div>
+
+  <div class="comp-label">Spacing System — 4px Base Grid</div>
+  <div style="display:flex;gap:8px;align-items:flex-end">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:4px;height:4px;background:var(--amber)"></div><span style="font-family:var(--sans);font-size:9px;color:var(--muted)">4px</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:8px;height:8px;background:var(--amber)"></div><span style="font-family:var(--sans);font-size:9px;color:var(--muted)">8px</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:16px;height:16px;background:var(--amber)"></div><span style="font-family:var(--sans);font-size:9px;color:var(--muted)">16px</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:24px;height:24px;background:var(--amber)"></div><span style="font-family:var(--sans);font-size:9px;color:var(--muted)">24px</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:32px;height:32px;background:var(--amber)"></div><span style="font-family:var(--sans);font-size:9px;color:var(--muted)">32px</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:48px;height:48px;background:var(--amber)"></div><span style="font-family:var(--sans);font-size:9px;color:var(--muted)">48px</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:64px;height:64px;background:var(--amber)"></div><span style="font-family:var(--sans);font-size:9px;color:var(--muted)">64px</span></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:6px"><div style="width:80px;height:80px;background:var(--amber)"></div><span style="font-family:var(--sans);font-size:9px;color:var(--muted)">80px</span></div>
+  </div>
+
+  <div class="pg-watermark">The Captain's Table</div>
+  <div class="pg-num">07</div>
+</div>
+
+<!-- ══ PAGE 8: PHOTOGRAPHY ══ -->
+<div class="page inner">
+  <div class="section-label">Visual Identity</div>
+  <h2 class="section-title">Photography Style</h2>
+  <p class="section-body">Our photography is warm, real, and lived-in. Avoid sterile food photography with white backgrounds. We prefer images that feel like they were taken on a good night at the Table.</p>
+
+  <div class="photo-grid">
+    <div class="photo-item">
+      <img src="brand_assets/store_front.jpg" alt="Storefront">
+      <div class="photo-overlay"></div>
+      <div class="photo-caption">Exterior · Context &amp; Location</div>
+    </div>
+    <div class="photo-item">
+      <img src="brand_assets/having_drinks.jpg" alt="Drinks">
+      <div class="photo-overlay"></div>
+      <div class="photo-caption">Atmosphere · People &amp; Moments</div>
+    </div>
+    <div class="photo-item">
+      <img src="brand_assets/afterdeck_bar.jpg" alt="Afterdeck">
+      <div class="photo-overlay"></div>
+      <div class="photo-caption">Venue · Spaces &amp; Ambiance</div>
+    </div>
+    <div class="photo-item">
+      <img src="brand_assets/outdoor_dining.jpg" alt="Outdoor Dining">
+      <div class="photo-overlay"></div>
+      <div class="photo-caption">Dining · Food &amp; Experience</div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+    <div>
+      <div class="type-sample-sans-label" style="margin-bottom:12px">Treatment Rules</div>
+      <div class="voice-item" style="font-family:var(--sans);font-size:13px;color:var(--brown);line-height:1.7;margin-bottom:8px">Always apply a gradient overlay when text appears over images</div>
+      <div class="voice-item" style="font-family:var(--sans);font-size:13px;color:var(--brown);line-height:1.7;margin-bottom:8px">Hero images use the navy-blue bottom gradient: dark → navy</div>
+      <div class="voice-item" style="font-family:var(--sans);font-size:13px;color:var(--brown);line-height:1.7">Warm, golden-hour lighting preferred</div>
+    </div>
+    <div>
+      <div class="type-sample-sans-label" style="margin-bottom:12px">Avoid</div>
+      <div class="voice-item" style="font-family:var(--sans);font-size:13px;color:var(--brown);line-height:1.7;margin-bottom:8px">Bright white studio food shots</div>
+      <div class="voice-item" style="font-family:var(--sans);font-size:13px;color:var(--brown);line-height:1.7;margin-bottom:8px">Stock photography of generic restaurants</div>
+      <div class="voice-item" style="font-family:var(--sans);font-size:13px;color:var(--brown);line-height:1.7">Heavy filters or over-saturated edits</div>
+    </div>
+  </div>
+
+  <div class="pg-watermark">The Captain's Table</div>
+  <div class="pg-num">08</div>
+</div>
+
+<!-- ══ PAGE 9: CONTACT ══ -->
+<div class="page inner" style="display:flex;flex-direction:column;justify-content:space-between">
+  <div>
+    <div class="section-label">Reference</div>
+    <h2 class="section-title">Contact &amp; Resources</h2>
+    <p class="section-body">For questions about brand usage, asset requests, or vendor approvals, use the contact information below.</p>
+
+    <div class="divider"></div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-bottom:48px">
+      <div>
+        <div class="type-sample-sans-label" style="margin-bottom:14px">Location</div>
+        <div style="font-family:var(--sans);font-size:14px;font-weight:400;color:var(--brown);line-height:1.8">The Captain's Table<br>547 Route 17M<br>Monroe, NY 10950</div>
+      </div>
+      <div>
+        <div class="type-sample-sans-label" style="margin-bottom:14px">Contact</div>
+        <div style="font-family:var(--sans);font-size:14px;font-weight:400;color:var(--brown);line-height:1.8">
+          Phone: (845) 783-0209<br>
+          Online Orders: toasttab.com<br>
+          Reservations: toasttab.com
+        </div>
+      </div>
+      <div>
+        <div class="type-sample-sans-label" style="margin-bottom:14px">Hours</div>
+        <div style="font-family:var(--sans);font-size:14px;font-weight:400;color:var(--brown);line-height:1.8">
+          Mon–Thu: 11:30am – 11pm<br>
+          Fri–Sat: 12pm – 12am<br>
+          Sun: 12pm – 10pm
+        </div>
+      </div>
+      <div>
+        <div class="type-sample-sans-label" style="margin-bottom:14px">Entertainment</div>
+        <div style="font-family:var(--sans);font-size:14px;font-weight:400;color:var(--brown);line-height:1.8">Live bands on the Afterdeck<br>Every Friday &amp; Saturday<br>All season long</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--navy);border-radius:4px;padding:40px 48px;display:flex;align-items:center;justify-content:space-between">
+    <div>
+      <div style="font-family:var(--serif);font-size:22px;font-weight:700;color:var(--cream);margin-bottom:6px">The Captain's Table</div>
+      <div style="font-family:var(--sans);font-size:12px;font-weight:300;color:rgba(244,237,216,.45);letter-spacing:.06em">Monroe, NY &nbsp;·&nbsp; Est. 1934 &nbsp;·&nbsp; Brand Identity Guidelines</div>
+    </div>
+    <div style="font-family:var(--sans);font-size:10px;color:rgba(244,237,216,.3);text-align:right;line-height:1.8;letter-spacing:.06em">
+      Confidential<br>Internal use only
+    </div>
+  </div>
+
+  <div class="pg-watermark">The Captain's Table</div>
+  <div class="pg-num">09</div>
+</div>
+
+</body>
+</html>
