@@ -7,7 +7,7 @@ const path = require('path');
     headless: true
   });
   const page = await browser.newPage();
-  await page.setViewport({ width: 1200, height: 630, deviceScaleFactor: 2 });
+  await page.setViewport({ width: 1200, height: 630, deviceScaleFactor: 1 });
   await page.goto('http://localhost:3000/social-preview-card.html', { waitUntil: 'networkidle0', timeout: 15000 });
   await new Promise(r => setTimeout(r, 1500));
   await page.screenshot({
