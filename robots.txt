@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://captainstable.netlify.app/sitemap.xml

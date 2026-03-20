@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://captainstable.netlify.app/</loc><priority>1.0</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://captainstable.netlify.app/menu.html</loc><priority>0.9</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://captainstable.netlify.app/events.html</loc><priority>0.9</priority><changefreq>weekly</changefreq></url>
+  <url><loc>https://captainstable.netlify.app/gift-cards.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://captainstable.netlify.app/catering.html</loc><priority>0.7</priority><changefreq>monthly</changefreq></url>
+  <url><loc>https://captainstable.netlify.app/contact.html</loc><priority>0.8</priority><changefreq>monthly</changefreq></url>
+</urlset>
