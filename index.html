@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>if(!sessionStorage.getItem('nav-animated'))document.documentElement.classList.add('nav-first-visit');</script>
 <title>The Captain's Table — Monroe, NY</title>
 <link rel="icon" type="image/png" href="brand_assets/hamburger_menu_icon.png">
 <meta name="google-site-verification" content="tU-vypjRcpoSaENNm2IQ_zZdTr7tPig9GZRFSEfbXEY">
@@ -92,6 +93,12 @@ body{font-family:var(--sans);background:var(--white);color:var(--brown);overflow
 .reveal.in{opacity:1;transform:translateY(0)}
 .reveal-d1{transition-delay:.07s}.reveal-d2{transition-delay:.14s}.reveal-d3{transition-delay:.21s}.reveal-d4{transition-delay:.28s}
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+/* ── NAV ENTRANCE ── */
+#nav-intro-pill{display:none;position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:101;align-items:center;justify-content:center;width:220px;height:60px;background:rgba(27,58,92,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:9999px;border:1px solid rgba(200,131,42,.2);box-shadow:0 8px 32px rgba(26,18,8,.35),inset 0 1px 0 rgba(200,131,42,.1);transition:width .75s cubic-bezier(.4,0,.2,1)}
+@media(max-width:900px){#nav-intro-pill{width:60px}}
+.nav-first-visit #nav-intro-pill{display:flex}
+.nav-first-visit #site-nav{opacity:0;pointer-events:none}
 
 /* ── NAV ── */
 nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:calc(100% - 48px);max-width:1160px;padding:0 28px;height:60px;background:rgba(27,58,92,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:9999px;border:1px solid rgba(200,131,42,.2);box-shadow:0 8px 32px rgba(26,18,8,.35),inset 0 1px 0 rgba(200,131,42,.1);transition:background .3s,box-shadow .3s}
@@ -293,6 +300,11 @@ footer{background:var(--dark);padding:72px 80px 44px}
 </head>
 <body>
 <a href="#main-content" style="position:absolute;left:-9999px;top:8px;z-index:999;background:var(--amber);color:var(--dark);padding:10px 20px;font-family:var(--sans);font-weight:700;font-size:13px;border-radius:2px;text-decoration:none" onfocus="this.style.left='8px'" onblur="this.style.left='-9999px'">Skip to content</a>
+
+<div id="nav-intro-pill" aria-hidden="true">
+  <img class="pill-wordmark" src="brand_assets/captains_wordmark.png" alt="" style="height:32px;width:auto">
+  <img class="pill-wheel" src="brand_assets/hamburger_menu_icon.png" alt="" style="height:28px;width:28px;display:none">
+</div>
 
 <nav id="site-nav">
   <a href="#" class="nav-logo">
@@ -673,6 +685,126 @@ document.querySelectorAll('[data-count]').forEach(el=>statObs.observe(el));
   const pr=window.matchMedia('(prefers-reduced-motion:reduce)').matches;
   if(pr){container.querySelectorAll('.reveal').forEach(el=>el.classList.add('in'));}
   else{const o=new IntersectionObserver(en=>{en.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');o.unobserve(e.target);}});},{threshold:0.1});container.querySelectorAll('.reveal').forEach(el=>o.observe(el));}
+})();
+
+// ── NAV ENTRANCE ANIMATION ──
+(function(){
+  if(!document.documentElement.classList.contains('nav-first-visit'))return;
+  if(window.matchMedia('(prefers-reduced-motion:reduce)').matches){
+    document.documentElement.classList.remove('nav-first-visit');
+    sessionStorage.setItem('nav-animated','1');
+    return;
+  }
+  const nav=document.getElementById('site-nav');
+  const pill=document.getElementById('nav-intro-pill');
+  const isMobile=window.innerWidth<=900;
+  const wordmarkImg=pill.querySelector('.pill-wordmark');
+  const wheelImg=pill.querySelector('.pill-wheel');
+
+  // Configure pill content for viewport
+  if(isMobile){
+    wordmarkImg.style.display='none';
+    wheelImg.style.display='block';
+  }
+
+  // Desktop: links/wheel/hamburger pop in after swap
+  // Mobile: only wordmark pops in — hamburger is immediately visible when nav fades in
+  const desktopReveal=[nav.querySelector('.nav-links'),nav.querySelector('.nav-wheel-wrap'),nav.querySelector('.nav-hamburger')].filter(Boolean);
+  const mobileWordmark=nav.querySelector('.nav-logo img');
+  if(isMobile){
+    if(mobileWordmark){mobileWordmark.style.opacity='0';mobileWordmark.style.transition='none';}
+  } else {
+    desktopReveal.forEach(el=>{el.style.opacity='0';el.style.transition='none';});
+  }
+
+  function swapToNav(){
+    if(isMobile){
+      // Fade nav in (hamburger already visible, wordmark hidden)
+      nav.style.transition='opacity .25s ease';
+      nav.style.opacity='1';
+      nav.style.pointerEvents='auto';
+      // Fade pill out simultaneously
+      pill.style.transition='opacity .25s ease';
+      pill.style.opacity='0';
+      // After pill gone, fade wordmark in
+      setTimeout(()=>{
+        if(mobileWordmark){mobileWordmark.style.transition='opacity .35s ease';mobileWordmark.style.opacity='1';}
+        setTimeout(()=>{
+          if(mobileWordmark){mobileWordmark.style.opacity='';mobileWordmark.style.transition='';}
+          nav.style.cssText='';
+          pill.remove();
+          document.documentElement.classList.remove('nav-first-visit');
+          sessionStorage.setItem('nav-animated','1');
+        },380);
+      },280);
+    } else {
+      nav.style.transition='opacity .2s ease';
+      nav.style.opacity='1';
+      nav.style.pointerEvents='auto';
+      pill.style.transition='opacity .2s ease';
+      pill.style.opacity='0';
+      setTimeout(()=>{
+        desktopReveal.forEach((el,i)=>{
+          setTimeout(()=>{el.style.transition='opacity .35s ease';el.style.opacity='1';},i*120);
+        });
+        setTimeout(()=>{
+          desktopReveal.forEach(el=>{el.style.opacity='';el.style.transition='';});
+          nav.style.cssText='';
+          pill.remove();
+          document.documentElement.classList.remove('nav-first-visit');
+          sessionStorage.setItem('nav-animated','1');
+        },desktopReveal.length*120+380);
+      },220);
+    }
+  }
+
+  function startDesktop(){
+    setTimeout(()=>{
+      const imgRect=wordmarkImg.getBoundingClientRect();
+      const navFinalWidth=nav.offsetWidth;
+      const navPadLeft=parseFloat(getComputedStyle(nav).paddingLeft)||28;
+      const navFinalLeft=window.innerWidth/2-navFinalWidth/2;
+      const delta=imgRect.left-(navFinalLeft+navPadLeft);
+      const easing='cubic-bezier(.4,0,.2,1)';
+      wordmarkImg.style.transition=`transform 850ms ${easing}`;
+      wordmarkImg.style.transform=`translateX(-${delta}px)`;
+      pill.style.transitionDuration='850ms';
+      pill.style.width=navFinalWidth+'px';
+      setTimeout(swapToNav,880);
+    },900);
+  }
+
+  function startMobile(){
+    setTimeout(()=>{
+      // Phase 1: wobble right
+      wheelImg.style.transition='transform 240ms ease-out';
+      wheelImg.style.transform='rotate(65deg)';
+      setTimeout(()=>{
+        // Wobble left
+        wheelImg.style.transition='transform 300ms ease-in-out';
+        wheelImg.style.transform='rotate(-40deg)';
+        setTimeout(()=>{
+          // Phase 2: expand while wheel slides right and rotates back
+          // Measure the actual icon image, not the button (which has padding)
+          const hamburgerIcon=nav.querySelector('.hamburger-icon');
+          const hRect=hamburgerIcon.getBoundingClientRect();
+          const wRect=wheelImg.getBoundingClientRect();
+          const deltaX=(hRect.left+hRect.width/2)-(wRect.left+wRect.width/2);
+          const easing='cubic-bezier(.4,0,.2,1)';
+          wheelImg.style.transition=`transform 850ms ${easing}`;
+          wheelImg.style.transform=`translateX(${deltaX}px) rotate(0deg)`;
+          pill.style.transitionDuration='850ms';
+          pill.style.width=nav.offsetWidth+'px';
+          setTimeout(swapToNav,880);
+        },320);
+      },260);
+    },600);
+  }
+
+  const triggerImg=isMobile?wheelImg:wordmarkImg;
+  function go(){isMobile?startMobile():startDesktop();}
+  if(triggerImg.complete){go();}
+  else{triggerImg.addEventListener('load',go,{once:true});triggerImg.addEventListener('error',go,{once:true});}
 })();
 </script>
 </body>
