@@ -236,6 +236,9 @@ nav.scrolled{background:rgba(27,58,92,.92);box-shadow:0 12px 40px rgba(26,18,8,.
 .schedule-row.is-tonight .schedule-band{color:var(--amber)}
 .schedule-row.is-tomorrow{background:rgba(200,131,42,.05);border-left-color:rgba(200,131,42,.35)}
 .schedule-row.is-dim{opacity:.3;pointer-events:none}
+.cal-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:3px;border:1px solid rgba(200,131,42,.45);color:var(--amber);font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;flex-shrink:0;white-space:nowrap;transition:background .2s,border-color .2s}
+.cal-btn:hover{background:rgba(200,131,42,.14);border-color:var(--amber)}
+.cal-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
 .tonight-badge{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--navy);background:var(--amber);padding:3px 9px;border-radius:2px;flex-shrink:0}
 .tomorrow-badge{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--amber);background:rgba(200,131,42,.18);padding:3px 9px;border-radius:2px;flex-shrink:0}
 
@@ -636,6 +639,8 @@ document.querySelectorAll('[data-count]').forEach(el=>statObs.observe(el));
   const SD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   const SM=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   function fmt(dt){const h=dt.getHours(),m=dt.getMinutes(),ap=h>=12?'PM':'AM';return(h%12||12)+(m?':'+String(m).padStart(2,'0'):'')+' '+ap;}
+  function gcalDT(dt){const p=n=>String(n).padStart(2,'0');return`${dt.getFullYear()}${p(dt.getMonth()+1)}${p(dt.getDate())}T${p(dt.getHours())}${p(dt.getMinutes())}00`;}
+  function gcalURL(s,en,name){return'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(name+" @ The Captain's Table")+'&dates='+gcalDT(s)+'/'+gcalDT(en)+'&location='+encodeURIComponent("The Captain's Table, 547 Route 17M, Monroe, NY")+'&details='+encodeURIComponent("Live music at The Captain's Table. captainstable.netlify.app/events.html");}
   const now=new Date();
   const todayStr=now.toDateString();
   const tom=new Date(now);tom.setDate(tom.getDate()+1);const tomStr=tom.toDateString();
@@ -652,7 +657,8 @@ document.querySelectorAll('[data-count]').forEach(el=>statObs.observe(el));
     if(isTonight)anyTonight=true;
     const cls='schedule-row reveal'+(i>0?' reveal-d'+i:'')+(isTonight?' is-tonight':'')+(isTomorrow?' is-tomorrow':'');
     const label=liveNow?'Live Now · ':isTonight?'Tonight · ':isTomorrow?'Tomorrow · ':'';
-    html+=`<div class="${cls}"><span class="schedule-day">${SD[e.s.getDay()]}, ${SM[e.s.getMonth()]} ${e.s.getDate()}</span><span class="schedule-band">${e.summary}</span><span class="schedule-time">${label}${fmt(e.s)} – ${fmt(e.en)}</span></div>`;
+    const calSVG='<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>Add to Calendar';
+    html+=`<div class="${cls}"><span class="schedule-day">${SD[e.s.getDay()]}, ${SM[e.s.getMonth()]} ${e.s.getDate()}</span><span class="schedule-band">${e.summary}</span><span class="schedule-time">${label}${fmt(e.s)} – ${fmt(e.en)}</span><a class="cal-btn" href="${gcalURL(e.s,e.en,e.summary)}" target="_blank" rel="noopener" aria-label="Add ${e.summary} to Google Calendar">${calSVG}</a></div>`;
   });
   container.innerHTML=html;
   if(anyLive){headlineEl.textContent='Live at the Table.';liveEl.style.display='flex';}
