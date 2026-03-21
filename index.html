@@ -640,7 +640,7 @@ document.querySelectorAll('[data-count]').forEach(el=>statObs.observe(el));
   const SM=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   function fmt(dt){const h=dt.getHours(),m=dt.getMinutes(),ap=h>=12?'PM':'AM';return(h%12||12)+(m?':'+String(m).padStart(2,'0'):'')+' '+ap;}
   function gcalDT(dt){const p=n=>String(n).padStart(2,'0');return`${dt.getFullYear()}${p(dt.getMonth()+1)}${p(dt.getDate())}T${p(dt.getHours())}${p(dt.getMinutes())}00`;}
-  function gcalURL(s,en,name){return'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(name+" @ The Captain's Table")+'&dates='+gcalDT(s)+'/'+gcalDT(en)+'&location='+encodeURIComponent("The Captain's Table, 547 Route 17M, Monroe, NY")+'&details='+encodeURIComponent("Live music at The Captain's Table. captainstable.netlify.app/events.html");}
+  function gcalURL(s,en,name){return'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(name+" @ The Captain's Table")+'&dates='+gcalDT(s)+'/'+gcalDT(en)+'&location='+encodeURIComponent("The Captain's Table, 547 Route 17M, Monroe, NY")+'&details='+encodeURIComponent("Live music at The Captain's Table. captainstable.netlify.app/events");}
   const now=new Date();
   const todayStr=now.toDateString();
   const tom=new Date(now);tom.setDate(tom.getDate()+1);const tomStr=tom.toDateString();
