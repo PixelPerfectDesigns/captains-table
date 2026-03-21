@@ -83,7 +83,7 @@
   --sans:'DM Sans','Helvetica Neue',sans-serif;
   --ease-out:cubic-bezier(.4,0,.2,1);
 }
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:hidden}
 body{font-family:var(--sans);background:var(--white);color:var(--brown);overflow-x:hidden}
 :focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
 
@@ -284,6 +284,9 @@ footer{background:var(--dark);padding:72px 80px 44px}
   .photo-cell{flex:0 0 80vw;height:280px;scroll-snap-align:start}
   .menu-section{padding:68px 24px}.menu-header{flex-direction:column;align-items:flex-start;gap:20px}.menu-grid{grid-template-columns:1fr}
   .entertainment{grid-template-columns:1fr;padding:68px 24px;gap:44px}
+  .schedule-row{flex-wrap:wrap;row-gap:4px;column-gap:12px}
+  .schedule-day{min-width:auto;font-size:10px}
+  .schedule-time{width:100%;order:3;font-size:11px;padding-left:0}
   footer{padding:52px 24px 36px}.footer-top{grid-template-columns:1fr;gap:36px}.footer-bottom{flex-direction:column;gap:8px;text-align:center}
 }
 </style>
