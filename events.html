@@ -17,148 +17,73 @@
 <link rel="canonical" href="https://captainstable.netlify.app/events">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,400;1,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
 <style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --navy:#1B3A5C;--amber:#C8832A;--cream:#F4EDD8;--brown:#3E2B1A;
-  --dark:#1A1208;--white:#FFFDF8;--muted:#7A6A55;
-  --serif:'Arvo','Georgia',serif;
-  --sans:'DM Sans','Helvetica Neue',sans-serif;
-  --ease-out:cubic-bezier(.4,0,.2,1);
+/* === EVENTS.HTML — page-specific styles === */
+
+/* live badge position override (events page mounts it differently) */
+.live-badge{margin-top:24px;margin-bottom:0}
+
+/* page header overrides */
+.page-header{--page-cut-bg:var(--dark);min-height:480px}
+.page-header-bg{background-image:linear-gradient(to bottom,rgba(13,31,53,.22) 0%,rgba(13,31,53,.52) 55%,rgba(13,31,53,.78) 100%),url('brand_assets/live_entertainmemt.jpg');background-size:cover;background-position:center center}
+.page-header-inner{padding:96px 80px 140px}
+
+/* events main — same diagonal grain as footer */
+.events-main{
+  background-color:var(--dark);
+  background-image:repeating-linear-gradient(135deg,transparent,transparent 18px,rgba(255,255,255,.016) 18px,rgba(255,255,255,.016) 19px);
+  padding:80px 80px 108px;min-height:400px
 }
-html{scroll-behavior:smooth}
-body{font-family:var(--sans);background:var(--white);color:var(--brown);overflow-x:hidden}
-:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
 
-/* ── SCROLL REVEALS ── */
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s var(--ease-out),transform .65s var(--ease-out)}
-.reveal.in{opacity:1;transform:translateY(0)}
-.reveal-d1{transition-delay:.07s}.reveal-d2{transition-delay:.14s}.reveal-d3{transition-delay:.21s}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
-
-/* ── NAV ── */
-nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:100;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;width:calc(100% - 48px);max-width:1160px;padding:0 28px;height:60px;background:rgba(27,58,92,.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:9999px;border:1px solid rgba(200,131,42,.2);box-shadow:0 8px 32px rgba(26,18,8,.35),inset 0 1px 0 rgba(200,131,42,.1);transition:background .3s,box-shadow .3s}
-nav.scrolled{background:rgba(27,58,92,.92);box-shadow:0 12px 40px rgba(26,18,8,.45),inset 0 1px 0 rgba(200,131,42,.16)}
-.nav-logo{display:flex;align-items:center;text-decoration:none;-webkit-tap-highlight-color:transparent}
-.nav-wheel-wrap{display:flex;align-items:center;justify-content:center;padding:0 12px}
-.nav-wheel{width:34px;height:34px;display:block;will-change:transform}
-.nav-links{display:flex;gap:24px;list-style:none;align-items:center;justify-content:flex-end}
-.nav-links a{font-family:var(--sans);font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(244,237,216,.55);text-decoration:none;transition:color .2s}
-.nav-links a:hover,.nav-links a.active{color:var(--amber)}
-.nav-cta{background:var(--amber)!important;color:var(--dark)!important;padding:9px 22px;border-radius:9999px!important;white-space:nowrap}
-.nav-cta:hover{background:#d9922e!important}
-.nav-order{border:1px solid rgba(200,131,42,.45)!important;color:rgba(244,237,216,.75)!important;padding:9px 22px;border-radius:9999px!important;white-space:nowrap;background:transparent!important}
-.nav-order:hover{background:rgba(200,131,42,.12)!important;color:var(--cream)!important;border-color:var(--amber)!important}
-.mobile-menu .mobile-order{margin-top:8px;background:transparent;color:var(--amber)!important;padding:14px 24px;text-align:center;border-radius:9999px;border:1px solid rgba(200,131,42,.4)!important;display:block}
-.mobile-menu .mobile-order:hover{background:rgba(200,131,42,.1)!important}
-
-/* ── MOBILE NAV ── */
-.nav-hamburger{display:none;cursor:pointer;padding:10px;background:none;border:none;margin-right:-10px;align-items:center;justify-content:center;-webkit-tap-highlight-color:transparent;outline:none}
-.hamburger-icon{width:28px;height:28px;display:block;transition:transform .5s var(--ease-out)}
-.mobile-menu{display:none;position:fixed;top:16px;left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:1160px;background:rgba(20,42,72,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:30px;border:1px solid rgba(200,131,42,.2);z-index:99;padding:72px 32px 24px;flex-direction:column;gap:0;box-shadow:0 8px 32px rgba(26,18,8,.45);clip-path:inset(0 0 100% 0 round 30px);transition:clip-path .35s cubic-bezier(.4,0,.2,1);pointer-events:none}
-.mobile-menu.open{clip-path:inset(0 0 0% 0 round 30px);pointer-events:auto}
-.mobile-menu a{font-family:var(--sans);font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,237,216,.6);text-decoration:none;padding:16px 0;border-bottom:1px solid rgba(244,237,216,.07);transition:color .2s;display:block}
-.mobile-menu a:last-child{border-bottom:none}
-.mobile-menu a:hover{color:var(--amber)}
-.mobile-menu .mobile-cta{margin-top:16px;background:var(--amber);color:var(--dark)!important;padding:16px 24px;text-align:center;border-radius:9999px;border-bottom:none;box-shadow:0 2px 12px rgba(200,131,42,.3)}
-
-/* ── PAGE HEADER ── */
-.page-header{position:relative;padding-top:68px;min-height:480px;background:var(--navy);overflow:hidden}
-.page-header-bg{position:absolute;inset:0;background-image:linear-gradient(to bottom,rgba(26,18,8,.55) 0%,rgba(27,58,92,.88) 60%,rgba(27,58,92,1) 100%),url('brand_assets/live_entertainmemt.jpg');background-size:cover;background-position:center center}
-.page-header-inner{position:relative;z-index:1;padding:96px 80px 140px}
-.page-header::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:48px;background:var(--dark);clip-path:polygon(0 100%,100% 10%,100% 100%);z-index:2;pointer-events:none}
-.page-eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
-.page-eyebrow::before{content:'';display:block;width:36px;height:1px;background:var(--amber)}
-.page-title{font-family:var(--serif);font-size:clamp(38px,5.5vw,72px);font-weight:700;color:var(--cream);line-height:1.05;margin-bottom:14px}
-.page-subtitle{font-family:var(--serif);font-style:italic;font-size:18px;color:rgba(244,237,216,.55);letter-spacing:.02em}
-
-/* ── LIVE BADGE ── */
-.live-badge{display:none;align-items:center;gap:10px;margin-top:24px}
-@keyframes pulse-live{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.6);opacity:.45}}
-.live-dot{width:8px;height:8px;border-radius:50%;background:var(--amber);flex-shrink:0;animation:pulse-live 2s ease-in-out infinite}
-.live-label{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber)}
-
-/* ── EVENTS MAIN ── */
-.events-main{background:var(--dark);padding:80px 80px 108px;min-height:400px}
-
-/* ── LOADING SKELETON ── */
+/* loading skeleton */
 @keyframes shimmer{0%{background-position:-600px 0}100%{background-position:600px 0}}
 .skeleton{background:linear-gradient(90deg,rgba(244,237,216,.04) 0%,rgba(244,237,216,.1) 50%,rgba(244,237,216,.04) 100%);background-size:600px 100%;animation:shimmer 1.6s ease-in-out infinite}
 .skeleton-row{height:88px;border-radius:2px;margin-bottom:2px}
 .skeleton-month{height:24px;width:140px;border-radius:2px;margin-bottom:20px;margin-top:40px}
 .skeleton-month:first-child{margin-top:0}
 
-/* ── ERROR / SETUP STATES ── */
+/* error/setup states */
 .events-notice{padding:48px 0;text-align:center}
 .events-notice-icon{width:48px;height:48px;color:var(--amber);margin:0 auto 20px}
 .events-notice-title{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--cream);margin-bottom:10px}
-.events-notice-body{font-family:var(--sans);font-size:14px;font-weight:300;color:rgba(244,237,216,.5);line-height:1.75;max-width:480px;margin:0 auto}
+.events-notice-body{font-family:var(--sans);font-size:16px;font-weight:400;color:rgba(244,237,216,.5);line-height:1.75;max-width:480px;margin:0 auto}
 .events-notice-code{display:inline-block;margin-top:16px;font-family:monospace;font-size:13px;background:rgba(200,131,42,.12);color:var(--amber);padding:8px 16px;border-radius:2px;border:1px solid rgba(200,131,42,.2)}
 
-/* ── MONTH GROUP ── */
+/* month group */
 .month-group{margin-bottom:56px}
 .month-group:last-child{margin-bottom:0}
 .month-label{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;color:var(--amber);margin-bottom:16px;display:flex;align-items:center;gap:16px}
 .month-label::after{content:'';flex:1;height:1px;background:rgba(200,131,42,.15)}
 
-/* ── EVENT ROW ── */
+/* event rows */
 .event-row{display:grid;grid-template-columns:96px 1fr auto;align-items:center;gap:0;padding:0 28px 0 0;background:rgba(255,255,255,.025);border-left:3px solid transparent;margin-bottom:2px;cursor:pointer;transition:background .22s,border-color .22s;min-height:80px}
 .event-row:hover{background:rgba(200,131,42,.08);border-left-color:var(--amber)}
 .event-row.is-tonight{background:rgba(200,131,42,.12);border-left-color:var(--amber)}
 .event-row.is-past{opacity:.28;pointer-events:none}
-
 .event-date{padding:0 24px;text-align:center;border-right:1px solid rgba(244,237,216,.06);height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80px}
 .event-day-num{font-family:var(--serif);font-size:30px;font-weight:700;color:var(--cream);line-height:1;font-variant-numeric:tabular-nums}
 .event-day-name{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,237,216,.35);margin-top:3px}
 .event-row.is-tonight .event-day-num{color:var(--amber)}
-
 .event-info{padding:22px 28px}
 .event-name{font-family:var(--serif);font-size:20px;font-weight:700;color:var(--cream);line-height:1.2;margin-bottom:5px}
 .event-row.is-tonight .event-name{color:var(--amber)}
-.event-desc{font-family:var(--sans);font-size:12px;font-weight:300;color:rgba(244,237,216,.55);letter-spacing:.04em;line-height:1.5;margin-top:3px}
-
+.event-desc{font-family:var(--sans);font-size:16px;font-weight:400;color:rgba(244,237,216,.55);letter-spacing:.04em;line-height:1.5;margin-top:3px}
 .event-meta{display:flex;flex-direction:column;align-items:flex-end;gap:8px;flex-shrink:0}
-.event-time{font-family:var(--sans);font-size:12px;font-weight:400;color:rgba(244,237,216,.38);white-space:nowrap}
-.tonight-badge{font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--navy);background:var(--amber);padding:4px 10px;border-radius:2px;white-space:nowrap}
-.cal-btn{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:3px;border:1px solid rgba(200,131,42,.45);color:var(--amber);font-family:var(--sans);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;flex-shrink:0;white-space:nowrap;transition:background .2s,border-color .2s}
-.cal-btn:hover{background:rgba(200,131,42,.14);border-color:var(--amber)}
-.cal-btn:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.event-time{font-family:var(--sans);font-size:14px;font-weight:400;color:rgba(244,237,216,.38);white-space:nowrap}
 
-/* ── EMPTY STATE ── */
+/* empty state */
 .events-empty{padding:64px 0;text-align:center}
 .events-empty-title{font-family:var(--serif);font-style:italic;font-size:26px;color:rgba(244,237,216,.4);margin-bottom:12px}
-.events-empty-sub{font-family:var(--sans);font-size:13px;color:rgba(244,237,216,.22);letter-spacing:.06em}
+.events-empty-sub{font-family:var(--sans);font-size:16px;font-weight:400;color:rgba(244,237,216,.22);letter-spacing:.06em}
 
-/* ── CTA STRIP ── */
+/* CTA strip */
 .events-cta{margin-top:64px;padding-top:48px;border-top:1px solid rgba(244,237,216,.06);display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
 .events-cta-text{font-family:var(--serif);font-style:italic;font-size:18px;color:rgba(244,237,216,.45)}
-.btn-primary{display:inline-block;font-family:var(--sans);background:var(--amber);color:var(--dark);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:17px 40px;text-decoration:none;border-radius:9999px;transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 2px 12px rgba(200,131,42,.3)}
-.btn-primary:hover{background:#d9922e;transform:translateY(-1px);box-shadow:0 4px 20px rgba(200,131,42,.4)}
-.btn-primary:active{transform:translateY(0)}
 
-/* ── FOOTER ── */
-footer{background:var(--dark);padding:72px 80px 44px;border-top:1px solid rgba(244,237,216,.04)}
-.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;padding-bottom:48px;border-bottom:1px solid rgba(244,237,216,.06);margin-bottom:32px}
-.footer-wordmark{font-family:var(--serif);font-size:22px;font-weight:700;color:var(--cream);display:block;margin-bottom:12px}
-.footer-tagline{font-family:var(--serif);font-style:italic;font-size:14px;color:rgba(244,237,216,.35);line-height:1.6;margin-bottom:22px}
-.footer-social{display:flex;gap:10px}
-.social-btn{width:36px;height:36px;border:1px solid rgba(244,237,216,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;color:rgba(244,237,216,.4);text-decoration:none;transition:border-color .2s,color .2s,background .2s;cursor:pointer}
-.social-btn:hover{border-color:var(--amber);color:var(--amber);background:rgba(200,131,42,.08)}
-.toast-order-btn{display:flex;align-items:center;opacity:1;transition:opacity .2s;flex-shrink:0}
-.toast-order-btn:hover{opacity:.75}
-.toast-order-btn img{border-radius:50%;display:block;width:36px;height:36px}
-.footer-col h3{font-family:var(--sans);font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:18px}
-.footer-col ul{list-style:none}
-.footer-col li{font-family:var(--sans);font-size:13px;font-weight:300;color:rgba(244,237,216,.45);margin-bottom:11px;line-height:1.5}
-.footer-col a{color:rgba(244,237,216,.45);text-decoration:none;transition:color .2s}
-.footer-col a:hover{color:var(--amber)}
-.footer-bottom{display:flex;align-items:center;justify-content:space-between;font-family:var(--sans);font-size:12px;color:rgba(244,237,216,.18);letter-spacing:.04em}
-
-/* ── RESPONSIVE ── */
+/* responsive */
 @media(max-width:900px){
-  nav{width:calc(100% - 24px);padding:0 18px;grid-template-columns:1fr auto auto}.nav-wheel-wrap{display:none}.nav-links{display:none}.nav-hamburger{display:flex}
-  .mobile-menu{display:flex}
   .page-header-inner{padding:52px 24px 80px}
   .events-main{padding:56px 24px 80px}
   .event-row{grid-template-columns:72px 1fr auto;padding:0 16px 0 0}
@@ -169,7 +94,6 @@ footer{background:var(--dark);padding:72px 80px 44px;border-top:1px solid rgba(2
   .event-info{padding:16px 20px}
   .event-name{font-size:17px}
   .events-cta{flex-direction:column;align-items:flex-start}
-  footer{padding:52px 24px 36px}.footer-top{grid-template-columns:1fr;gap:36px}.footer-bottom{flex-direction:column;gap:8px;text-align:center}
 }
 </style>
 </head>
@@ -208,7 +132,7 @@ footer{background:var(--dark);padding:72px 80px 44px;border-top:1px solid rgba(2
 <header class="page-header">
   <div class="page-header-bg"></div>
   <div class="page-header-inner" id="main-content">
-    <div class="page-eyebrow">Live Entertainment</div>
+
     <h1 class="page-title">The Afterdeck<br><em style="font-style:italic;font-weight:400">comes alive.</em></h1>
     <p class="page-subtitle">Live bands every Friday &amp; Saturday night, all season long.</p>
     <div class="live-badge" id="live-badge">
