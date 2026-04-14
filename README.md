@@ -1,62 +1,47 @@
-# The Captain's Table — Website
+# The Captain's Table
 
-Restaurant website for **The Captain's Table**, Monroe, NY. Est. 1934.
+Website for The Captain's Table — a bar and restaurant in Monroe, NY,
+serving since 1934. American food, live music, and cold drinks on Route 17M
+in the Hudson Valley.
 
-Live music, cold drinks, and great food on the banks of the Hudson Valley since 1934.
-
----
-
-## Pages
-
-| Page | File | Description |
-|------|------|-------------|
-| Home | `index.html` | Hero, about stats, entertainment preview, menu preview |
-| Menu | `menu.html` | Full lunch & dinner menu with tabbed sections |
-| Entertainment | `events.html` | Live music & events calendar |
-| Gift Cards & Swag | `gift-cards.html` | Gift card purchase + Captain's Table merch |
-| Catering | `catering.html` | On-site and off-site catering info |
-| Contact | `contact.html` | Contact form, employment form, hours & directions |
-
----
+Live: https://captainstable.netlify.app/
 
 ## Stack
 
-- Pure HTML/CSS/JS — no build system, no framework
-- Tailwind CSS via CDN
-- Google Fonts: **Arvo** (serif) + **DM Sans** (sans-serif)
-- Online ordering + reservations via [Toast](https://www.toasttab.com/)
+HTML5 · CSS3 (no JS) · Playfair Display + Karla (Google Fonts)
 
----
+## Pages
 
-## Local Development
+| File | Description |
+|------|-------------|
+| `index.html` | Homepage |
+| `menu.html` | Food and drink menu |
+| `catering.html` | Catering services |
+| `events.html` | Events and live music |
+| `gift-cards.html` | Gift cards |
+| `contact.html` | Contact and hours |
+| `brand-identity.html` | Brand style guide |
 
-Serve the project root over HTTP (required for assets to load correctly):
+## Running it
 
-```bash
-node serve.mjs
-```
+No build step — open `index.html` in a browser.
 
-Opens at `http://localhost:3000`
+## CSS architecture
 
----
+Shared styles (tokens, reset, nav, footer, animations, schedule rows) live in
+`styles.css`. Each page has a small inline `<style>` block for page-specific
+overrides only.
 
-## Brand Assets
+Color palette uses CSS custom properties: dark navy, cream, and amber as the
+core three. Typography is Playfair Display (headings, display text) + Karla (UI
+and body text).
 
-All logos, photos, and icons live in `brand_assets/`. Key files:
+## Notable details
 
-| File | Usage |
-|------|-------|
-| `captains_wordmark.png` | Nav + footer logo |
-| `scroll_wheel.png` | Decorative nav wheel |
-| `hamburger_menu_icon.png` | Mobile menu toggle |
-| `online_order_toast.png` | Footer order link |
-| `google_icon.png` | Google Reviews stat |
-
----
-
-## Contact
-
-**The Captain's Table**
-547 Route 17M, Monroe, NY 10950
-(845) 783-0209
-[Facebook](https://www.facebook.com/TheCaptainsTable/) · [Instagram](https://www.instagram.com/thecaptainstable/)
+- `index.html` has no JavaScript — all interactions are CSS-only
+- Hero section uses a slow Ken Burns zoom (`heroZoom` keyframe) with a
+  `prefers-reduced-motion` fallback
+- A diagonal clip-path cut separates the hero from the content below
+- Schema.org JSON-LD is set up with full restaurant data (address, hours,
+  cuisine type, social links) for search engine visibility
+- Google site verification file included (`google4590794af7a0f44c.html`)
