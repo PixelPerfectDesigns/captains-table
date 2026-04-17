@@ -1,10 +1,10 @@
 # The Captain's Table
 
-Website for The Captain's Table — a bar and restaurant in Monroe, NY,
-serving since 1934. American food, live music, and cold drinks on Route 17M
-in the Hudson Valley.
+**[Live Site →](https://captainstable.netlify.app/)**
 
-Live: https://captainstable.netlify.app/
+![The Captain's Table](brand_assets/social-preview.jpg)
+
+Website for The Captain's Table — a bar and restaurant in Monroe, NY, serving since 1934. American food, live music, and cold drinks on Route 17M in the Hudson Valley.
 
 ## Stack
 
